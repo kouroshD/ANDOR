@@ -5,5 +5,5 @@ string[] solvedHyperarc
 ---
 # Output
 Node[] feasibleNodes
-Hyperarc[] feasibleHyperarc
+Hyperarc[] feasibleHyperarcs
 bool graphSolved		# graph is solved

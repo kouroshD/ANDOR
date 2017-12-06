@@ -86,9 +86,11 @@ int main(int argc, char **argv)
 	// create an empty graph
 	string name = "DEFAULT";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
-
-	string description = "~/HRI/ANDOR/screwing_task.txt";
-	graphVector.back()->loadFromFile(description);
+	const char* home=getenv("HOME");
+	string andor_path(home);
+	andor_path=andor_path+"/catkin_ws/src/ANDOR/andor/files/screwing_task.txt";
+//	string description = "~/HRI/ANDOR/screwing_task.txt";
+	graphVector.back()->loadFromFile(andor_path);
 
 
 	ros::init(argc, argv, "andor");

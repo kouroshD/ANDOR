@@ -1,0 +1,19 @@
+pencil_assembly 6 cap_&_filter_&_body
+cap_&_filter_&_body 2
+cap_&_filter 4
+body 1
+cap 1
+filter_&_body 2
+filter 1
+2 cap_&_filter_&_body 4
+cap_&_filter
+body
+2 cap_&_filter_&_body 2
+cap
+filter_&_body
+2 cap_&_filter 2
+cap
+filter
+2 filter_&_body 2
+filter
+body
