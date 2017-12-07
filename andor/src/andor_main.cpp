@@ -29,6 +29,7 @@ vector<shared_ptr<AOgraph>> graphVector;
 
 
 bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Response &res){
+	cout<<"andor receive request"<<endl;
 	/*! when arrive a request:
 	 * 1- check for the graph name, if it is not valid, return and error
 	 * 2- if it is empty the solved nodes or hyper-arcs, respond by the feasible nodes and hyper-arcs
@@ -49,31 +50,43 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 	// graph name is correct
 	else
 	{
+		cout<<200<<endl;
 		if(req.solvedNodes.size()>0)
 		{
+			cout<<201<<endl;
 			for (int i=0; i<req.solvedNodes.size();i++)
 			{
+				cout<<202<<endl;
 				graphVector[gIndex]->solveByNameNode(req.solvedNodes[i]);
 			}
 
 		}
 		if(req.solvedHyperarc.size()>0)
 		{
+			cout<<203<<endl;
 			for (int i=0; i<req.solvedHyperarc.size();i++)
 			{
+				cout<<204<<endl;
 				graphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i]);
 			}
 
 		}
 		if (graphVector[gIndex]->isGraphSolved()){
+			cout<<205<<endl;
 			res.graphSolved=true;
 		} else
 		{
+			cout<<206<<endl;
 			res.graphSolved=false;
 			vector<andor_msgs::Node> feasileNodeVector;
 			vector<andor_msgs::Hyperarc> feasileHyperarcVector;
 			graphVector[gIndex]->getFeasibleNode(feasileNodeVector);
 			graphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector);
+
+			for(int i=0;i<feasileHyperarcVector.size();i++)
+				res.feasibleHyperarcs.push_back(feasileHyperarcVector[i]);
+			for(int i=0;i<feasileNodeVector.size();i++)
+				res.feasibleNodes.push_back(feasileNodeVector[i]);
 		}
 
 	}

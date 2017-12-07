@@ -962,13 +962,16 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 }
 void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcVector)
 {
+	cout<<"AOgraph::getFeasibleHyperarc"<<endl;
 	//! return the hyperarcs that are feasible but not solved
 	// the ha cost we return is the min path cost pass through a ha of the path,
 	// that's how we can say which hyperarc is better to solve
 	for(int i=0;i<(int)graphHA.size();i++)
 	{
+		cout<<graphHA[i].hName<<": "<<graphHA[i].hFeasible<<" "<<graphHA[i].hSolved<<endl;
 		if(graphHA[i].hFeasible==true && graphHA[i].hSolved==false)
 		{
+			cout<<graphHA[i].hName<<endl;
 			int min_cost=1000; // rnd number
 			// if the ha exits in several graph path, we find the min cost from there
 			for(int j=0; j<(int)paths.size();j++)
