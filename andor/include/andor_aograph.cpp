@@ -206,7 +206,7 @@ void AOgraph::addNode(string nameNode, int cost)
 	// add it to the set of nodes in the graph
 	graph.push_back(toAdd);
 }
-void AOgraph::addHyperarc(HyperArc hyperarc)
+void AOgraph::addHyperarc(HyperArc* hyperarc)
 {
 	// create the node
 	//    AOnode toAdd(nameNode, cost);
@@ -803,6 +803,7 @@ void AOgraph::loadFromFile(string fileName)
 			string hyperarcName;
 			vector<AOnode*> childNodes;
 
+
 			graphFile >>hyperarcName>>numChildren >>nameFather >>hyperarcCost;
 			if (!graphFile)
 				break;
@@ -821,6 +822,7 @@ void AOgraph::loadFromFile(string fileName)
 				childNodes.push_back(temp);
 			}
 			father->addArc(hyperarcName, hyperarcIndex, childNodes, hyperarcCost, nameFather);
+
 			hyperarcIndex = hyperarcIndex+1;
 		}
 		// identify the head node in the graph
@@ -830,6 +832,16 @@ void AOgraph::loadFromFile(string fileName)
 
 	// set up the graph (nodes feasibility, paths costs)
 	setupGraph();
+	for(int i=0;i<(int)graph.size();i++)
+	{
+		for (int j=0;j<(int)graph[i].arcs.size();j++)
+		{
+			HyperArc* tempHA;
+			tempHA=&(graph[i].arcs[j]);
+			graphHA.push_back(tempHA);
+
+		}
+	}
 }
 
 //! display graph information
@@ -949,12 +961,38 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 {
 	//! return the nodes that are feasible but not solved
 	// the cost is the cost of the node
+
+	// the ha cost we return is the min path cost pass through the node of a path,
+	// that's how we can say which node is better to solve
+
+
 	for(int i=0;i<(int)graph.size();i++)
 	{
 		if(graph[i].nFeasible==true && graph[i].nSolved==false)
 		{
+
+			int min_cost=10000; // a high number
+			// if the node exits in several graph paths, we find the min cost from there
+			for(int j=0; j<(int)paths.size();j++)
+			{
+				for(int k=0; k<(int)paths[j].pathNodes.size();k++)
+				{
+
+					if(graph[i].nName==paths[j].pathNodes[k]->nName)
+					{
+						if (paths[j].pCost<min_cost)
+						{
+							min_cost=paths[j].pCost;
+						}
+					}
+				}
+
+			}
+
+
+
 			andor_msgs::Node temp_node_msg;
-			temp_node_msg.nodeCost=graph[i].nCost;
+			temp_node_msg.nodeCost=min_cost;
 			temp_node_msg.nodeName=graph[i].nName;
 			feasileNodeVector.push_back(temp_node_msg);
 		}
@@ -964,22 +1002,24 @@ void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcV
 {
 	cout<<"AOgraph::getFeasibleHyperarc"<<endl;
 	//! return the hyperarcs that are feasible but not solved
-	// the ha cost we return is the min path cost pass through a ha of the path,
+	// the ha cost we return is the min path cost pass through the ha of a path,
 	// that's how we can say which hyperarc is better to solve
+//	cout<<(int)graphHA.size()<<endl;
 	for(int i=0;i<(int)graphHA.size();i++)
 	{
-		cout<<graphHA[i].hName<<": "<<graphHA[i].hFeasible<<" "<<graphHA[i].hSolved<<endl;
-		if(graphHA[i].hFeasible==true && graphHA[i].hSolved==false)
+		cout<<graphHA[i]->hName<<"; feasibility:"<<graphHA[i]->hFeasible<<", Solved: "<<graphHA[i]->hSolved<<endl;
+		if(graphHA[i]->hFeasible==true && graphHA[i]->hSolved==false)
 		{
-			cout<<graphHA[i].hName<<endl;
-			int min_cost=1000; // rnd number
+
+			cout<<graphHA[i]->hName<<endl;
+			int min_cost=10000; // rnd number
 			// if the ha exits in several graph path, we find the min cost from there
 			for(int j=0; j<(int)paths.size();j++)
 			{
 				for(int k=0; k<(int)paths[j].pathArcs.size();k++)
 				{
 
-					if(graphHA[i].hIndex==paths[j].pathArcs[k])
+					if(graphHA[i]->hIndex==paths[j].pathArcs[k])
 					{
 						if (paths[j].pCost<min_cost)
 						{
@@ -990,12 +1030,12 @@ void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcV
 
 			}
 			andor_msgs::Hyperarc temp_hyperarc_msg;
-			temp_hyperarc_msg.hyperarcName=graphHA[i].hName;
+			temp_hyperarc_msg.hyperarcName=graphHA[i]->hName;
 			temp_hyperarc_msg.hyperarcCost=min_cost;
-			temp_hyperarc_msg.parentNode=graphHA[i].hfatherName;
-			for (int l=0;l<(int)graphHA[i].children.size();l++)
+			temp_hyperarc_msg.parentNode=graphHA[i]->hfatherName;
+			for (int l=0;l<(int)graphHA[i]->children.size();l++)
 			{
-				temp_hyperarc_msg.childNodes.push_back(graphHA[i].children[l]->nName);
+				temp_hyperarc_msg.childNodes.push_back(graphHA[i]->children[l]->nName);
 			}
 			feasileHyperarcVector.push_back(temp_hyperarc_msg);
 		}

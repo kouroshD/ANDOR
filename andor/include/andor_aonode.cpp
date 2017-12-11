@@ -125,6 +125,7 @@ AOnode::AOnode(string name, int cost)
 	nCost = cost;
     nFeasible = false;
     nSolved = false;
+    nElement=NULL;
     
     //DEBUG:printNodeInfo();
 }

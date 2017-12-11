@@ -69,7 +69,7 @@ class AOgraph
         //** GRAPH INITIALIZATION **//
         //! add a node in the graph
         void addNode(string nameNode, int cost);
-        void addHyperarc(HyperArc hyperarc);
+        void addHyperarc(HyperArc* hyperarc);
         
         //! find a node by name
         AOnode* findByName(string nameNode);
@@ -121,7 +121,7 @@ class AOgraph
     public:
         string gName;           //!< name of the graph
         vector<AOnode> graph;   //!< set of nodes in the AND-OR graph
-        vector<HyperArc> graphHA;//!< set of hyper-arcs in the AND-OR graph
+        vector<HyperArc*> graphHA;//!< set of hyper-arcs in the AND-OR graph
         AOnode* head;           //!< pointer to the node = final assembly
         vector<Path> paths;     //!< set of paths in the AND-OR graph
         vector<int> pIndices;   //!< indices of the updated paths
