@@ -10,3 +10,5 @@ h3 1 obj_finalPose 1
 obj_middlePose
 h4_human 1 obj_finalPose 4
 obj_initialPose
+h5_human 1 obj_finalPose 2
+obj_middlePose

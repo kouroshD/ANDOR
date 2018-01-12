@@ -750,6 +750,14 @@ AOgraph::AOgraph(string name)
 
 	//DEBUG:printGraphInfo();
 }
+AOgraph::AOgraph(const AOgraph& new_graph){
+	gName=new_graph.gName;
+	head=new_graph.head;
+}
+
+
+
+
 
 //! load the graph description from a file
 //! @param[in] fileName    name of the file with the graph description

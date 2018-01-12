@@ -25,7 +25,7 @@
 #define BOLD(x) "\x1B[1m" x RST
 
 using namespace std;
-vector<shared_ptr<AOgraph>> graphVector;
+vector<shared_ptr<AOgraph>> OnlinegraphVector , OfflineGraphVector;
 
 
 bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Response &res){
@@ -38,13 +38,25 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 	 */
 
 	// 1- check for the graph name
-	int gIndex=1000; //! requested graph index number in graphVector, initialize wit rnd big value
-	for (int i=0;i<graphVector.size();i++)
-		if(req.graphName==graphVector[i]->gName)
+	int gIndex=-1; //! requested graph index number in graphVector, initialize wit rnd big value
+	for (int i=0;i<OnlinegraphVector.size();i++)
+		if(req.graphName==OnlinegraphVector[i]->gName)
 			gIndex=i;
+	// if the graph not found in online graphs, search for the graph in offline ones
+	if(gIndex==-1)
+	{
+		for (int i=0;i<OfflineGraphVector.size();i++)
+			if(req.graphName==OfflineGraphVector[i]->gName)
+			{
+				OnlinegraphVector.emplace_back(OfflineGraphVector[i]);
 
-	if (gIndex==1000){
-		cout<<FRED("Graph Name:"<<req.graphName<<" Is False, Check Your Graph Name")<<endl;
+				gIndex=OnlinegraphVector.size()-1;
+				cout<<FGRN(BOLD("A new And/Or graph added to online graph vector; Name: "))<<OnlinegraphVector[gIndex]->gName<<endl;
+			}
+	}
+
+	if (gIndex==-1){
+		cout<<FRED("Graph Name:"<<req.graphName<<" Is False, Not Found in Online or Offline Graph Vectors, Check Your Graph Name You Are Requesting")<<endl;
 		return false;
 	}
 	// graph name is correct
@@ -57,7 +69,7 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			for (int i=0; i<req.solvedNodes.size();i++)
 			{
 				cout<<202<<endl;
-				graphVector[gIndex]->solveByNameNode(req.solvedNodes[i]);
+				OnlinegraphVector[gIndex]->solveByNameNode(req.solvedNodes[i]);
 			}
 
 		}
@@ -67,21 +79,25 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			for (int i=0; i<req.solvedHyperarc.size();i++)
 			{
 				cout<<204<<endl;
-				graphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i]);
+				OnlinegraphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i]);
 			}
 
 		}
-		if (graphVector[gIndex]->isGraphSolved()){
-			cout<<205<<endl;
+		if (OnlinegraphVector[gIndex]->isGraphSolved())
+		{
+			cout<<FGRN(BOLD("An And/Or graph is solved and deleted from online vector of And/Or graphs; Name: "))<<OnlinegraphVector[gIndex]->gName<<endl;
+			vector<shared_ptr<AOgraph>>::iterator it =OnlinegraphVector.begin()+gIndex;
+			OnlinegraphVector.erase(it);
 			res.graphSolved=true;
-		} else
+		}
+		else
 		{
 			cout<<206<<endl;
 			res.graphSolved=false;
 			vector<andor_msgs::Node> feasileNodeVector;
 			vector<andor_msgs::Hyperarc> feasileHyperarcVector;
-			graphVector[gIndex]->getFeasibleNode(feasileNodeVector);
-			graphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector);
+			OnlinegraphVector[gIndex]->getFeasibleNode(feasileNodeVector);
+			OnlinegraphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector);
 
 			for(int i=0;i<feasileHyperarcVector.size();i++)
 				cout<<feasileHyperarcVector[i].hyperarcName<<endl;
@@ -104,12 +120,11 @@ int main(int argc, char **argv)
 {
 	// create an empty graph
 	string name = "DEFAULT";
-	graphVector.emplace_back(make_shared <AOgraph>(name));
+	OfflineGraphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
 	string andor_path(home);
-	andor_path=andor_path+"/catkin_ws/src/ANDOR/andor/files/TRANSPORT.txt";
-//	string description = "~/HRI/ANDOR/screwing_task.txt";
-	graphVector.back()->loadFromFile(andor_path);
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRANSPORT.txt";
+	OfflineGraphVector.back()->loadFromFile(andor_path);
 
 
 	ros::init(argc, argv, "andor");

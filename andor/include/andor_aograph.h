@@ -130,6 +130,7 @@ class AOgraph
         
         //! constructor
 		AOgraph(string name);
+		AOgraph(const AOgraph& new_graph);
         
         //! load the graph description from a file
         void loadFromFile(string fileName);
