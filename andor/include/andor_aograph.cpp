@@ -17,6 +17,38 @@ Path::Path(int cost, int index)
 	pComplete = false;
 }
 
+//Path::Path(const Path& new_path){
+//	pIndex=new_path.pIndex;
+//	pComplete=new_path.pComplete;
+//	pCost=new_path.pCost;
+//	pathArcs=new_path.pathArcs;
+//	checkedNodes=new_path.checkedNodes;
+//	checkedHyperarcs=new_path.checkedHyperarcs;
+////	vector<AOnode*> pathNodes
+//	for(int i=0;i<new_path.pathNodes.size();i++)
+//	{
+//		AOnode* pathNode=new AOnode(*(new_path.pathNodes[i]));
+//		pathNodes.push_back(pathNode);
+//	}
+//
+//}
+//Path& Path::operator=(const Path& new_path){
+//	pIndex=new_path.pIndex;
+//	pComplete=new_path.pComplete;
+//	pCost=new_path.pCost;
+//	pathArcs=new_path.pathArcs;
+//	checkedNodes=new_path.checkedNodes;
+//	checkedHyperarcs=new_path.checkedHyperarcs;
+//	for(int i=0;i<new_path.pathNodes.size();i++)
+//	{
+//		AOnode* pathNode=new AOnode(*(new_path.pathNodes[i]));
+//		pathNodes.push_back(pathNode);
+//	}
+//
+//	return *this;
+//}
+
+
 //! copy constructor of class Path
 //! @param[in] &toBeCopied  path to be copied
 //! @param[in] index        unique index of the path
@@ -293,6 +325,9 @@ int AOgraph::computeAddCost(AOnode &node, int hIndex)
 	{
 		cout<<"[ERROR] The node has only " <<node.arcs.size() <<" hyperarcs."
 				<<"Hyperarc index " <<hIndex <<" does not exist." <<endl;
+
+		node.printNodeInfo();
+
 		return -1;
 	}
 
@@ -750,14 +785,48 @@ AOgraph::AOgraph(string name)
 
 	//DEBUG:printGraphInfo();
 }
-AOgraph::AOgraph(const AOgraph& new_graph){
-	gName=new_graph.gName;
-	head=new_graph.head;
-}
+//AOgraph::AOgraph(const AOgraph& new_graph){
+//	gName=new_graph.gName;
+//	paths=new_graph.paths;
+//	pIndices=new_graph.pIndices;
+//	pUpdate=new_graph.pUpdate;
+//	Nodes_solved_infeasible=new_graph.Nodes_solved_infeasible;
+//
+////	graph=new_graph.graph;
+//	for(int i=0;i<new_graph.graph.size();i++)
+//	{
+//		AOnode nodeToAdd(new_graph.graph[i]);
+//		graph.push_back(nodeToAdd);
+//
+//	}
+//
+//
+//	head=new AOnode(*(new_graph.head));
+//
+//	for(int i=0;i<new_graph.graphHA.size();i++)
+//	{
+//		HyperArc* HA=new HyperArc(*(new_graph.graphHA[i]));
+//		graphHA.push_back(HA);
+//	}
+//}
 
-
-
-
+//AOgraph& AOgraph::operator=(const AOgraph& new_graph){
+//	gName=new_graph.gName;
+//	graph=new_graph.graph;
+//	head=new AOnode(*(new_graph.head));
+//	paths=new_graph.paths;
+//	pIndices=new_graph.pIndices;
+//	pUpdate=new_graph.pUpdate;
+//	Nodes_solved_infeasible=new_graph.Nodes_solved_infeasible;
+//
+//	for(int i=0;i<new_graph.graphHA.size();i++)
+//	{
+//		HyperArc* HA=new HyperArc(*(new_graph.graphHA[i]));
+//		graphHA.push_back(HA);
+//	}
+//
+//	return *this;
+//}
 
 //! load the graph description from a file
 //! @param[in] fileName    name of the file with the graph description
@@ -811,7 +880,6 @@ void AOgraph::loadFromFile(string fileName)
 			string hyperarcName;
 			vector<AOnode*> childNodes;
 
-
 			graphFile >>hyperarcName>>numChildren >>nameFather >>hyperarcCost;
 			if (!graphFile)
 				break;
@@ -830,13 +898,15 @@ void AOgraph::loadFromFile(string fileName)
 				childNodes.push_back(temp);
 			}
 			father->addArc(hyperarcName, hyperarcIndex, childNodes, hyperarcCost, nameFather);
-
 			hyperarcIndex = hyperarcIndex+1;
 		}
 		// identify the head node in the graph
 		head = findByName(headName);
 	}
 	graphFile.close();
+
+	for(int i=0;i<graph.size();i++)
+		graph[i].printNodeInfo();
 
 	// set up the graph (nodes feasibility, paths costs)
 	setupGraph();

@@ -32,7 +32,8 @@ class Path
         
         //! constructor
 		Path(int cost, int index);
-        
+//		Path(const Path& new_path);
+//		Path& operator=(const Path& new_path);
         //! copy constructor
         Path(const Path &toBeCopied, int index);
         
@@ -59,6 +60,12 @@ class Path
 		~Path()
 		{
 			//DEBUG:cout<<endl <<"Destroying Path object" <<endl;
+//			for(int i=0;i<pathNodes.size();i++)
+//				delete pathNodes[i];
+//			pathNodes.clear();
+//			pathArcs.clear();
+//			checkedNodes.clear();
+//			checkedHyperarcs.clear();
 		}		
 };
 
@@ -130,7 +137,8 @@ class AOgraph
         
         //! constructor
 		AOgraph(string name);
-		AOgraph(const AOgraph& new_graph);
+//		AOgraph(const AOgraph& new_graph);
+//		AOgraph& operator=(const AOgraph& new_graph);
         
         //! load the graph description from a file
         void loadFromFile(string fileName);
@@ -157,6 +165,14 @@ class AOgraph
 		~AOgraph()
 		{
 			//DEBUG:cout<<endl <<"Destroying AOgraph object" <<endl;
+//			for(int i=0;i<graphHA.size();i++)
+//				delete graphHA[i];
+//			graphHA.clear();
+//			delete head;
+//			paths.clear();
+//			pIndices.clear();
+//			pUpdate.clear();
+//			Nodes_solved_infeasible.clear();
 		}
 
 };

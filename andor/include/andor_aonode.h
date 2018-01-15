@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "andor_element.h"
+#include <boost/shared_ptr.hpp>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ class HyperArc
 {
     public:
         int hIndex;                 //!< index of the hyperarc
+//        vector<shared_ptr<AOnode*>> children;   //!< set of child nodes connected via the hyperarc
         vector<AOnode*> children;   //!< set of child nodes connected via the hyperarc
         int hCost;                  //!< cost of the hyperarc
         string hName;               //!< name of the hyperarc
@@ -31,7 +33,9 @@ class HyperArc
         bool hFeasible;             //!< feasible: >=1 hyperarc has all child nodes solved
         
         //! constructor
-		HyperArc(string name, int index, vector<AOnode*> nodes, int cost, string fatherName);
+		HyperArc(string name, int index, vector<AOnode*> childNodes, int cost, string fatherName);
+//		HyperArc(const HyperArc& new_ha);
+//		HyperArc& operator=(const HyperArc& new_ha);
         
         //! display hyperarc information
         void printArcInfo();
@@ -64,6 +68,9 @@ class AOnode
         //! constructor
 		AOnode(string name, int cost);
 
+//		AOnode(const AOnode& new_node);
+//		AOnode& operator=(const AOnode& new_node);
+
         //! associate the application-specific element with the node
         void addElement(NodeElement* element);
         
@@ -83,6 +90,16 @@ class AOnode
 		~AOnode()
 		{
 			//DEBUG:cout<<endl <<"Destroying AOnode object" <<endl;
+//			cout<<401<<endl;
+//			for(int i=0;i<parents.size();i++)
+//				delete parents[i];
+//			cout<<402<<endl;
+//			parents.clear();
+//			cout<<403<<endl;
+//			arcs.clear();
+//			cout<<404<<endl;
+//			delete nElement;
+//			cout<<405<<endl;
 		}
 };
 

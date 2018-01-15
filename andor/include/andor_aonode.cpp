@@ -11,18 +11,59 @@
 //! @param[in] index    index of the hyperarc
 //! @param[in] nodes    set of child nodes connected via the hyperarc
 //! @param[in] cost     generic hyperarc cost
-HyperArc::HyperArc(string name, int index, vector<AOnode*> nodes, int cost, string fatherName)
+HyperArc::HyperArc(string name, int index, vector<AOnode*> childNodes, int cost, string fatherName)
 {
+	cout<<"HyperArc::HyperArc()"<<endl;
     hIndex = index;
-    children = nodes;
     hCost = cost;
     hName=name;
     hFeasible=false;
     hSolved=false;
     hfatherName=fatherName;
-    
+
+    children = childNodes;
+
     //DEBUG:printArcInfo();
 }
+
+//HyperArc::HyperArc(const HyperArc& new_ha){
+//	cout<<"HyperArc::HyperArc(const HyperArc& )"<<endl;
+//	hIndex = new_ha.hIndex;
+//
+//	hCost = new_ha.hCost;
+//	hName=new_ha.hName;
+//	hFeasible=new_ha.hFeasible;
+//	hSolved=new_ha.hSolved;
+//	hfatherName=new_ha.hfatherName;
+//
+//	children = new_ha.children;
+//
+////	for(int i=0;i<new_ha.children.size();i++)
+////	{
+//////		AOnode* child=new AOnode(*(new_ha.children[i]));
+////		children.push_back(new AOnode( *(new_ha.children[i]) ) );
+////	}
+//
+////	vector<AOnode*> children;
+//}
+//HyperArc& HyperArc::operator=(const HyperArc& new_ha){
+//	cout<<"HyperArc::operator=(const HyperArc& )"<<endl;
+//	hIndex = new_ha.hIndex;
+//	children = new_ha.children;
+//	hCost = new_ha.hCost;
+//	hName=new_ha.hName;
+//	hFeasible=new_ha.hFeasible;
+//	hSolved=new_ha.hSolved;
+//	hfatherName=new_ha.hfatherName;
+////	for(int i=0;i<new_ha.children.size();i++)
+////	{
+//////		AOnode* child=new AOnode(*(new_ha.children[i]));
+//////		children.emplace_back(make_shared <AOnode*>( *(new_ha.children[i]) ) );
+////		children.push_back(new AOnode( *(new_ha.children[i]) ) );
+////	}
+//	return *this;
+//}
+
 
 //! display hyperarc information
 void HyperArc::printArcInfo()
@@ -130,6 +171,44 @@ AOnode::AOnode(string name, int cost)
     //DEBUG:printNodeInfo();
 }
 
+//AOnode::AOnode(const AOnode& new_node){
+//	nName = new_node.nName;
+//	nCost = new_node.nCost;
+//	nFeasible = new_node.nFeasible;
+//	nSolved = new_node.nSolved;
+//	nElement=new NodeElement(*(new_node.nElement));
+//
+////	arcs=new_node.arcs;
+//	for(int i=0;i<new_node.arcs.size();i++)
+//	{
+//		HyperArc haToAdd(new_node.arcs[i]);
+//		arcs.push_back(haToAdd);
+//	}
+//
+//	for(int i=0;i<new_node.parents.size();i++)
+//	{
+//		AOnode* parent=new AOnode(*(new_node.parents[i]));
+//		parents.push_back(parent);
+//	}
+//
+//}
+//AOnode& AOnode::operator=(const AOnode& new_node){
+//	nName = new_node.nName;
+//	nCost = new_node.nCost;
+//	nFeasible = new_node.nFeasible;
+//	nSolved = new_node.nSolved;
+//	nElement=new_node.nElement;
+//	arcs=new_node.arcs;
+//
+//	for(int i=0;i<new_node.parents.size();i++)
+//	{
+//		AOnode* parent=new AOnode(*(new_node.parents[i]));
+//		parents.push_back(parent);
+//	}
+//
+//	return *this;
+//}
+
 //! associate the application-specific element with the node
 //! @param[in] element    pointer to the element to associate
 void AOnode::addElement(NodeElement* element)
@@ -143,15 +222,20 @@ void AOnode::addElement(NodeElement* element)
 //! @param[in] hyperarcCost     hyperarc cost
 void AOnode::addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> nodes, int hyperarcCost, string hyperarcFatherName)
 {
-    // create the hyperarc
-    HyperArc toAdd(hyperarcName, hyperarcIndex, nodes, hyperarcCost, hyperarcFatherName);
-    
+
+//	cout<<201<<endl;
+
+//    cout<<202<<endl;
     // add this node to the vector of parents of each child node
     for (int i=0; i< (int)nodes.size(); i++)
         nodes[i]->parents.push_back(this);
-    
+    cout<<203<<arcs.size()<<endl;
+    // create the hyperarc
+    HyperArc toAdd(hyperarcName, hyperarcIndex, nodes, hyperarcCost, hyperarcFatherName);
     // add it to the set of hyperarcs
     arcs.push_back(toAdd);
+//    arcs.push_back(*(new HyperArc(hyperarcName, hyperarcIndex, nodes, hyperarcCost, hyperarcFatherName)));
+    cout<<204<<arcs.size()<<endl;
 }
 
 //! display node information

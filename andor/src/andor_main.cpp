@@ -25,7 +25,7 @@
 #define BOLD(x) "\x1B[1m" x RST
 
 using namespace std;
-vector<shared_ptr<AOgraph>> OnlinegraphVector , OfflineGraphVector;
+vector<shared_ptr<AOgraph>> graphVector , OfflineGraphVector;
 
 
 bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Response &res){
@@ -39,21 +39,10 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 
 	// 1- check for the graph name
 	int gIndex=-1; //! requested graph index number in graphVector, initialize wit rnd big value
-	for (int i=0;i<OnlinegraphVector.size();i++)
-		if(req.graphName==OnlinegraphVector[i]->gName)
+	for (int i=0;i<graphVector.size();i++)
+		if(req.graphName==graphVector[i]->gName)
 			gIndex=i;
 	// if the graph not found in online graphs, search for the graph in offline ones
-	if(gIndex==-1)
-	{
-		for (int i=0;i<OfflineGraphVector.size();i++)
-			if(req.graphName==OfflineGraphVector[i]->gName)
-			{
-				OnlinegraphVector.emplace_back(OfflineGraphVector[i]);
-
-				gIndex=OnlinegraphVector.size()-1;
-				cout<<FGRN(BOLD("A new And/Or graph added to online graph vector; Name: "))<<OnlinegraphVector[gIndex]->gName<<endl;
-			}
-	}
 
 	if (gIndex==-1){
 		cout<<FRED("Graph Name:"<<req.graphName<<" Is False, Not Found in Online or Offline Graph Vectors, Check Your Graph Name You Are Requesting")<<endl;
@@ -69,7 +58,7 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			for (int i=0; i<req.solvedNodes.size();i++)
 			{
 				cout<<202<<endl;
-				OnlinegraphVector[gIndex]->solveByNameNode(req.solvedNodes[i]);
+				graphVector[gIndex]->solveByNameNode(req.solvedNodes[i]);
 			}
 
 		}
@@ -79,15 +68,15 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			for (int i=0; i<req.solvedHyperarc.size();i++)
 			{
 				cout<<204<<endl;
-				OnlinegraphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i]);
+				graphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i]);
 			}
 
 		}
-		if (OnlinegraphVector[gIndex]->isGraphSolved())
+		if (graphVector[gIndex]->isGraphSolved())
 		{
-			cout<<FGRN(BOLD("An And/Or graph is solved and deleted from online vector of And/Or graphs; Name: "))<<OnlinegraphVector[gIndex]->gName<<endl;
-			vector<shared_ptr<AOgraph>>::iterator it =OnlinegraphVector.begin()+gIndex;
-			OnlinegraphVector.erase(it);
+			cout<<FGRN(BOLD("An And/Or graph is solved and deleted from vector of And/Or graphs; Name: "))<<graphVector[gIndex]->gName<<endl;
+			vector<shared_ptr<AOgraph>>::iterator it =graphVector.begin()+gIndex;
+			graphVector.erase(it);
 			res.graphSolved=true;
 		}
 		else
@@ -96,8 +85,8 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			res.graphSolved=false;
 			vector<andor_msgs::Node> feasileNodeVector;
 			vector<andor_msgs::Hyperarc> feasileHyperarcVector;
-			OnlinegraphVector[gIndex]->getFeasibleNode(feasileNodeVector);
-			OnlinegraphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector);
+			graphVector[gIndex]->getFeasibleNode(feasileNodeVector);
+			graphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector);
 
 			for(int i=0;i<feasileHyperarcVector.size();i++)
 				cout<<feasileHyperarcVector[i].hyperarcName<<endl;
@@ -119,19 +108,29 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 int main(int argc, char **argv)
 {
 	// create an empty graph
-	string name = "DEFAULT";
-	OfflineGraphVector.emplace_back(make_shared <AOgraph>(name));
+	string name = "TRANSPORT";
+	graphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
 	string andor_path(home);
 	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRANSPORT.txt";
-	OfflineGraphVector.back()->loadFromFile(andor_path);
+	graphVector.back()->loadFromFile(andor_path);
 
+	name = "Screwing";
+	graphVector.emplace_back(make_shared <AOgraph>(name));
+	home=getenv("HOME");
+	string andor_path2(home);
+	andor_path2+="/catkin_ws/src/ANDOR/andor/files/screwing_task.txt";
+	graphVector.back()->loadFromFile(andor_path2);
 
 	ros::init(argc, argv, "andor");
 	ros::NodeHandle nh;
 	ros::ServiceServer service = nh.advertiseService("andorService",updateANDOR);
 
 	cout << "*****************" << endl;
+	cout<<"Graphs Name: ";
+	for(int i=0;i<graphVector.size();i++)
+		cout<<graphVector[i]->gName<<", ";
+	cout<<endl;
 	cout << "AND/OR graph is alive: " << endl;
 
 	ros::spin();
