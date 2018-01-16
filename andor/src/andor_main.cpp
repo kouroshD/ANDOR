@@ -108,19 +108,19 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 int main(int argc, char **argv)
 {
 	// create an empty graph
-	string name = "TRANSPORT";
+	string name = "Table_Assembly";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
 	string andor_path(home);
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRANSPORT.txt";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/Table_Assembly.txt";
 	graphVector.back()->loadFromFile(andor_path);
 
-	name = "Screwing";
-	graphVector.emplace_back(make_shared <AOgraph>(name));
-	home=getenv("HOME");
-	string andor_path2(home);
-	andor_path2+="/catkin_ws/src/ANDOR/andor/files/screwing_task.txt";
-	graphVector.back()->loadFromFile(andor_path2);
+//	name = "Screwing";
+//	graphVector.emplace_back(make_shared <AOgraph>(name));
+//	home=getenv("HOME");
+//	string andor_path2(home);
+//	andor_path2+="/catkin_ws/src/ANDOR/andor/files/screwing_task.txt";
+//	graphVector.back()->loadFromFile(andor_path2);
 
 	ros::init(argc, argv, "andor");
 	ros::NodeHandle nh;

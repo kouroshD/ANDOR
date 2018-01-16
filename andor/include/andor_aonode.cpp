@@ -13,7 +13,7 @@
 //! @param[in] cost     generic hyperarc cost
 HyperArc::HyperArc(string name, int index, vector<AOnode*> childNodes, int cost, string fatherName)
 {
-	cout<<"HyperArc::HyperArc()"<<endl;
+//	cout<<"HyperArc::HyperArc()"<<endl;
     hIndex = index;
     hCost = cost;
     hName=name;
@@ -229,13 +229,11 @@ void AOnode::addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> node
     // add this node to the vector of parents of each child node
     for (int i=0; i< (int)nodes.size(); i++)
         nodes[i]->parents.push_back(this);
-    cout<<203<<arcs.size()<<endl;
     // create the hyperarc
     HyperArc toAdd(hyperarcName, hyperarcIndex, nodes, hyperarcCost, hyperarcFatherName);
     // add it to the set of hyperarcs
     arcs.push_back(toAdd);
 //    arcs.push_back(*(new HyperArc(hyperarcName, hyperarcIndex, nodes, hyperarcCost, hyperarcFatherName)));
-    cout<<204<<arcs.size()<<endl;
 }
 
 //! display node information

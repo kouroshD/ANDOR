@@ -1,0 +1,22 @@
+Table_Assembly 5 L1_P_close
+P_initPose 0
+P_assemblyPose 0
+L1_T 0
+L1_middlePose 0
+L1_P_close 0
+h0 1 P_assemblyPose 1
+P_initPose
+h1 1 L1_middlePose 2
+L1_T
+h2 2 L1_P_close 1
+L1_T
+P_assemblyPose
+h3 2 L1_P_close 1
+L1_middlePose
+P_assemblyPose
+h4_human 2 L1_P_close 2
+L1_middlePose
+P_assemblyPose
+h5_human 2 L1_P_close 5
+L1_T
+P_assemblyPose
