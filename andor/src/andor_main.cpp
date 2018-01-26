@@ -107,31 +107,30 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 
 int main(int argc, char **argv)
 {
-	// create an empty graph
-	string name = "Table_Assembly";
+
+	string name = "TableAssembly";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
 	string andor_path(home);
 	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
 	graphVector.back()->loadFromFile(andor_path);
 
-//	name = "Screwing";
-//	graphVector.emplace_back(make_shared <AOgraph>(name));
-//	home=getenv("HOME");
-//	string andor_path2(home);
-//	andor_path2+="/catkin_ws/src/ANDOR/andor/files/screwing_task.txt";
-//	graphVector.back()->loadFromFile(andor_path2);
+	name = "ReachMiddlePoint";
+	graphVector.emplace_back(make_shared <AOgraph>(name));
+	andor_path=home;
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly_L1MiddlePoint.txt";
+	graphVector.back()->loadFromFile(andor_path);
 
 	ros::init(argc, argv, "andor");
 	ros::NodeHandle nh;
 	ros::ServiceServer service = nh.advertiseService("andorService",updateANDOR);
 
-	cout << "*****************" << endl;
-	cout<<"Graphs Name: ";
+	cout << FGRN(BOLD("*****************")) << endl;
+	cout<<FGRN(BOLD("Graphs Name: "));
 	for(int i=0;i<graphVector.size();i++)
 		cout<<graphVector[i]->gName<<", ";
 	cout<<endl;
-	cout << "AND/OR graph is alive: " << endl;
+	cout << FGRN(BOLD("AND/OR graph is alive: ")) << endl;
 
 	ros::spin();
 	return 1;
