@@ -29,7 +29,7 @@ vector<shared_ptr<AOgraph>> graphVector , OfflineGraphVector;
 
 
 bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Response &res){
-	cout<<"------------- andor receive request -------------"<<endl;
+	cout<<FBLU("------------- andor receive request -------------")<<endl;
 	/*! when arrive a request:
 	 * 1- check for the graph name, if it is not valid, return and error
 	 * 2- if it is empty the solved nodes or hyper-arcs, respond by the feasible nodes and hyper-arcs
@@ -42,6 +42,7 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 	for (int i=0;i<graphVector.size();i++)
 		if(req.graphName==graphVector[i]->gName)
 			gIndex=i;
+
 	// if the graph not found in online graphs, search for the graph in offline ones
 
 	if (gIndex==-1){
@@ -51,6 +52,7 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 	// graph name is correct
 	else
 	{
+		cout<<FBLU("Requested graph name:")<<req.graphName<<endl;
 		cout<<200<<endl;
 		if(req.solvedNodes.size()>0)
 		{
