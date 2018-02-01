@@ -61,6 +61,13 @@ Plate_assemblyPose
 h5_human 2 Leg1_Plate_close 5
 Leg1_T
 Plate_assemblyPose
+
+h6 1 Leg1_Plate_connected 5
+Leg1_Plate_close
+
+h7_human 1 Leg1_Plate_connected 5
+Leg1_Plate_close
+
 **************
 h6 1 Leg2_middlePose 2
 Leg2_T
