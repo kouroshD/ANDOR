@@ -477,10 +477,12 @@ void AOgraph::setupGraph()
 		for (int j=0; j < (int)paths[i].checkedHyperarcs.size(); j++)
 			paths[i].checkedHyperarcs[j] = false;
 
-
+	cout<<"***************************************************************"<<endl;
+	cout<<"************************** PATH INFO **************************"<<endl;
 	for (int i=0; i < (int)paths.size(); i++)
 		paths[i].printPathInfo();
 
+	cout<<"***************************************************************"<<endl;
 	// identify the first suggestion to make (long-sighted strategy chosen BY DEFAULT)
 	suggestNext(true);
 }
@@ -897,6 +899,11 @@ void AOgraph::loadFromFile(string fileName)
 				temp = findByName(nameChild);
 				childNodes.push_back(temp);
 			}
+//			cout<<"loadFromFile:: "<<hyperarcName<<", "<< hyperarcIndex<<", "<<childNodes.size()<<", " <<hyperarcCost<<", "<< nameFather<<endl;
+
+//			for(int k=0;k<childNodes.size();k++)
+//				childNodes[k]->printNodeInfo();
+
 			father->addArc(hyperarcName, hyperarcIndex, childNodes, hyperarcCost, nameFather);
 			hyperarcIndex = hyperarcIndex+1;
 		}
@@ -905,8 +912,8 @@ void AOgraph::loadFromFile(string fileName)
 	}
 	graphFile.close();
 
-	for(int i=0;i<graph.size();i++)
-		graph[i].printNodeInfo();
+//	for(int i=0;i<graph.size();i++)
+//		graph[i].printNodeInfo();
 
 	// set up the graph (nodes feasibility, paths costs)
 	setupGraph();
@@ -920,6 +927,10 @@ void AOgraph::loadFromFile(string fileName)
 
 		}
 	}
+
+	for(int i=0;i<graph.size();i++)
+		graph[i].printNodeInfo();
+
 }
 
 //! display graph information

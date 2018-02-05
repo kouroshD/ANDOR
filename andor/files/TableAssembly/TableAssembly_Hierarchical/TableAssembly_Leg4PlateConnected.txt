@@ -1,0 +1,24 @@
+Reach_Leg4_Plate_connected 5 Leg4_Plate_connected
+Leg3_Plate_connected 0
+Leg4_T 0
+Leg4_middlePose 0
+Leg4_Plate_close 0
+Leg4_Plate_connected 0
+h22 1 Leg4_middlePose 2
+Leg4_T
+h23 2 Leg4_Plate_close 1
+Leg4_T
+Leg3_Plate_connected
+h24 2 Leg4_Plate_close 1
+Leg4_middlePose
+Leg3_Plate_connected
+h25_human 2 Leg4_Plate_close 2
+Leg4_middlePose
+Leg3_Plate_connected
+h26_human 2 Leg4_Plate_close 5
+Leg4_T
+Leg3_Plate_connected
+h27 1 Leg4_Plate_connected 1
+Leg4_Plate_close
+h28_human 1 Leg4_Plate_connected 2
+Leg4_Plate_close

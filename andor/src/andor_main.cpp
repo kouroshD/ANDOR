@@ -114,14 +114,35 @@ int main(int argc, char **argv)
 	graphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
 	string andor_path(home);
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
+//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssemblyFull3.txt";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssemblyHierarchical2.txt";
+//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
 	graphVector.back()->loadFromFile(andor_path);
 
-	name = "ReachMiddlePoint";
+	name = "Reach_Leg1_Plate_connected";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
 	andor_path=home;
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly_L1MiddlePoint.txt";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg1PlateConnected.txt";
 	graphVector.back()->loadFromFile(andor_path);
+
+	name = "Reach_Leg2_Plate_connected";
+	graphVector.emplace_back(make_shared <AOgraph>(name));
+	andor_path=home;
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg2PlateConnected.txt";
+	graphVector.back()->loadFromFile(andor_path);
+
+	name = "Reach_Leg3_Plate_connected";
+	graphVector.emplace_back(make_shared <AOgraph>(name));
+	andor_path=home;
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg3PlateConnected.txt";
+	graphVector.back()->loadFromFile(andor_path);
+
+	name = "Reach_Leg4_Plate_connected";
+	graphVector.emplace_back(make_shared <AOgraph>(name));
+	andor_path=home;
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg4PlateConnected.txt";
+	graphVector.back()->loadFromFile(andor_path);
+
 
 	ros::init(argc, argv, "andor");
 	ros::NodeHandle nh;

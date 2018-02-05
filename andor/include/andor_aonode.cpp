@@ -259,7 +259,9 @@ void AOnode::printNodeInfo()
         nElement->printNodeElementInfo();
     }
     else
-        cout<<"[REPORT] No application-specific element is associated with this node." <<endl;    
+    {
+    	//cout<<"[REPORT] No application-specific element is associated with this node." <<endl;
+    }
 }
 
 //! determine whether the node is feasible
