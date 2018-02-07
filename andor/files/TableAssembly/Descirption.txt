@@ -5,4 +5,3 @@ TableAssemblyFull3.txt ==> the asembly task of a table with all the parts as obj
 TableAssemblyHierarchical.txt ==> a simple assembly task of a table with one leg 
 TableAssembly_L1MiddlePoint.txt ==> a simple complex action for assembly task of a table with one leg
 TableAssembly_Hierarchical FOLDER ==> Hierarchical Assembly task
-
