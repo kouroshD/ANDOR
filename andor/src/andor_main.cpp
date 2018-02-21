@@ -115,7 +115,7 @@ int main(int argc, char **argv)
 	const char* home=getenv("HOME");
 	string andor_path(home);
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssemblyFull3.txt";
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/Normal_TableAssembly/TableAssembly.txt";
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
 	graphVector.back()->loadFromFile(andor_path);
 
