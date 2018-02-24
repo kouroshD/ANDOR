@@ -66,6 +66,7 @@ Path::Path(const Path &toBeCopied, int index)
 //! display path information
 void Path::printPathInfo()
 {
+	cout<<"*************************"<<endl;
 	cout<<"Info of path: " <<pIndex <<endl;
 	//DEBUG: cout<<"Is complete? " <<boolalpha <<pComplete <<endl;
 	cout<<"Total cost: " <<pCost <<endl;
@@ -75,7 +76,7 @@ void Path::printPathInfo()
 		cout<<pathArcs[i] <<" ";
 		if (checkedHyperarcs[i] == true)
 			cout<<"- done";
-		cout<<endl;
+		cout<<", ";
 	}
 	cout<<endl <<"Nodes in path:" <<endl;
 	for (int i=0; i< (int)pathNodes.size(); i++)
@@ -84,7 +85,7 @@ void Path::printPathInfo()
 		//DEBUG: cout<<"checked? " <<boolalpha <<checkedNodes[i];
 		if (checkedNodes[i] == true)
 			cout<<"- done";
-		cout<<endl;
+		cout<<", ";
 	}
 	cout<<endl;
 }
@@ -462,11 +463,14 @@ void AOgraph::generatePaths()
 //! set up a graph
 void AOgraph::setupGraph()
 {
+	cout<<1<<endl;
 	// update the feasibility status of the nodes in the graph
 	updateFeasibility();
 	//DEBUG:printGraphInfo();
 	// generate all paths navigating the graph
+	cout<<2<<endl;
 	generatePaths();
+	cout<<3<<endl;
 	// set the "checked" property of the nodes in the paths to false
 	// NOTE: during execution, "checked" is used to mark the solved nodes
 	for (int i=0; i < (int)paths.size(); i++)
@@ -844,7 +848,7 @@ void AOgraph::loadFromFile(string fileName)
 
 	ifstream graphFile(fileName.c_str());
 	cout <<"Loading graph description from file: " <<fileName <<endl;
-
+	cout<<1<<endl;
 	while (!graphFile.eof())
 	{
 		// the first line contains:
@@ -859,7 +863,7 @@ void AOgraph::loadFromFile(string fileName)
 		if (!graphFile)
 			break;
 		gName = name;
-
+		cout<<gName <<endl;
 		// the next N lines contain the name and cost of all the nodes in the graph
 		string nameNode;
 		int cost;
@@ -886,7 +890,7 @@ void AOgraph::loadFromFile(string fileName)
 			if (!graphFile)
 				break;
 			father = findByName(nameFather);
-			//DEBUG:cout<<"nameFather = " <<nameFather <<endl;
+//			DEBUG:cout<<"nameFather = " <<nameFather <<endl;
 
 			// the next numChildren lines contain the names of the child nodes
 			for (int i=0; i < numChildren; i++)
@@ -899,7 +903,7 @@ void AOgraph::loadFromFile(string fileName)
 				temp = findByName(nameChild);
 				childNodes.push_back(temp);
 			}
-//			cout<<"loadFromFile:: "<<hyperarcName<<", "<< hyperarcIndex<<", "<<childNodes.size()<<", " <<hyperarcCost<<", "<< nameFather<<endl;
+			cout<<"loadFromFile:: "<<hyperarcName<<", "<< hyperarcIndex<<", "<<childNodes.size()<<", " <<hyperarcCost<<", "<< nameFather<<endl;
 
 //			for(int k=0;k<childNodes.size();k++)
 //				childNodes[k]->printNodeInfo();
@@ -924,7 +928,6 @@ void AOgraph::loadFromFile(string fileName)
 			HyperArc* tempHA;
 			tempHA=&(graph[i].arcs[j]);
 			graphHA.push_back(tempHA);
-
 		}
 	}
 
@@ -1004,7 +1007,7 @@ void AOgraph::solveByNameNode(string nameNode)
 	AOnode* solved = findByName(nameNode);
 	bool result = solved->setSolved();
 	updateFeasibility();
-	printGraphInfo();
+//	printGraphInfo();
 
 	// report that the graph has been solved if the solved node is the head node
 	if (head->nSolved == true)
@@ -1016,9 +1019,9 @@ void AOgraph::solveByNameNode(string nameNode)
 	// update the path information (cost) of all paths
 	if (result == true)
 		updatePaths_NodeSolved(*solved);
-	cout<<endl <<"Updated paths: " <<endl;
-	for(int i=0; i< (int)pUpdate.size(); i++)
-		cout<<"Path index: " <<pIndices[i] <<" - Benefit: " <<pUpdate[i] <<endl;
+//	cout<<endl <<"Updated paths: " <<endl;
+//	for(int i=0; i< (int)pUpdate.size(); i++)
+//		cout<<"Path index: " <<pIndices[i] <<" - Benefit: " <<pUpdate[i] <<endl;
 
 	//    cout<<"*************"<<endl;
 	//    for (int i=0;i<(int)paths.size();i++)
@@ -1029,7 +1032,7 @@ void AOgraph::solveByNameHyperarc(string nameHyperarc)
 	HyperArc* solved = findByNameHyperarc(nameHyperarc);
 	bool result = solved->setSolved(Nodes_solved_infeasible);
 	updateFeasibility();
-	printGraphInfo();
+//	printGraphInfo();
 	// report that the graph has been solved if the solved node is the head node
 	if (head->nSolved == true)
 	{
@@ -1040,14 +1043,15 @@ void AOgraph::solveByNameHyperarc(string nameHyperarc)
 	// update the path information (cost) of all paths
 	if (result == true)
 		updatePaths_HyperarcSolved(*solved); // -----
-	cout<<45<<endl;
-	cout<<endl <<"Updated paths: " <<endl;
-	for(int i=0; i< (int)pUpdate.size(); i++)
-		cout<<"Path index: " <<pIndices[i] <<" - Benefit: " <<pUpdate[i] <<endl;
+//	cout<<45<<endl;
+//	cout<<endl <<"Updated paths: " <<endl;
+//	for(int i=0; i< (int)pUpdate.size(); i++)
+//		cout<<"Path index: " <<pIndices[i] <<" - Benefit: " <<pUpdate[i] <<endl;
 }
 
 void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 {
+//	cout<<"AOgraph::getFeasibleNode"<<endl;
 	//! return the nodes that are feasible but not solved
 	// the cost is the cost of the node
 
@@ -1057,6 +1061,7 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 
 	for(int i=0;i<(int)graph.size();i++)
 	{
+//		cout<<graph[i].nName<<"; feasibility:"<<graph[i].nFeasible<<", Solved: "<<graph[i].nSolved<<endl;
 		if(graph[i].nFeasible==true && graph[i].nSolved==false)
 		{
 
@@ -1089,18 +1094,18 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 }
 void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcVector)
 {
-	cout<<"AOgraph::getFeasibleHyperarc"<<endl;
+//	cout<<"AOgraph::getFeasibleHyperarc"<<endl;
 	//! return the hyperarcs that are feasible but not solved
 	// the ha cost we return is the min path cost pass through the ha of a path,
 	// that's how we can say which hyperarc is better to solve
 //	cout<<(int)graphHA.size()<<endl;
 	for(int i=0;i<(int)graphHA.size();i++)
 	{
-		cout<<graphHA[i]->hName<<"; feasibility:"<<graphHA[i]->hFeasible<<", Solved: "<<graphHA[i]->hSolved<<endl;
+//		cout<<graphHA[i]->hName<<"; feasibility:"<<graphHA[i]->hFeasible<<", Solved: "<<graphHA[i]->hSolved<<endl;
 		if(graphHA[i]->hFeasible==true && graphHA[i]->hSolved==false)
 		{
 
-			cout<<graphHA[i]->hName<<endl;
+//			cout<<graphHA[i]->hName<<endl;
 			int min_cost=10000; // rnd number
 			// if the ha exits in several graph path, we find the min cost from there
 			for(int j=0; j<(int)paths.size();j++)

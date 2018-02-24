@@ -56,22 +56,24 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 		cout<<200<<endl;
 		if(req.solvedNodes.size()>0)
 		{
-			cout<<201<<endl;
+			cout<<"solved Nodes: ";
 			for (int i=0; i<req.solvedNodes.size();i++)
 			{
-				cout<<202<<endl;
+				cout<<req.solvedNodes[i]<<", ";
 				graphVector[gIndex]->solveByNameNode(req.solvedNodes[i]);
 			}
+			cout<<endl;
 
 		}
 		if(req.solvedHyperarc.size()>0)
 		{
-			cout<<203<<endl;
+			cout<<"solved Hyper-arcs: ";
 			for (int i=0; i<req.solvedHyperarc.size();i++)
 			{
-				cout<<204<<endl;
+				cout<<req.solvedHyperarc[i]<<", ";
 				graphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i]);
 			}
+			cout<<endl;
 
 		}
 		if (graphVector[gIndex]->isGraphSolved())
@@ -83,18 +85,22 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 		}
 		else
 		{
-			cout<<206<<endl;
+
 			res.graphSolved=false;
 			vector<andor_msgs::Node> feasileNodeVector;
 			vector<andor_msgs::Hyperarc> feasileHyperarcVector;
 			graphVector[gIndex]->getFeasibleNode(feasileNodeVector);
 			graphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector);
 
+			cout<<"feasile Hyper-arcs: ";
 			for(int i=0;i<feasileHyperarcVector.size();i++)
-				cout<<feasileHyperarcVector[i].hyperarcName<<endl;
+				cout<<feasileHyperarcVector[i].hyperarcName<<", ";
+			cout<<endl;
 
+			cout<<"feasile Nodes: ";
 			for(int i=0;i<feasileNodeVector.size();i++)
-				cout<<feasileNodeVector[i].nodeName<<endl;
+				cout<<feasileNodeVector[i].nodeName<<", ";
+			cout<<endl;
 
 			for(int i=0;i<feasileHyperarcVector.size();i++)
 				res.feasibleHyperarcs.push_back(feasileHyperarcVector[i]);

@@ -3,8 +3,9 @@ Leg1_Plate_connected 0
 Leg2_T 0
 Leg2_middlePose 0
 Leg2_Plate_connected 0
-h6 1 Leg2_middlePose 2
+h6 2 Leg2_middlePose 2
 Leg2_T
+Leg1_Plate_connected
 h7 2 Leg2_Plate_connected 1
 Leg2_T
 Leg1_Plate_connected

@@ -1,4 +1,4 @@
-TableAssembly 19 Table_FinalPose
+TableAssembly 15 Table_FinalPose
 Plate_initPose 0
 Plate_assemblyPose 0
 Leg1_T 0
@@ -16,8 +16,9 @@ Leg4_Plate_connected 0
 Table_FinalPose 0
 h0 1 Plate_assemblyPose 1
 Plate_initPose
-h1 1 Leg1_middlePose 2
+h1 2 Leg1_middlePose 2
 Leg1_T
+Plate_assemblyPose
 h2 2 Leg1_Plate_connected 1
 Leg1_T
 Plate_assemblyPose
@@ -30,8 +31,9 @@ Plate_assemblyPose
 h5_human 2 Leg1_Plate_connected 5
 Leg1_T
 Plate_assemblyPose
-h6 1 Leg2_middlePose 2
+h6 2 Leg2_middlePose 2
 Leg2_T
+Leg1_Plate_connected
 h7 2 Leg2_Plate_connected 1
 Leg2_T
 Leg1_Plate_connected
@@ -44,8 +46,9 @@ Leg1_Plate_connected
 h10_human 2 Leg2_Plate_connected 5
 Leg2_T
 Leg1_Plate_connected
-h11 1 Leg3_middlePose 2
+h11 2 Leg3_middlePose 2
 Leg3_T
+Leg2_Plate_connected
 h12 2 Leg3_Plate_connected 1
 Leg3_T
 Leg2_Plate_connected
@@ -58,8 +61,9 @@ Leg2_Plate_connected
 h15_human 2 Leg3_Plate_connected 5
 Leg3_T
 Leg2_Plate_connected
-h16 1 Leg4_middlePose 2
+h16 2 Leg4_middlePose 2
 Leg4_T
+Leg3_Plate_connected
 h17 2 Leg4_Plate_connected 1
 Leg4_T
 Leg3_Plate_connected
