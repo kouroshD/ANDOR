@@ -51,6 +51,8 @@ add_library(andor_aograph include/andor_aograph.cpp)
 # name  name.cpp
 add_executable(andor src/andor_main.cpp )
 
+add_dependencies(andor_aograph andor_msgs_generate_messages_cpp)
+
 add_dependencies(andor baxter_core_msgs_generate_messages_cpp  geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(andor
