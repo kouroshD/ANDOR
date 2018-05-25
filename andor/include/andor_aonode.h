@@ -14,10 +14,20 @@
 #include "andor_element.h"
 #include <boost/shared_ptr.hpp>
 
+#define RST  "\x1B[0m"
+#define KBLU  "\x1B[34m"
+#define KRED  "\x1B[31m"
+#define KGRN  "\x1B[32m"
+#define FBLU(x) KBLU x RST
+#define FRED(x) KRED x RST
+#define FGRN(x) KGRN x RST
+#define BOLD(x) "\x1B[1m" x RST
+
 using namespace std;
 
 // empty declaration (required by HyperArc)
 class AOnode;
+class AOgraph;
 
 //! class "HyperArc" for the hyperarc connecting one parent node to a number of child nodes in an AND relationship among themselves
 class HyperArc
@@ -31,6 +41,7 @@ class HyperArc
         string hfatherName;         //!< name of the hyperarc father node
         bool hSolved;               //!< solved: the operation has been performed
         bool hFeasible;             //!< feasible: >=1 hyperarc has all child nodes solved
+        AOgraph* lowerGraph;
         
         //! constructor
 		HyperArc(string name, int index, vector<AOnode*> childNodes, int cost, string fatherName);
@@ -40,6 +51,8 @@ class HyperArc
         //! display hyperarc information
         void printArcInfo();
         
+        void SetLowerGraph(AOgraph* newLowerGraph);
+
         //! determine whether the hyper-arc is feasible
         void isFeasible();
 
@@ -49,6 +62,7 @@ class HyperArc
         //! destructor
 		~HyperArc()
 		{
+//			delete [] lowerGraph;
 			//DEBUG:cout<<endl <<"Destroying HyperArc object" <<endl;
 		}
 };
@@ -75,7 +89,7 @@ class AOnode
         void addElement(NodeElement* element);
         
         //! add an hyperarc to child nodes
-        void addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> nodes, int hyperarcCost, string hyperarcFatherName);
+        HyperArc& addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> nodes, int hyperarcCost, string hyperarcFatherName);
         
         //! display node information
         void printNodeInfo();

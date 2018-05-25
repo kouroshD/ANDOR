@@ -22,9 +22,14 @@ HyperArc::HyperArc(string name, int index, vector<AOnode*> childNodes, int cost,
     hfatherName=fatherName;
 
     children = childNodes;
+    lowerGraph=NULL;
 
     //DEBUG:printArcInfo();
 }
+void HyperArc::SetLowerGraph(AOgraph* newLowerGraph){
+	lowerGraph=newLowerGraph;
+};
+
 
 //HyperArc::HyperArc(const HyperArc& new_ha){
 //	cout<<"HyperArc::HyperArc(const HyperArc& )"<<endl;
@@ -220,7 +225,7 @@ void AOnode::addElement(NodeElement* element)
 //! @param[in] hyperarcIndex    hyperarc index
 //! @param[in] nodes            set of child nodes connected via the hyperarc
 //! @param[in] hyperarcCost     hyperarc cost
-void AOnode::addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> nodes, int hyperarcCost, string hyperarcFatherName)
+HyperArc& AOnode::addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> nodes, int hyperarcCost, string hyperarcFatherName)
 {
 
 //	cout<<201<<endl;
@@ -234,6 +239,8 @@ void AOnode::addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> node
     // add it to the set of hyperarcs
     arcs.push_back(toAdd);
 //    arcs.push_back(*(new HyperArc(hyperarcName, hyperarcIndex, nodes, hyperarcCost, hyperarcFatherName)));
+
+    return arcs.back();
 }
 
 //! display node information

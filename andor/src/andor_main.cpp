@@ -15,15 +15,6 @@
 #include <andor_msgs/Node.h>
 #include <boost/shared_ptr.hpp>
 
-#define RST  "\x1B[0m"
-#define KBLU  "\x1B[34m"
-#define KRED  "\x1B[31m"
-#define KGRN  "\x1B[32m"
-#define FBLU(x) KBLU x RST
-#define FRED(x) KRED x RST
-#define FGRN(x) KGRN x RST
-#define BOLD(x) "\x1B[1m" x RST
-
 using namespace std;
 vector<shared_ptr<AOgraph>> graphVector , OfflineGraphVector;
 
@@ -119,11 +110,13 @@ int main(int argc, char **argv)
 	string name = "TableAssembly";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
-	string andor_path(home);
+	string andor_path(home), andorName;
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssemblyFull3.txt";
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/Normal_TableAssembly/TableAssembly.txt";
+//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/Normal_TableAssembly/TableAssembly.txt";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/2_Hierarchical_TableAssembly/";
+	andorName="TableAssembly";
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
-	graphVector.back()->loadFromFile(andor_path);
+	graphVector.back()->loadFromFile(andor_path,andorName);
 
 //	name = "Reach_Leg1_Plate_connected";
 //	graphVector.emplace_back(make_shared <AOgraph>(name));

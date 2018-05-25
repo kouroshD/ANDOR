@@ -61,4 +61,3 @@ andor_aonode
 andor_aograph
  )
 target_link_libraries(andor_aograph andor_aonode)
-

@@ -836,7 +836,7 @@ AOgraph::AOgraph(string name)
 
 //! load the graph description from a file
 //! @param[in] fileName    name of the file with the graph description
-void AOgraph::loadFromFile(string fileName)
+void AOgraph::loadFromFile(string filePath, string fileName)
 {
 	// raise an error if the graph is not empty
 	if (graph.size() != 0)
@@ -846,6 +846,7 @@ void AOgraph::loadFromFile(string fileName)
 		return;
 	}
 
+	fileName=filePath+fileName+".txt";
 	ifstream graphFile(fileName.c_str());
 	cout <<"Loading graph description from file: " <<fileName <<endl;
 	cout<<1<<endl;
@@ -884,13 +885,18 @@ void AOgraph::loadFromFile(string fileName)
 			int numChildren;
 			int hyperarcCost;
 			string hyperarcName;
+			string lowerGraphName;// lower level graph of the hyper-arc
+
 			vector<AOnode*> childNodes;
 
-			graphFile >>hyperarcName>>numChildren >>nameFather >>hyperarcCost;
+//			std::stringstream buffer;
+//			buffer << graphFile;
+//			cout<<"graphfile: "<<buffer.str()<<endl;
+			graphFile >>hyperarcName>>numChildren>>nameFather>>hyperarcCost>>lowerGraphName;
 			if (!graphFile)
 				break;
 			father = findByName(nameFather);
-//			DEBUG:cout<<"nameFather = " <<nameFather <<endl;
+			DEBUG:cout<<"nameFather = " <<nameFather <<endl;
 
 			// the next numChildren lines contain the names of the child nodes
 			for (int i=0; i < numChildren; i++)
@@ -903,12 +909,33 @@ void AOgraph::loadFromFile(string fileName)
 				temp = findByName(nameChild);
 				childNodes.push_back(temp);
 			}
-			cout<<"loadFromFile:: "<<hyperarcName<<", "<< hyperarcIndex<<", "<<childNodes.size()<<", " <<hyperarcCost<<", "<< nameFather<<endl;
+			cout<<"loadFromFile:: "<<hyperarcName<<", "<< hyperarcIndex<<", "<<childNodes.size()<<", " <<hyperarcCost<<", "<< nameFather<<", "<<lowerGraphName<<endl;
 
 //			for(int k=0;k<childNodes.size();k++)
 //				childNodes[k]->printNodeInfo();
 
-			father->addArc(hyperarcName, hyperarcIndex, childNodes, hyperarcCost, nameFather);
+			HyperArc& newHA=father->addArc(hyperarcName, hyperarcIndex, childNodes, hyperarcCost, nameFather);
+			if(lowerGraphName!="-")
+			{
+				cout<<FGRN(BOLD("***** Hierarchical Graph: started ************* "))<<endl;
+				cout<<"ha cost: "<<newHA.hCost<<endl;
+
+				AOgraph* newGraph=new AOgraph(lowerGraphName);
+				newGraph->loadFromFile(filePath,lowerGraphName);
+
+				int newHACost=9999999; //! if a hyper-arc owns a lower level graph(g), the hyper-arc cost equals to min path cost of the g.
+				for(int i=0;i<newGraph->paths.size();i++ )
+					if(newGraph->paths[i].pCost<newHACost)
+						newHACost=newGraph->paths[i].pCost;
+				newHA.hCost=newHACost;
+
+				newHA.SetLowerGraph(newGraph);
+
+				cout<<"ha cost: "<<newHA.hCost<<endl;
+				cout<<FGRN(BOLD("********** Hierarchical Graph: Ended *********** "))<<endl;
+			}
+
+
 			hyperarcIndex = hyperarcIndex+1;
 		}
 		// identify the head node in the graph

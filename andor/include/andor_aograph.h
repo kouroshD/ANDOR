@@ -141,7 +141,7 @@ class AOgraph
 //		AOgraph& operator=(const AOgraph& new_graph);
         
         //! load the graph description from a file
-        void loadFromFile(string fileName);
+        void loadFromFile(string filePath, string fileName);
         
         //! display graph information
         void printGraphInfo();
