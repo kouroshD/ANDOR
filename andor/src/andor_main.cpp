@@ -51,7 +51,7 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			for (int i=0; i<req.solvedNodes.size();i++)
 			{
 				cout<<req.solvedNodes[i]<<", ";
-				graphVector[gIndex]->solveByNameNode(req.solvedNodes[i]);
+				graphVector[gIndex]->solveByNameNode(req.solvedNodes[i].graphName, req.solvedNodes[i].nodeName);
 			}
 			cout<<endl;
 
@@ -62,7 +62,7 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			for (int i=0; i<req.solvedHyperarc.size();i++)
 			{
 				cout<<req.solvedHyperarc[i]<<", ";
-				graphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i]);
+				graphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i].graphName,req.solvedHyperarc[i].hyperarcName);
 			}
 			cout<<endl;
 
@@ -81,7 +81,7 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			vector<andor_msgs::Node> feasileNodeVector;
 			vector<andor_msgs::Hyperarc> feasileHyperarcVector;
 			graphVector[gIndex]->getFeasibleNode(feasileNodeVector);
-			graphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector);
+			graphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector, feasileNodeVector);
 
 			cout<<"feasile Hyper-arcs: ";
 			for(int i=0;i<feasileHyperarcVector.size();i++)
@@ -113,8 +113,13 @@ int main(int argc, char **argv)
 	string andor_path(home), andorName;
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssemblyFull3.txt";
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/Normal_TableAssembly/TableAssembly.txt";
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/2_Hierarchical_TableAssembly/";
-	andorName="TableAssembly";
+//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/2_Hierarchical_TableAssembly/";
+//	andorName="TableAssembly";
+
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/hierarchicalGraphTest/";
+	andorName="pencil_assembly_herarchical";
+
+
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
 	graphVector.back()->loadFromFile(andor_path,andorName);
 

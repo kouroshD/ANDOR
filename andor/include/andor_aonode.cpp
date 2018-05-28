@@ -23,11 +23,13 @@ HyperArc::HyperArc(string name, int index, vector<AOnode*> childNodes, int cost,
 
     children = childNodes;
     lowerGraph=NULL;
+    includingGraph=NULL;
 
     //DEBUG:printArcInfo();
 }
-void HyperArc::SetLowerGraph(AOgraph* newLowerGraph){
+void HyperArc::SetGraphs(AOgraph* newLowerGraph, AOgraph* sameLevelGraph){
 	lowerGraph=newLowerGraph;
+	includingGraph=sameLevelGraph;
 };
 
 

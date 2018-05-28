@@ -14,6 +14,7 @@
 #include "andor_aonode.h"
 #include <andor_msgs/Hyperarc.h>
 #include <andor_msgs/Node.h>
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 
@@ -117,6 +118,9 @@ class AOgraph
         //! update all paths (update path costs when a Hyper-arc is solved)
         void updatePaths_HyperarcSolved(HyperArc &solved);
 
+        //! Find the graph that the a hyper-arc or node belongs to, from the graph name
+
+        AOgraph* findGraph(string graphName);
 
 
         //! find the optimal path (long-sighted strategy)
@@ -129,6 +133,7 @@ class AOgraph
         string gName;           //!< name of the graph
         vector<AOnode> graph;   //!< set of nodes in the AND-OR graph
         vector<HyperArc*> graphHA;//!< set of hyper-arcs in the AND-OR graph
+        HyperArc* upperLevelHyperarc; //! in case of hierarchical and/or graph, from a graph we can go the upper level hyper-arc.
         AOnode* head;           //!< pointer to the node = final assembly
         vector<Path> paths;     //!< set of paths in the AND-OR graph
         vector<int> pIndices;   //!< indices of the updated paths
@@ -150,15 +155,15 @@ class AOgraph
         string suggestNext(bool strategy);
         
         //! solve a node, finding it by name
-        void solveByNameNode(string nameNode);
+        void solveByNameNode(string graphName, string nameNode);
 
         //! solve a hyperArc, finding it by name
-        void solveByNameHyperarc(string nameHyperarc);
+        void solveByNameHyperarc(string graphName,string nameHyperarc);
 
         //! get feasible nodes lists and costs
         void getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector);
         //! get feasible hyperarc lists and costs
-        void getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcVector);
+        void getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcVector, vector<andor_msgs::Node> &feasileNodeVector);
         bool isGraphSolved(void);
 
         //! destructor

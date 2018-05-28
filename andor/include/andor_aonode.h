@@ -41,7 +41,8 @@ class HyperArc
         string hfatherName;         //!< name of the hyperarc father node
         bool hSolved;               //!< solved: the operation has been performed
         bool hFeasible;             //!< feasible: >=1 hyperarc has all child nodes solved
-        AOgraph* lowerGraph;
+        AOgraph* lowerGraph;		//! the pointer to the lower level graph in hierarchical and/or graph;
+        AOgraph* includingGraph;	//! the pointer to the graph which includes the hyper-arc
         
         //! constructor
 		HyperArc(string name, int index, vector<AOnode*> childNodes, int cost, string fatherName);
@@ -51,7 +52,7 @@ class HyperArc
         //! display hyperarc information
         void printArcInfo();
         
-        void SetLowerGraph(AOgraph* newLowerGraph);
+        void SetGraphs(AOgraph* newLowerGraph, AOgraph* sameLevelGraph);
 
         //! determine whether the hyper-arc is feasible
         void isFeasible();

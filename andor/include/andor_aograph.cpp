@@ -788,6 +788,7 @@ AOgraph::AOgraph(string name)
 {
 	gName = name;
 	head = NULL;
+	upperLevelHyperarc=NULL;
 
 	//DEBUG:printGraphInfo();
 }
@@ -896,7 +897,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 			if (!graphFile)
 				break;
 			father = findByName(nameFather);
-			DEBUG:cout<<"nameFather = " <<nameFather <<endl;
+//			DEBUG:cout<<"nameFather = " <<nameFather <<endl;
 
 			// the next numChildren lines contain the names of the child nodes
 			for (int i=0; i < numChildren; i++)
@@ -922,6 +923,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 
 				AOgraph* newGraph=new AOgraph(lowerGraphName);
 				newGraph->loadFromFile(filePath,lowerGraphName);
+				newGraph->gName=this->gName+":"+hyperarcName+":"+lowerGraphName;
 
 				int newHACost=9999999; //! if a hyper-arc owns a lower level graph(g), the hyper-arc cost equals to min path cost of the g.
 				for(int i=0;i<newGraph->paths.size();i++ )
@@ -929,7 +931,8 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 						newHACost=newGraph->paths[i].pCost;
 				newHA.hCost=newHACost;
 
-				newHA.SetLowerGraph(newGraph);
+				newGraph->upperLevelHyperarc=&newHA;
+				newHA.SetGraphs(newGraph, this);
 
 				cout<<"ha cost: "<<newHA.hCost<<endl;
 				cout<<FGRN(BOLD("********** Hierarchical Graph: Ended *********** "))<<endl;
@@ -939,7 +942,10 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 			hyperarcIndex = hyperarcIndex+1;
 		}
 		// identify the head node in the graph
+//		cout<<"head name: "<<headName<<endl;
 		head = findByName(headName);
+//		cout<<"head: "<<(head==NULL) <<endl;
+
 	}
 	graphFile.close();
 
@@ -1029,23 +1035,32 @@ string AOgraph::suggestNext(bool strategy)
 
 //! solve a node, finding it by name
 //! @param[in] nameNode    name of the node
-void AOgraph::solveByNameNode(string nameNode)
+void AOgraph::solveByNameNode(string graphName,string nameNode)
 {
-	AOnode* solved = findByName(nameNode);
+
+	AOgraph * newGraph=findGraph(graphName);
+	AOnode* solved = newGraph->findByName(nameNode);
 	bool result = solved->setSolved();
-	updateFeasibility();
+	newGraph->updateFeasibility();
 //	printGraphInfo();
 
 	// report that the graph has been solved if the solved node is the head node
-	if (head->nSolved == true)
+	if (newGraph->head->nSolved == true)
 	{
+		if(newGraph==this)
+		{
 		cout<<"[REPORT] The graph is solved (head node solved)." <<endl;
+		}
+		else
+		{
+			newGraph->upperLevelHyperarc->includingGraph->solveByNameHyperarc(newGraph->upperLevelHyperarc->includingGraph->gName,newGraph->upperLevelHyperarc->hName);
+		}
 		return;
 	}
 
 	// update the path information (cost) of all paths
 	if (result == true)
-		updatePaths_NodeSolved(*solved);
+		newGraph->updatePaths_NodeSolved(*solved);
 //	cout<<endl <<"Updated paths: " <<endl;
 //	for(int i=0; i< (int)pUpdate.size(); i++)
 //		cout<<"Path index: " <<pIndices[i] <<" - Benefit: " <<pUpdate[i] <<endl;
@@ -1054,22 +1069,24 @@ void AOgraph::solveByNameNode(string nameNode)
 	//    for (int i=0;i<(int)paths.size();i++)
 	//    	paths[i].printPathInfo();
 }
-void AOgraph::solveByNameHyperarc(string nameHyperarc)
+void AOgraph::solveByNameHyperarc(string graphName,string nameHyperarc)
 {
-	HyperArc* solved = findByNameHyperarc(nameHyperarc);
-	bool result = solved->setSolved(Nodes_solved_infeasible);
-	updateFeasibility();
+	AOgraph * newGraph=findGraph(graphName);
+	HyperArc* solved = newGraph->findByNameHyperarc(nameHyperarc);
+	bool result = solved->setSolved(newGraph->Nodes_solved_infeasible);
+	newGraph->updateFeasibility();
 //	printGraphInfo();
 	// report that the graph has been solved if the solved node is the head node
-	if (head->nSolved == true)
+	if (newGraph->head->nSolved == true)
 	{
 		cout<<"[REPORT] The graph is solved (head node solved)." <<endl;
+		cout<<"This condition can not b true, because the we are in the hyper-arc solved member function!"<<endl;
 		return;
 	}
 
 	// update the path information (cost) of all paths
 	if (result == true)
-		updatePaths_HyperarcSolved(*solved); // -----
+		newGraph->updatePaths_HyperarcSolved(*solved); // -----
 //	cout<<45<<endl;
 //	cout<<endl <<"Updated paths: " <<endl;
 //	for(int i=0; i< (int)pUpdate.size(); i++)
@@ -1115,11 +1132,12 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 			andor_msgs::Node temp_node_msg;
 			temp_node_msg.nodeCost=min_cost;
 			temp_node_msg.nodeName=graph[i].nName;
+			temp_node_msg.graphName=gName;
 			feasileNodeVector.push_back(temp_node_msg);
 		}
 	}
 }
-void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcVector)
+void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcVector, vector<andor_msgs::Node> &feasileNodeVector)
 {
 //	cout<<"AOgraph::getFeasibleHyperarc"<<endl;
 	//! return the hyperarcs that are feasible but not solved
@@ -1148,23 +1166,90 @@ void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcV
 						}
 					}
 				}
+			}
+
+			// check if there is a graph hierarchy inside this feasible hyper-arc
+			vector<andor_msgs::Node> NEWfeasileNodeVector;			// feasible nodes from lower level
+			vector<andor_msgs::Hyperarc> NEWfeasileHyperarcVector;	// feasible hyper-arcs from lower level
+
+			if(graphHA[i]->lowerGraph!=NULL)
+			{
+				graphHA[i]->lowerGraph->getFeasibleNode(NEWfeasileNodeVector);
+				graphHA[i]->lowerGraph->getFeasibleHyperarc(NEWfeasileHyperarcVector, NEWfeasileNodeVector);
+
+				// fill the output msg
+				for(int i=0;i<NEWfeasileNodeVector.size();i++)
+				{
+					NEWfeasileNodeVector[i].nodeCost=min_cost - graphHA[i]->hCost + NEWfeasileNodeVector[i].nodeCost;
+					feasileNodeVector.push_back(NEWfeasileNodeVector[i]);
+				}
+				for(int i=0;i<NEWfeasileHyperarcVector.size();i++)
+				{
+					NEWfeasileHyperarcVector[i].hyperarcCost=min_cost - graphHA[i]->hCost + NEWfeasileHyperarcVector[i].hyperarcCost;
+					feasileHyperarcVector.push_back(NEWfeasileHyperarcVector[i]);
+				}
+			}
+			else
+			{
+				// fill the output msg
+				andor_msgs::Hyperarc temp_hyperarc_msg;
+				temp_hyperarc_msg.hyperarcName=graphHA[i]->hName;
+				temp_hyperarc_msg.hyperarcCost=min_cost;
+				temp_hyperarc_msg.parentNode=graphHA[i]->hfatherName;
+				for (int l=0;l<(int)graphHA[i]->children.size();l++)
+				{
+					temp_hyperarc_msg.childNodes.push_back(graphHA[i]->children[l]->nName);
+				}
+				temp_hyperarc_msg.graphName=gName;
+				feasileHyperarcVector.push_back(temp_hyperarc_msg);
 
 			}
-			andor_msgs::Hyperarc temp_hyperarc_msg;
-			temp_hyperarc_msg.hyperarcName=graphHA[i]->hName;
-			temp_hyperarc_msg.hyperarcCost=min_cost;
-			temp_hyperarc_msg.parentNode=graphHA[i]->hfatherName;
-			for (int l=0;l<(int)graphHA[i]->children.size();l++)
-			{
-				temp_hyperarc_msg.childNodes.push_back(graphHA[i]->children[l]->nName);
-			}
-			feasileHyperarcVector.push_back(temp_hyperarc_msg);
 		}
 	}
-
 }
 
 bool AOgraph::isGraphSolved(){
 
 	return head->nSolved;
 }
+
+AOgraph* AOgraph::findGraph(string graphName){
+// the graph name in hierarchical and/or graph are like this:
+	// graphName:hyper-arcName:newGraph:newHyper-arc:newGraph ....
+// if there is a hierarchy, we write the hyper-arc name before the graph name.
+	// ":" is a key character here
+
+	AOgraph* tempGraph;
+	string delimType=":";
+	vector<string> graphList;
+
+	boost::split(graphList, graphName, boost::is_any_of(delimType));
+
+	if(graphList.size()==0)
+	{
+		cout<<"ERROR: in findGraph"<<endl;
+	}
+	else if(graphList.size()==1)
+	{
+		tempGraph=this;
+	}
+	else
+	{
+		string nameHyperarc=graphList[1];
+		HyperArc* tempHA=this->findByNameHyperarc(graphList[1]);
+		if(tempHA->lowerGraph->gName==graphList[1])
+		{
+			string newGraphName;
+			for(int i=2;i<graphList.size();i++)
+				newGraphName+=graphList[i];
+			tempGraph=tempHA->lowerGraph->findGraph(newGraphName);
+		}
+		else
+		{
+			cout<< "the graph name given in the query and the hyper-arc graph name are not matched!"<<endl;
+			exit(1);
+		}
+	}
+	return tempGraph;
+};
+

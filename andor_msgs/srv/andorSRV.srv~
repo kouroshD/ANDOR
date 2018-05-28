@@ -1,7 +1,7 @@
 #input
-string graphName							# the and/or graph name
-string[] solvedNodes
-string[] solvedHyperarc
+string graphName							# the main and/or graph name
+Node[] solvedNodes
+Hyperarc[] solvedHyperarc
 ---
 # Output
 Node[] feasibleNodes
