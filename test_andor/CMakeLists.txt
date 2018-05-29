@@ -49,13 +49,13 @@ include_directories(
 
 ## Declare a C++ executable
 # name  name.cpp
-add_executable(andor_tester src/andor_tester.cpp )
+add_executable(test_andor src/test_andor.cpp )
 
 #add_dependencies(andor_aograph andor_msgs_generate_messages_cpp)
 
-add_dependencies(andor_tester geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp) #baxter_core_msgs_generate_messages_cpp  
+add_dependencies(test_andor geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp) #baxter_core_msgs_generate_messages_cpp  
 ## Specify libraries to link a library or executable target against
-target_link_libraries(andor
+target_link_libraries(test_andor
    ${catkin_LIBRARIES}
 #andor_aonode
 #andor_aograph
