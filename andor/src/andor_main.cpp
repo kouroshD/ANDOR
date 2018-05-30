@@ -106,6 +106,8 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 
 int main(int argc, char **argv)
 {
+	ros::init(argc, argv, "andor");
+	ros::NodeHandle nh;
 
 	string name = "TableAssembly";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
@@ -116,12 +118,25 @@ int main(int argc, char **argv)
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/2_Hierarchical_TableAssembly/";
 //	andorName="TableAssembly";
 
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/hierarchicalGraphTest/";
-	andorName="pencil_assembly_herarchical";
+//	andor_path+="/catkin_ws/src/ANDOR/andor/files/hierarchicalGraphTest/";
+//	andorName="pencil_assembly_herarchical";
+
+	double timeNow1,timeNow2;
+	timeNow1=ros::Time::now().toSec();
+//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly2/";
+//	andorName="TableAssembly_2";
+//	andorName="TableAssembly_hierarchical";
+
+
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/Tablewith6Legs/";
+//	andorName="TableAssembly";
+	andorName="TableAssembly_hierarchical";
 
 
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
 	graphVector.back()->loadFromFile(andor_path,andorName);
+
+	timeNow2=ros::Time::now().toSec();
 
 //	name = "Reach_Leg1_Plate_connected";
 //	graphVector.emplace_back(make_shared <AOgraph>(name));
@@ -148,8 +163,7 @@ int main(int argc, char **argv)
 //	graphVector.back()->loadFromFile(andor_path);
 
 
-	ros::init(argc, argv, "andor");
-	ros::NodeHandle nh;
+
 	ros::ServiceServer service = nh.advertiseService("andorService",updateANDOR);
 
 	cout << FGRN(BOLD("*****************")) << endl;
@@ -157,6 +171,7 @@ int main(int argc, char **argv)
 	for(int i=0;i<graphVector.size();i++)
 		cout<<graphVector[i]->gName<<", ";
 	cout<<endl;
+	cout<<"andor offline phase time elapse: "<<timeNow2-timeNow1<<" sec"<<endl;
 	cout << FGRN(BOLD("AND/OR graph is alive: ")) << endl;
 
 	ros::spin();

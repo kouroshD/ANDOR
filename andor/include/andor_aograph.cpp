@@ -463,14 +463,14 @@ void AOgraph::generatePaths()
 //! set up a graph
 void AOgraph::setupGraph()
 {
-	cout<<1<<endl;
+//	cout<<1<<endl;
 	// update the feasibility status of the nodes in the graph
 	updateFeasibility();
 	//DEBUG:printGraphInfo();
 	// generate all paths navigating the graph
-	cout<<2<<endl;
+//	cout<<2<<endl;
 	generatePaths();
-	cout<<3<<endl;
+//	cout<<3<<endl;
 	// set the "checked" property of the nodes in the paths to false
 	// NOTE: during execution, "checked" is used to mark the solved nodes
 	for (int i=0; i < (int)paths.size(); i++)
@@ -481,12 +481,12 @@ void AOgraph::setupGraph()
 		for (int j=0; j < (int)paths[i].checkedHyperarcs.size(); j++)
 			paths[i].checkedHyperarcs[j] = false;
 
-	cout<<"***************************************************************"<<endl;
-	cout<<"************************** PATH INFO **************************"<<endl;
-	for (int i=0; i < (int)paths.size(); i++)
-		paths[i].printPathInfo();
+//	cout<<"***************************************************************"<<endl;
+//	cout<<"************************** PATH INFO **************************"<<endl;
+//	for (int i=0; i < (int)paths.size(); i++)
+//		paths[i].printPathInfo();
 
-	cout<<"***************************************************************"<<endl;
+//	cout<<"***************************************************************"<<endl;
 	// identify the first suggestion to make (long-sighted strategy chosen BY DEFAULT)
 	suggestNext(true);
 }
@@ -739,8 +739,8 @@ int AOgraph::findOptimalPath()
 			index = i;
 		}
 	}
-	cout<<"The optimal path is: " <<index <<endl;
-	paths[index].printPathInfo();
+//	cout<<"The optimal path is: " <<index <<endl;
+//	paths[index].printPathInfo();
 
 	return index;
 }
@@ -849,8 +849,8 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 
 	fileName=filePath+fileName+".txt";
 	ifstream graphFile(fileName.c_str());
-	cout <<"Loading graph description from file: " <<fileName <<endl;
-	cout<<1<<endl;
+//	cout <<"Loading graph description from file: " <<fileName <<endl;
+//	cout<<1<<endl;
 	while (!graphFile.eof())
 	{
 		// the first line contains:
@@ -865,7 +865,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 		if (!graphFile)
 			break;
 		gName = name;
-		cout<<gName <<endl;
+//		cout<<gName <<endl;
 		// the next N lines contain the name and cost of all the nodes in the graph
 		string nameNode;
 		int cost;
@@ -910,7 +910,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 				temp = findByName(nameChild);
 				childNodes.push_back(temp);
 			}
-			cout<<"loadFromFile:: "<<hyperarcName<<", "<< hyperarcIndex<<", "<<childNodes.size()<<", " <<hyperarcCost<<", "<< nameFather<<", "<<lowerGraphName<<endl;
+//			cout<<"loadFromFile:: "<<hyperarcName<<", "<< hyperarcIndex<<", "<<childNodes.size()<<", " <<hyperarcCost<<", "<< nameFather<<", "<<lowerGraphName<<endl;
 
 //			for(int k=0;k<childNodes.size();k++)
 //				childNodes[k]->printNodeInfo();
@@ -918,8 +918,8 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 			HyperArc& newHA=father->addArc(hyperarcName, hyperarcIndex, childNodes, hyperarcCost, nameFather);
 			if(lowerGraphName!="-")
 			{
-				cout<<FGRN(BOLD("***** Hierarchical Graph: started ************* "))<<endl;
-				cout<<"ha cost: "<<newHA.hCost<<endl;
+//				cout<<FGRN(BOLD("***** Hierarchical Graph: started ************* "))<<endl;
+//				cout<<"ha cost: "<<newHA.hCost<<endl;
 
 				AOgraph* newGraph=new AOgraph(lowerGraphName);
 				newGraph->loadFromFile(filePath,lowerGraphName);
@@ -934,8 +934,8 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 				newGraph->upperLevelHyperarc=&newHA;
 				newHA.SetGraphs(newGraph, this);
 
-				cout<<"ha cost: "<<newHA.hCost<<endl;
-				cout<<FGRN(BOLD("********** Hierarchical Graph: Ended *********** "))<<endl;
+//				cout<<"ha cost: "<<newHA.hCost<<endl;
+//				cout<<FGRN(BOLD("********** Hierarchical Graph: Ended *********** "))<<endl;
 			}
 
 
@@ -964,8 +964,8 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 		}
 	}
 
-	for(int i=0;i<graph.size();i++)
-		graph[i].printNodeInfo();
+//	for(int i=0;i<graph.size();i++)
+//		graph[i].printNodeInfo();
 
 }
 
@@ -1026,9 +1026,9 @@ string AOgraph::suggestNext(bool strategy)
 	if (suggestion =="NULL")
 		cout<<"Error: There Is Not an Active Path"<<endl;
 
-	cout<<"ENDOR suggestion: " <<endl
-			<<"Suggested path = " <<optimalPathIndex <<endl
-			<<"Suggested = " <<suggestion<<endl;
+//	cout<<"ENDOR suggestion: " <<endl
+//			<<"Suggested path = " <<optimalPathIndex <<endl
+//			<<"Suggested = " <<suggestion<<endl;
 
 	return suggestion;
 }
@@ -1180,13 +1180,17 @@ void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcV
 				// fill the output msg
 				for(int j=0;j<NEWfeasileNodeVector.size();j++)
 				{
-					cout<<"lower level graph node: "<<min_cost<<" , "<<graphHA[i]->hCost<<" , "<<NEWfeasileNodeVector[j].nodeCost<<" ."<<endl;
+//					int cost1=NEWfeasileNodeVector[j].nodeCost;
+//					cout<<"test: "<<NEWfeasileNodeVector.size()<<", "<<NEWfeasileNodeVector[j].nodeName<<", "<<cost1<<endl;
+
+//					cout<<"lower level graph node: "<<min_cost<<" , "<<graphHA[i]->hCost<<" , "<<NEWfeasileNodeVector[j].nodeCost<<" ."<<endl;
 					NEWfeasileNodeVector[j].nodeCost=min_cost - graphHA[i]->hCost + NEWfeasileNodeVector[j].nodeCost;
 					feasileNodeVector.push_back(NEWfeasileNodeVector[j]);
 				}
 				for(int j=0;j<NEWfeasileHyperarcVector.size();j++)
 				{
-					cout<<"lower level graph hyper-arc: "<<min_cost<<" , "<<graphHA[i]->hCost<<" , "<<NEWfeasileHyperarcVector[j].hyperarcCost<<" ."<<endl;
+//					cout<<"test: "<<NEWfeasileHyperarcVector.size()<<", "<<NEWfeasileHyperarcVector[j].hyperarcName<<", "<<NEWfeasileHyperarcVector[j].hyperarcCost<<endl;
+//					cout<<"lower level graph hyper-arc: "<<min_cost<<" , "<<graphHA[i]->hCost<<" , "<<NEWfeasileHyperarcVector[j].hyperarcCost<<" ."<<endl;
 					NEWfeasileHyperarcVector[j].hyperarcCost=min_cost - graphHA[i]->hCost + NEWfeasileHyperarcVector[j].hyperarcCost;
 					feasileHyperarcVector.push_back(NEWfeasileHyperarcVector[j]);
 				}
@@ -1237,9 +1241,9 @@ AOgraph* AOgraph::findGraph(string graphName){
 	}
 	else
 	{
-		for(int i=0;i<graphList.size();i++)
-			cout<<graphList[i]<<" , ";
-		cout<<endl;
+//		for(int i=0;i<graphList.size();i++)
+//			cout<<graphList[i]<<" , ";
+//		cout<<endl;
 		string thisLevelGraphName=graphList[0];
 		string nameHyperarc=graphList[1];
 //		HyperArc* tempHA=this->findByNameHyperarc(nameHyperarc);
@@ -1248,35 +1252,35 @@ AOgraph* AOgraph::findGraph(string graphName){
 		for(int i=1;i<=graphList.size();)
 		{
 
-			cout<<"********* "<<gName<<",1 , "<<i<<"): "<<thisLevelGraphName<<" , "<<gName<<endl;
+//			cout<<"********* "<<gName<<",1 , "<<i<<"): "<<thisLevelGraphName<<" , "<<gName<<endl;
 
 			if(thisLevelGraphName==gName)
 			{
-				cout<<gName<<",2 ,"<<endl;
+//				cout<<gName<<",2 ,"<<endl;
 				if(i==graphList.size())
 				{
-					cout<<gName<<",3 ,"<<endl;
+//					cout<<gName<<",3 ,"<<endl;
 					tempGraph=this;
 				}
 				else
 				{
 					// the graph we are looking for is in lower level than the current level
-					cout<<gName<<",4 ,"<<endl;
+//					cout<<gName<<",4 ,"<<endl;
 					nameHyperarc=graphList[i];
 					HyperArc* tempHA=this->findByNameHyperarc(nameHyperarc);
-					cout<<gName<<",5 ,"<<endl;
+//					cout<<gName<<",5 ,"<<endl;
 					tempGraph=tempHA->lowerGraph->findGraph(graphName);
-					cout<<gName<<",6 ,"<<endl;
+//					cout<<gName<<",6 ,"<<endl;
 				}
-				cout<<gName<<",7 ,"<<endl;
+//				cout<<gName<<",7 ,"<<endl;
 				break;
 			}
 			thisLevelGraphName+=":"+graphList[i]+":"+graphList[i+1];
 			int z;
-			cout<<"++ to kill the process enter 1: "<<endl;
-			cin>>z;
-			if(z==1)
-				exit(0);
+//			cout<<"++ to kill the process enter 1: "<<endl;
+//			cin>>z;
+//			if(z==1)
+//				exit(0);
 
 			i=i+2;
 		}
