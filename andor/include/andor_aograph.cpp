@@ -1178,15 +1178,17 @@ void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcV
 				graphHA[i]->lowerGraph->getFeasibleHyperarc(NEWfeasileHyperarcVector, NEWfeasileNodeVector);
 
 				// fill the output msg
-				for(int i=0;i<NEWfeasileNodeVector.size();i++)
+				for(int j=0;j<NEWfeasileNodeVector.size();j++)
 				{
-					NEWfeasileNodeVector[i].nodeCost=min_cost - graphHA[i]->hCost + NEWfeasileNodeVector[i].nodeCost;
-					feasileNodeVector.push_back(NEWfeasileNodeVector[i]);
+					cout<<"lower level graph node: "<<min_cost<<" , "<<graphHA[i]->hCost<<" , "<<NEWfeasileNodeVector[j].nodeCost<<" ."<<endl;
+					NEWfeasileNodeVector[j].nodeCost=min_cost - graphHA[i]->hCost + NEWfeasileNodeVector[j].nodeCost;
+					feasileNodeVector.push_back(NEWfeasileNodeVector[j]);
 				}
-				for(int i=0;i<NEWfeasileHyperarcVector.size();i++)
+				for(int j=0;j<NEWfeasileHyperarcVector.size();j++)
 				{
-					NEWfeasileHyperarcVector[i].hyperarcCost=min_cost - graphHA[i]->hCost + NEWfeasileHyperarcVector[i].hyperarcCost;
-					feasileHyperarcVector.push_back(NEWfeasileHyperarcVector[i]);
+					cout<<"lower level graph hyper-arc: "<<min_cost<<" , "<<graphHA[i]->hCost<<" , "<<NEWfeasileHyperarcVector[j].hyperarcCost<<" ."<<endl;
+					NEWfeasileHyperarcVector[j].hyperarcCost=min_cost - graphHA[i]->hCost + NEWfeasileHyperarcVector[j].hyperarcCost;
+					feasileHyperarcVector.push_back(NEWfeasileHyperarcVector[j]);
 				}
 			}
 			else
@@ -1219,7 +1221,7 @@ AOgraph* AOgraph::findGraph(string graphName){
 // if there is a hierarchy, we write the hyper-arc name before the graph name.
 	// ":" is a key character here
 
-	AOgraph* tempGraph;
+	AOgraph* tempGraph=NULL;
 	string delimType=":";
 	vector<string> graphList;
 
@@ -1235,20 +1237,64 @@ AOgraph* AOgraph::findGraph(string graphName){
 	}
 	else
 	{
+		for(int i=0;i<graphList.size();i++)
+			cout<<graphList[i]<<" , ";
+		cout<<endl;
+		string thisLevelGraphName=graphList[0];
 		string nameHyperarc=graphList[1];
-		HyperArc* tempHA=this->findByNameHyperarc(graphList[1]);
-		if(tempHA->lowerGraph->gName==graphList[1])
+//		HyperArc* tempHA=this->findByNameHyperarc(nameHyperarc);
+//		tempGraph=tempHA->lowerGraph->findGraph(graphName);
+
+		for(int i=1;i<=graphList.size();)
 		{
-			string newGraphName;
-			for(int i=2;i<graphList.size();i++)
-				newGraphName+=graphList[i];
-			tempGraph=tempHA->lowerGraph->findGraph(newGraphName);
+
+			cout<<"********* "<<gName<<",1 , "<<i<<"): "<<thisLevelGraphName<<" , "<<gName<<endl;
+
+			if(thisLevelGraphName==gName)
+			{
+				cout<<gName<<",2 ,"<<endl;
+				if(i==graphList.size())
+				{
+					cout<<gName<<",3 ,"<<endl;
+					tempGraph=this;
+				}
+				else
+				{
+					// the graph we are looking for is in lower level than the current level
+					cout<<gName<<",4 ,"<<endl;
+					nameHyperarc=graphList[i];
+					HyperArc* tempHA=this->findByNameHyperarc(nameHyperarc);
+					cout<<gName<<",5 ,"<<endl;
+					tempGraph=tempHA->lowerGraph->findGraph(graphName);
+					cout<<gName<<",6 ,"<<endl;
+				}
+				cout<<gName<<",7 ,"<<endl;
+				break;
+			}
+			thisLevelGraphName+=":"+graphList[i]+":"+graphList[i+1];
+			int z;
+			cout<<"++ to kill the process enter 1: "<<endl;
+			cin>>z;
+			if(z==1)
+				exit(0);
+
+			i=i+2;
 		}
-		else
-		{
-			cout<< "the graph name given in the query and the hyper-arc graph name are not matched!"<<endl;
-			exit(1);
-		}
+
+
+//		if(tempHA->lowerGraph->gName==graphList[1])
+//		{
+//			string newGraphName;
+//			for(int i=2;i<graphList.size();i++)
+//				newGraphName+=graphList[i];
+//
+//		}
+//		else
+//		{
+////			cout<<tempHA->lowerGraph->gName<<" == "<<
+//			cout<< "the graph name given in the query and the hyper-arc graph name are not matched!"<<endl;
+//			exit(1);
+//		}
 	}
 	return tempGraph;
 };
