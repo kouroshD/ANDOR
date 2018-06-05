@@ -17,7 +17,8 @@
 
 using namespace std;
 vector<shared_ptr<AOgraph>> graphVector , OfflineGraphVector;
-
+double onlineElapse=0.0;
+ros::Publisher pub_ctrl_cmnd;
 
 bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Response &res){
 	cout<<FBLU("------------- andor receive request -------------")<<endl;
@@ -28,43 +29,47 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 	 * 4- if the head node is solved, return it is solved
 	 */
 
+	double timeNow1,timeNow2;
 	// 1- check for the graph name
+	timeNow1=ros::Time::now().toSec();
 	int gIndex=-1; //! requested graph index number in graphVector, initialize wit rnd big value
 	for (int i=0;i<graphVector.size();i++)
-		if(req.graphName==graphVector[i]->gName)
+	{
+		string GraphName=req.graphName;
+		if(GraphName==graphVector[i]->gName)
 			gIndex=i;
-
+	}
 	// if the graph not found in online graphs, search for the graph in offline ones
 
 	if (gIndex==-1){
-		cout<<FRED("Graph Name:"<<req.graphName<<" Is False, Not Found in Online or Offline Graph Vectors, Check Your Graph Name You Are Requesting")<<endl;
+		cout<<FRED("Graph Name:'"<<req.graphName<<"' Is False, Not Found in Online or Offline Graph Vectors, Check Your Graph Name You Are Requesting")<<endl;
 		return false;
 	}
 	// graph name is correct
 	else
 	{
-		cout<<FBLU("Requested graph name:")<<req.graphName<<endl;
-		cout<<200<<endl;
+//		cout<<FBLU("Requested graph name:")<<req.graphName<<endl;
+//		cout<<200<<endl;
 		if(req.solvedNodes.size()>0)
 		{
-			cout<<"solved Nodes: ";
+//			cout<<"solved Nodes: ";
 			for (int i=0; i<req.solvedNodes.size();i++)
 			{
-				cout<<req.solvedNodes[i]<<", ";
+//				cout<<req.solvedNodes[i]<<", ";
 				graphVector[gIndex]->solveByNameNode(req.solvedNodes[i].graphName, req.solvedNodes[i].nodeName);
 			}
-			cout<<endl;
+//			cout<<endl;
 
 		}
 		if(req.solvedHyperarc.size()>0)
 		{
-			cout<<"solved Hyper-arcs: ";
+//			cout<<"solved Hyper-arcs: ";
 			for (int i=0; i<req.solvedHyperarc.size();i++)
 			{
-				cout<<req.solvedHyperarc[i]<<", ";
+//				cout<<req.solvedHyperarc[i]<<", ";
 				graphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i].graphName,req.solvedHyperarc[i].hyperarcName);
 			}
-			cout<<endl;
+//			cout<<endl;
 
 		}
 		if (graphVector[gIndex]->isGraphSolved())
@@ -73,6 +78,14 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			vector<shared_ptr<AOgraph>>::iterator it =graphVector.begin()+gIndex;
 			graphVector.erase(it);
 			res.graphSolved=true;
+			timeNow2=ros::Time::now().toSec();
+			onlineElapse+=timeNow2-timeNow1;
+			cout<<"online time: "<<onlineElapse<<endl;
+
+			std_msgs::String msgData;
+			msgData.data="Test_DONE";
+
+			pub_ctrl_cmnd.publish(msgData);
 		}
 		else
 		{
@@ -83,23 +96,30 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			graphVector[gIndex]->getFeasibleNode(feasileNodeVector);
 			graphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector, feasileNodeVector);
 
-			cout<<"feasile Hyper-arcs: ";
-			for(int i=0;i<feasileHyperarcVector.size();i++)
-				cout<<feasileHyperarcVector[i].hyperarcName<<", ";
-			cout<<endl;
-
-			cout<<"feasile Nodes: ";
-			for(int i=0;i<feasileNodeVector.size();i++)
-				cout<<feasileNodeVector[i].nodeName<<", ";
-			cout<<endl;
 
 			for(int i=0;i<feasileHyperarcVector.size();i++)
 				res.feasibleHyperarcs.push_back(feasileHyperarcVector[i]);
 			for(int i=0;i<feasileNodeVector.size();i++)
 				res.feasibleNodes.push_back(feasileNodeVector[i]);
+
+			timeNow2=ros::Time::now().toSec();
+			onlineElapse+=timeNow2-timeNow1;
+
+
+//			cout<<"feasile Hyper-arcs: ";
+//			for(int i=0;i<feasileHyperarcVector.size();i++)
+//				cout<<feasileHyperarcVector[i].hyperarcName<<", ";
+//			cout<<endl;
+//
+//			cout<<"feasile Nodes: ";
+//			for(int i=0;i<feasileNodeVector.size();i++)
+//				cout<<feasileNodeVector[i].nodeName<<", ";
+//			cout<<endl;
+
 		}
 
 	}
+
 	return true;
 }
 
@@ -108,6 +128,10 @@ int main(int argc, char **argv)
 {
 	ros::init(argc, argv, "andor");
 	ros::NodeHandle nh;
+
+
+
+	pub_ctrl_cmnd=nh.advertise<std_msgs::String>("andorTester",80);
 
 	string name = "TableAssembly";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
@@ -121,22 +145,28 @@ int main(int argc, char **argv)
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/hierarchicalGraphTest/";
 //	andorName="pencil_assembly_herarchical";
 
-	double timeNow1,timeNow2;
+	double timeNow1,timeNow2, offlineElapse;
 	timeNow1=ros::Time::now().toSec();
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly2/";
 //	andorName="TableAssembly_2";
 //	andorName="TableAssembly_hierarchical";
 
 
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/Tablewith6Legs/";
-//	andorName="TableAssembly";
-	andorName="TableAssembly_hierarchical";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-TableAssembly/8Leg/";
+	andorName="TableAssembly";
+//	andorName="TableAssembly_hierarchical";
 
 
 //	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
 	graphVector.back()->loadFromFile(andor_path,andorName);
 
 	timeNow2=ros::Time::now().toSec();
+	offlineElapse=timeNow2-timeNow1;
+
+	std_msgs::String msgData;
+	msgData.data="RUN_TESTER";
+//	ROS_INFO("publish msg: %s",msgData.data.c_str());
+
 
 //	name = "Reach_Leg1_Plate_connected";
 //	graphVector.emplace_back(make_shared <AOgraph>(name));
@@ -169,10 +199,21 @@ int main(int argc, char **argv)
 	cout << FGRN(BOLD("*****************")) << endl;
 	cout<<FGRN(BOLD("Graphs Name: "));
 	for(int i=0;i<graphVector.size();i++)
-		cout<<graphVector[i]->gName<<", ";
+		cout<<graphVector[i]->gName<<" , ";
 	cout<<endl;
-	cout<<"andor offline phase time elapse: "<<timeNow2-timeNow1<<" sec"<<endl;
+	cout<<"andor offline phase time elapse: "<<offlineElapse<<" sec"<<endl;
 	cout << FGRN(BOLD("AND/OR graph is alive: ")) << endl;
+
+	int count=0;
+	ros::Rate loop_rate(10);
+	while(ros::ok() && count<10)
+	{
+		if (count==8)
+			pub_ctrl_cmnd.publish(msgData);
+		count++;
+		ros::spinOnce();
+		loop_rate.sleep();
+	}
 
 	ros::spin();
 	return 1;

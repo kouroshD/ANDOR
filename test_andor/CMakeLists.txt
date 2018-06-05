@@ -24,6 +24,8 @@ find_package(catkin REQUIRED COMPONENTS
   andor_msgs
 
 )
+catkin_python_setup()
+
 include_directories(
 	INCLUDE_DIRS
 	include/
@@ -50,14 +52,27 @@ include_directories(
 ## Declare a C++ executable
 # name  name.cpp
 add_executable(test_andor src/test_andor.cpp )
+add_executable(random_test_andor src/random_test_andor.cpp )
+
 
 #add_dependencies(andor_aograph andor_msgs_generate_messages_cpp)
 
 add_dependencies(test_andor geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp) #baxter_core_msgs_generate_messages_cpp  
+add_dependencies(random_test_andor geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp) #baxter_core_msgs_generate_messages_cpp
 ## Specify libraries to link a library or executable target against
 target_link_libraries(test_andor
    ${catkin_LIBRARIES}
 #andor_aonode
 #andor_aograph
  )
+
+target_link_libraries(random_test_andor
+   ${catkin_LIBRARIES}
+#andor_aonode
+#andor_aograph
+ )
+
 #target_link_libraries(andor_aograph andor_aonode)
+catkin_install_python(PROGRAMS scripts/randomTest_runner.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
