@@ -1,9 +1,11 @@
 //===============================================================================//
-// Name			: aograph.h
-// Author(s)	: Kourosh Darvish, Barbara Bruno, Yeshasvi Tirupachuri V.S.
-// Affiliation	: University of Genova, Italy - dept. DIBRIS
-// Description	: AND-OR graph
+// Name			 :  andor_aograph.h
+// Author(s)	 :  Kourosh Darvish
+// Affiliation   :  University of Genoa, Italy - dept. DIBRIS
+// Version		 :  Hierarchical
+// Description   :  AND/OR graph
 //===============================================================================//
+
 
 #ifndef AOGRAPH_H
 #define AOGRAPH_H
@@ -130,15 +132,15 @@ class AOgraph
         int findNextOptimalPath(int previousOptimalPathIndex);
     
     public:
-        string gName;           //!< name of the graph
-        vector<AOnode> graph;   //!< set of nodes in the AND-OR graph
-        vector<HyperArc*> graphHA;//!< set of hyper-arcs in the AND-OR graph
-        HyperArc* upperLevelHyperarc; //! in case of hierarchical and/or graph, from a graph we can go the upper level hyper-arc.
-        AOnode* head;           //!< pointer to the node = final assembly
-        vector<Path> paths;     //!< set of paths in the AND-OR graph
-        vector<int> pIndices;   //!< indices of the updated paths
-        vector<int> pUpdate;    //!< costs subtracted to the updated paths
-        vector<string> Nodes_solved_infeasible; //! Nodes that become infeasible when an hyper-arc is solved
+        string gName;           		//!< name of the graph
+        vector<AOnode> graph;   		//!< set of nodes in the AND-OR graph
+        vector<HyperArc*> graphHA;		//!< set of hyper-arcs in the AND-OR graph
+        HyperArc* upperLevelHyperarc; 	//!< in case of hierarchical and/or graph, from a graph we can go the upper level hyper-arc.
+        AOnode* head;           		//!< pointer to the node = final assembly
+        vector<Path> paths;     		//!< set of paths in the AND-OR graph
+        vector<int> pIndices;   		//!< indices of the updated paths
+        vector<int> pUpdate;    		//!< costs subtracted to the updated paths
+        vector<string> Nodes_solved_infeasible; //!< Nodes that become infeasible when an hyper-arc is solved
         
         //! constructor
 		AOgraph(string name);

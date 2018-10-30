@@ -1,6 +1,6 @@
 //===============================================================================//
-// Name			: aonode.cpp
-// Author(s)	: Barbara Bruno, Yeshasvi Tirupachuri V.S.
+// Name			: andor_aonode.cpp
+// Author(s)	: Kourosh Darvish, Barbara Bruno
 // Affiliation	: University of Genova, Italy - dept. DIBRIS
 // Description	: Generic node element of an AND-OR graph
 //===============================================================================//
@@ -88,6 +88,7 @@ void HyperArc::printArcInfo()
 }
 
 //! set the hyper-arc as solved
+//! @param[in] Nodes_solved_infeasible    	set of nodes that become infeasible when an hyper-arc is solved
 //! @return result of the operation (true = done, false = not done)
 bool HyperArc::setSolved(vector<string> &Nodes_solved_infeasible)
 {

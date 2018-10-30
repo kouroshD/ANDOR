@@ -1,9 +1,9 @@
 //===============================================================================//
-// Name			   : andor_main.cpp
-// Author(s)	 :  Kourosh.darvish@edu.unige.it
-// Affiliation : University of Genova, Italy - dept. DIBRIS
-// Version		 : 1.0
-// Description : Main program using the AND-OR graph library
+// Name			 :  andor_main.cpp
+// Author(s)	 :  Kourosh Darvish
+// Affiliation   :  University of Genoa, Italy - dept. DIBRIS
+// Version		 :  Hierarchical
+// Description   : Main program using the AND-OR graph
 //===============================================================================//
 
 #include <iostream>
@@ -16,7 +16,7 @@
 #include <boost/shared_ptr.hpp>
 
 using namespace std;
-vector<shared_ptr<AOgraph>> graphVector , OfflineGraphVector;
+vector<shared_ptr<AOgraph>> graphVector;// , OfflineGraphVector;
 double onlineElapse=0.0;
 ros::Publisher pub_ctrl_cmnd;
 
@@ -24,52 +24,44 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 	cout<<FBLU("------------- andor receive request -------------")<<endl;
 	/*! when arrive a request:
 	 * 1- check for the graph name, if it is not valid, return and error
-	 * 2- if it is empty the solved nodes or hyper-arcs, respond by the feasible nodes and hyper-arcs
-	 * 3- if a node or hyper-arc is solved, update the graph, and respond the feasible nodes/hyper-arcs
-	 * 4- if the head node is solved, return it is solved
+	 * 2- if the solved nodes or hyper-arcs set is empty, it responds the query by the feasible nodes/hyper-arcs and costs pair sets
+	 * 3- if a node or hyper-arc is solved, it updates the graph, and responds the query by the feasible nodes/hyper-arcs and costs pair sets
+	 * 4- if the root node is solved, respond by setting the graphSolved=true
 	 */
 
 	double timeNow1,timeNow2;
 	// 1- check for the graph name
 	timeNow1=ros::Time::now().toSec();
-	int gIndex=-1; //! requested graph index number in graphVector, initialize wit rnd big value
+	int gIndex=-1; //! requested graph index number in graphVector, initialize wit random big value
 	for (int i=0;i<graphVector.size();i++)
 	{
 		string GraphName=req.graphName;
 		if(GraphName==graphVector[i]->gName)
 			gIndex=i;
 	}
-	// if the graph not found in online graphs, search for the graph in offline ones
+	// Check if the graph name which is coming from the query is correct
 
 	if (gIndex==-1){
 		cout<<FRED("Graph Name:'"<<req.graphName<<"' Is False, Not Found in Online or Offline Graph Vectors, Check Your Graph Name You Are Requesting")<<endl;
 		return false;
 	}
-	// graph name is correct
+	// graph name is correct!
 	else
 	{
-//		cout<<FBLU("Requested graph name:")<<req.graphName<<endl;
-//		cout<<200<<endl;
 		if(req.solvedNodes.size()>0)
 		{
-//			cout<<"solved Nodes: ";
 			for (int i=0; i<req.solvedNodes.size();i++)
 			{
-//				cout<<req.solvedNodes[i]<<", ";
 				graphVector[gIndex]->solveByNameNode(req.solvedNodes[i].graphName, req.solvedNodes[i].nodeName);
 			}
-//			cout<<endl;
 
 		}
 		if(req.solvedHyperarc.size()>0)
 		{
-//			cout<<"solved Hyper-arcs: ";
 			for (int i=0; i<req.solvedHyperarc.size();i++)
 			{
-//				cout<<req.solvedHyperarc[i]<<", ";
 				graphVector[gIndex]->solveByNameHyperarc(req.solvedHyperarc[i].graphName,req.solvedHyperarc[i].hyperarcName);
 			}
-//			cout<<endl;
 
 		}
 		if (graphVector[gIndex]->isGraphSolved())
@@ -96,7 +88,6 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 			graphVector[gIndex]->getFeasibleNode(feasileNodeVector);
 			graphVector[gIndex]->getFeasibleHyperarc(feasileHyperarcVector, feasileNodeVector);
 
-
 			for(int i=0;i<feasileHyperarcVector.size();i++)
 				res.feasibleHyperarcs.push_back(feasileHyperarcVector[i]);
 			for(int i=0;i<feasileNodeVector.size();i++)
@@ -104,17 +95,6 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 
 			timeNow2=ros::Time::now().toSec();
 			onlineElapse+=timeNow2-timeNow1;
-
-
-//			cout<<"feasile Hyper-arcs: ";
-//			for(int i=0;i<feasileHyperarcVector.size();i++)
-//				cout<<feasileHyperarcVector[i].hyperarcName<<", ";
-//			cout<<endl;
-//
-//			cout<<"feasile Nodes: ";
-//			for(int i=0;i<feasileNodeVector.size();i++)
-//				cout<<feasileNodeVector[i].nodeName<<", ";
-//			cout<<endl;
 
 		}
 
@@ -124,11 +104,16 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 }
 
 
+/*!
+ * andor graph service name is "andorService"
+ *
+ *
+ * */
+
 int main(int argc, char **argv)
 {
 	ros::init(argc, argv, "andor");
 	ros::NodeHandle nh;
-
 
 
 	pub_ctrl_cmnd=nh.advertise<std_msgs::String>("andorTester",80);
@@ -136,28 +121,35 @@ int main(int argc, char **argv)
 	string name = "TableAssembly";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
-	string andor_path(home), andorName;
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssemblyFull3.txt";
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/Normal_TableAssembly/TableAssembly.txt";
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/2_Hierarchical_TableAssembly/";
-//	andorName="TableAssembly";
+	string andor_path(home), andorName; /*!< The path and the name of the uploaded AND/Or graph*/
 
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/hierarchicalGraphTest/";
-//	andorName="pencil_assembly_herarchical";
 
 	double timeNow1,timeNow2, offlineElapse;
 	timeNow1=ros::Time::now().toSec();
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly2/";
-//	andorName="TableAssembly_2";
-//	andorName="TableAssembly_hierarchical";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly2/";
+	andorName="TableAssembly_2";
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssemblyFull3.txt";
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/Normal_TableAssembly/TableAssembly.txt";
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/2_Hierarchical_TableAssembly/";
+	//	andorName="TableAssembly";
+
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/hierarchicalGraphTest/";
+	//	andorName="pencil_assembly_herarchical";
 
 
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-TableAssembly/8Leg/";
-	andorName="TableAssembly";
-//	andorName="TableAssembly_hierarchical";
+	//	andorName="TableAssembly_hierarchical";
 
 
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-TableAssembly/10Leg/";
+	//  andorName="TableAssembly";
+	//	andorName="TableAssembly_hierarchical";
+
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-BallBoxPlacement/";
+	//	andorName="PL_BallPlacement";
+	//	andorName="FOL_BallPlacment";
+
+
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
 	graphVector.back()->loadFromFile(andor_path,andorName);
 
 	timeNow2=ros::Time::now().toSec();
@@ -165,32 +157,32 @@ int main(int argc, char **argv)
 
 	std_msgs::String msgData;
 	msgData.data="RUN_TESTER";
-//	ROS_INFO("publish msg: %s",msgData.data.c_str());
+	//	ROS_INFO("publish msg: %s",msgData.data.c_str());
 
 
-//	name = "Reach_Leg1_Plate_connected";
-//	graphVector.emplace_back(make_shared <AOgraph>(name));
-//	andor_path=home;
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg1PlateConnected.txt";
-//	graphVector.back()->loadFromFile(andor_path);
+	//	name = "Reach_Leg1_Plate_connected";
+	//	graphVector.emplace_back(make_shared <AOgraph>(name));
+	//	andor_path=home;
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg1PlateConnected.txt";
+	//	graphVector.back()->loadFromFile(andor_path);
 
-//	name = "Reach_Leg2_Plate_connected";
-//	graphVector.emplace_back(make_shared <AOgraph>(name));
-//	andor_path=home;
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg2PlateConnected.txt";
-//	graphVector.back()->loadFromFile(andor_path);
-//
-//	name = "Reach_Leg3_Plate_connected";
-//	graphVector.emplace_back(make_shared <AOgraph>(name));
-//	andor_path=home;
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg3PlateConnected.txt";
-//	graphVector.back()->loadFromFile(andor_path);
-//
-//	name = "Reach_Leg4_Plate_connected";
-//	graphVector.emplace_back(make_shared <AOgraph>(name));
-//	andor_path=home;
-//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg4PlateConnected.txt";
-//	graphVector.back()->loadFromFile(andor_path);
+	//	name = "Reach_Leg2_Plate_connected";
+	//	graphVector.emplace_back(make_shared <AOgraph>(name));
+	//	andor_path=home;
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg2PlateConnected.txt";
+	//	graphVector.back()->loadFromFile(andor_path);
+	//
+	//	name = "Reach_Leg3_Plate_connected";
+	//	graphVector.emplace_back(make_shared <AOgraph>(name));
+	//	andor_path=home;
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg3PlateConnected.txt";
+	//	graphVector.back()->loadFromFile(andor_path);
+	//
+	//	name = "Reach_Leg4_Plate_connected";
+	//	graphVector.emplace_back(make_shared <AOgraph>(name));
+	//	andor_path=home;
+	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssembly_Hierarchical/TableAssembly_Leg4PlateConnected.txt";
+	//	graphVector.back()->loadFromFile(andor_path);
 
 
 
