@@ -1,6 +1,6 @@
 //===============================================================================//
 // Name			 :  andor_aograph.cpp
-// Author(s)	 :  Kourosh Darvish
+// Author(s)	 :  Kourosh Darvish, Barbara Bruno, Yeshasvi Tirupachuri V.S.
 // Affiliation   :  University of Genoa, Italy - dept. DIBRIS
 // Version		 :  Hierarchical
 // Description   :  AND/OR graph
@@ -155,7 +155,7 @@ string Path::suggestNode()
 	for (int i = (int)pathNodes.size()-1; i > -1; i--)
 	{
 		bool harcIsInPath=false;
-		// rationale for the suggestion:
+		// rationale:
 		// 1. move along the path from the leaves to the head
 		// 2. choose the first feasible & not-solved node
 		if (checkedNodes[i] == false)
@@ -216,6 +216,9 @@ void AOgraph::addNode(string nameNode, int cost)
 	// add it to the set of nodes in the graph
 	graph.push_back(toAdd);
 }
+
+//! add a hyper-arc in the graph
+//! @param[in] Hyper-arc    a Hyper-arc
 void AOgraph::addHyperarc(HyperArc* hyperarc)
 {
 	// create the node
@@ -286,15 +289,17 @@ void AOgraph::updateFeasibility()
 			graph[i].arcs[j].isFeasible();
 }
 
-
+//! update the feasibility status of hyper-arcs in the graph
+//! to DEL
 void AOgraph::updateHyperarcFeasibility()
 {
 	for (int i=0; i< (int)graph.size(); i++)
 		graph[i].isFeasible(Nodes_solved_infeasible);
 }
-//! compute the cost to add to a path
+
+//! compute the cost to add to a path: The adding cost equals to the node cost + the child hyper-arc cost with 'hIndex'
 //! @param[in] node     reference to the node to use for cost computation
-//! @param[in] hIndex   index of the node's hyperarc to use for cost computation
+//! @param[in] hIndex   index of the node's child hyperarc to use for cost computation
 //! @return             cost to add to a path
 int AOgraph::computeAddCost(AOnode &node, int hIndex)
 {
@@ -470,10 +475,11 @@ void AOgraph::setupGraph()
 	suggestNext(true);
 }
 
-//! find the hyperarc connecting a parent to a child node
-//! @param[in] parent   reference to the parent node
-//! @param[in] child    reference to the child node
-//! @return             index of the hyperarc connecting the parent to the child
+//! find the hyperarc connecting a parent node to a child nodes
+//! @param[in] parent   	reference to the parent node
+//! @param[in] child    	reference to the child node
+//! @param[in] pathIndex	the path index value
+//! @return             	index of the hyperarc connecting the parent to the child
 HyperArc* AOgraph::findHyperarc(AOnode &parent, AOnode &child, int pathIndex)
 {
 	HyperArc* temp = NULL;
@@ -511,7 +517,7 @@ HyperArc* AOgraph::findHyperarc(AOnode &parent, AOnode &child, int pathIndex)
 	return temp;
 }
 
-//! compute the overall update cost (intermediate step to update the path cost)
+//! compute the overall updating cost (intermediate step to update the path cost)
 //! @param[in] node     reference to the node to use for cost computation
 //! @return             overall update cost (to subtract from the path cost)
 int AOgraph::computeOverallUpdate(AOnode &node)
@@ -649,7 +655,7 @@ void AOgraph::updatePaths(AOnode &solved)
 }
 
 //! update the path information (when a node is met)
-//! @param[AOnode] solved	the reference to the node object which is met
+//! @param[in] solved	the reference to the node object which is met
 void AOgraph::updatePaths_NodeSolved(AOnode &solved)
 {
 	pIndices.clear();
@@ -670,7 +676,7 @@ void AOgraph::updatePaths_NodeSolved(AOnode &solved)
 }
 
 //! update the path information (when a hyper-arc is solved)
-//! @param[HyperArc] solved     the reference to the hyper-arc object which is solved
+//! @param[in] solved     the reference to the hyper-arc object which is solved
 void AOgraph::updatePaths_HyperarcSolved(HyperArc &solved)
 {
 	pIndices.clear();
@@ -728,6 +734,7 @@ int AOgraph::findOptimalPath()
 	return index;
 }
 
+//! write a brief description
 int AOgraph::findNextOptimalPath(int previousOptimalPathIndex){
 
 	// raise an error if there are no paths
@@ -903,6 +910,7 @@ void AOgraph::printGraphInfo()
 //! suggests the node to solve
 //! @param[in] strategy     "0" = short-sighted, "1" = long-sighted (optimal)
 //! @return                 name of the suggested node
+//! to DEL
 string AOgraph::suggestNext(bool strategy)
 {
 	// issue a warning if the graph has been solved already
@@ -953,7 +961,7 @@ string AOgraph::suggestNext(bool strategy)
 }
 
 //! meets a node, finding it by the node name and the graph name which contains the node
-//! @param[in] graphName    name of the graph which contains the node
+//! @param[in] graphName   name of the graph which contains the node
 //! @param[in] nameNode    name of the node
 void AOgraph::solveByNameNode(string graphName,string nameNode)
 {
@@ -1008,7 +1016,8 @@ void AOgraph::solveByNameHyperarc(string graphName,string nameHyperarc)
 }
 
 //! finds all the feasible nodes and their costs
-//! @param[in] feasileNodeVector    	the reference to the set of the feasible nodes (in the current graph level), the containing graph name, and the cost in hierarchical AND/OR graph
+//! @param[in] feasileNodeVector	the reference to the set of the feasible nodes, the containing graph name, and the cost in hierarchical AND/OR graph
+//! this function only returns only the feasible nodes in the current graph level, for the lower level and/or graph feasible nodes, we use getFeasibleHyperarc method.
 void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 {
 	// the node cost we return is the minimum path cost passing through the node of a path,
@@ -1043,9 +1052,9 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 	}
 }
 
-//! finds all the feasible hyper-arcs and their costs
-//! @param[in] feasileHyperarcVector   	the reference to the set of all the feasible hyper-arcs, the containing graph name, and the cost in hierarchical AND/OR graph
-//! @param[in] feasileNodeVector    	the reference to the set of all the feasible nodes (from the lower level graphs), the containing graph name, and the cost in hierarchical AND/OR graph
+//! Finds all the feasible hyper-arcs and their costs
+//! @param[in] feasileHyperarcVector   	the reference to the set of all the feasible hyper-arcs, their containing graph name, and the cost in hierarchical AND/OR graph
+//! @param[in] feasileNodeVector    	the reference to the set of all the feasible nodes (from the lower level graphs), their containing graph name, and the cost in hierarchical AND/OR graph
 void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcVector, vector<andor_msgs::Node> &feasileNodeVector)
 {
 	//! return the hyperarcs that are feasible but not solved
@@ -1113,6 +1122,7 @@ void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcV
 	}
 }
 
+//! checks if an AND/OR graph is solved
 bool AOgraph::isGraphSolved(){
 
 	return head->nSolved;

@@ -1,6 +1,6 @@
 //===============================================================================//
 // Name			: andor_aonode.cpp
-// Author(s)	: Kourosh Darvish, Barbara Bruno
+// Author(s)	: Kourosh Darvish, Barbara Bruno, Yeshasvi Tirupachuri V.S.
 // Affiliation	: University of Genova, Italy - dept. DIBRIS
 // Description	: Generic node element of an AND-OR graph
 //===============================================================================//

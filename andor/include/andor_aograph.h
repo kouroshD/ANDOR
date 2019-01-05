@@ -1,6 +1,6 @@
 //===============================================================================//
 // Name			 :  andor_aograph.h
-// Author(s)	 :  Kourosh Darvish
+// Author(s)	 :  Kourosh Darvish, Barbara Bruno, Yeshasvi Tirupachuri V.S.
 // Affiliation   :  University of Genoa, Italy - dept. DIBRIS
 // Version		 :  Hierarchical
 // Description   :  AND/OR graph

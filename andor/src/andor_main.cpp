@@ -1,10 +1,12 @@
-//===============================================================================//
-// Name			 :  andor_main.cpp
-// Author(s)	 :  Kourosh Darvish
-// Affiliation   :  University of Genoa, Italy - dept. DIBRIS
-// Version		 :  Hierarchical
-// Description   : Main program using the AND-OR graph
-//===============================================================================//
+/*!
+ *===============================================================================//
+ * Name			 :  andor_main.cpp
+ * Author(s)	 :  Kourosh Darvish
+ * Affiliation   :  University of Genoa, Italy - dept. DIBRIS
+ * Version		 :  Hierarchical, First-Order-Logic, and Standard AND/OR graph
+ * Description   : Main program using the AND-OR graph
+ *===============================================================================//
+*/
 
 #include <iostream>
 #include <ros/ros.h>
@@ -121,13 +123,15 @@ int main(int argc, char **argv)
 	string name = "TableAssembly";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
-	string andor_path(home), andorName; /*!< The path and the name of the uploaded AND/Or graph*/
+	string andor_path(home), andorName;
 
 
 	double timeNow1,timeNow2, offlineElapse;
+
 	timeNow1=ros::Time::now().toSec();
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly2/";
-	andorName="TableAssembly_2";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly2/"; //!< The path to the uploaded AND/OR graph
+	andorName="TableAssembly_2";//!< The name of the uploaded AND/OR graph
+
 	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssemblyFull3.txt";
 	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/Normal_TableAssembly/TableAssembly.txt";
 	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/2_Hierarchical_TableAssembly/";
@@ -155,11 +159,6 @@ int main(int argc, char **argv)
 	timeNow2=ros::Time::now().toSec();
 	offlineElapse=timeNow2-timeNow1;
 
-	std_msgs::String msgData;
-	msgData.data="RUN_TESTER";
-	//	ROS_INFO("publish msg: %s",msgData.data.c_str());
-
-
 	//	name = "Reach_Leg1_Plate_connected";
 	//	graphVector.emplace_back(make_shared <AOgraph>(name));
 	//	andor_path=home;
@@ -185,6 +184,9 @@ int main(int argc, char **argv)
 	//	graphVector.back()->loadFromFile(andor_path);
 
 
+	std_msgs::String msgData;
+	msgData.data="RUN_TESTER";
+	//	ROS_INFO("publish msg: %s",msgData.data.c_str());
 
 	ros::ServiceServer service = nh.advertiseService("andorService",updateANDOR);
 
