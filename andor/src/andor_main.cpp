@@ -107,7 +107,7 @@ bool updateANDOR(andor_msgs::andorSRV::Request &req, andor_msgs::andorSRV::Respo
 
 
 /*!
- * andor graph service name is "andorService"
+ * Andor graph service name is "andorService"
  *
  *
  * */
@@ -132,17 +132,7 @@ int main(int argc, char **argv)
 	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly2/"; //!< The path to the uploaded AND/OR graph
 	andorName="TableAssembly_2";//!< The name of the uploaded AND/OR graph
 
-	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly/TableAssemblyFull3.txt";
-	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/Normal_TableAssembly/TableAssembly.txt";
-	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/iros2018/2_Hierarchical_TableAssembly/";
-	//	andorName="TableAssembly";
-
-	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/hierarchicalGraphTest/";
-	//	andorName="pencil_assembly_herarchical";
-
-
 	//	andorName="TableAssembly_hierarchical";
-
 
 	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-TableAssembly/10Leg/";
 	//  andorName="TableAssembly";
@@ -151,7 +141,6 @@ int main(int argc, char **argv)
 	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-BallBoxPlacement/";
 	//	andorName="PL_BallPlacement";
 	//	andorName="FOL_BallPlacment";
-
 
 	//	andor_path+="/catkin_ws/src/ANDOR/andor/files/TableAssembly.txt";
 	graphVector.back()->loadFromFile(andor_path,andorName);
