@@ -5,12 +5,12 @@ This module is developed mainly for represeting the robot tasks, but it is not l
 a ros service mdoule for the Task Representation.
 
 # Contents
- - [:orange_book: The general idea](#general-idea)
- - [:hammer: Dependencies & build](#dependencies-build)
- - [:running: Using the software](#use-software)
- - [:nerd_face: Mantainers](#maintainer)
- - [:page_facing_up: References](#references)
- - [:unlock: License](#license)
+ - [:orange_book: The general idea](#orange_book-the-general-idea)
+ - [:hammer: Dependencies & build](#hammer-dependencies-build)
+ - [:running: Using the software](#unning-using-the-software)
+ - [:nerd_face: Mantainers](#nerd_face-mantainers)
+ - [:page_facing_up: References](#rpage_facing_up-references)
+ - [:unlock: License](#unlock-license)
  
 # :orange_book: The general idea
 
