@@ -4,9 +4,9 @@ This is the repository for Hierarchical AND/OR grapph. Using that, you can a eas
 This module is developed mainly for represeting the robot tasks, but it is not limited to that. The user can easily embed the AND/OR graph in any middleware; in our case we provide an example how to embeds in [ROS](http://www.ros.org/).  
 a ros service mdoule for the Task Representation.
 
-# Overview
+# Contents
  - [:orange_book: The general idea](#general-idea)
- - [:hammer: Dependencies & Build](#dependencies-build)
+ - [:hammer: Dependencies & build](#dependencies-build)
  - [:running: Using the software](#use-software)
  - [:nerd_face: Mantainers](#maintainer)
  - [:page_facing_up: References](#references)
