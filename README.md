@@ -1,15 +1,33 @@
-# ANDOR graph modules
+# Hierarchical AND/OR Graph
 
-ANDOR:  a ros service mdoule for the Task Representation.
+This is the repository for Hierarchical AND/OR grapph. Using that, you can a easily represent a custom task to follow.
+This module is developed mainly for represeting the robot tasks, but it is not limited to that. The user can easily embed the AND/OR graph in any middleware; in our case we provide an example how to embeds in [ROS](http://www.ros.org/).  
+a ros service mdoule for the Task Representation.
 
-The communication msg is included.
+# Overview
+ - [:orange_book: The general idea](#general-idea)
+ - [:hammer: Dependencies & Build](#dependencies-build)
+ - [:running: Using the software](#use-software)
+ - [:nerd_face: Mantainers](#maintainer)
+ - [:page_facing_up: References](#references)
+ - [:unlock: License](#license)
+ 
+# :orange_book: The general idea
 
-There are two branches for AND/OR graph:
-- master: The standard AND/OR graph, with the option to have several parallel AND/OR graphs (stable version).
-- hierarchical: The Hierarchical AND/OR graph (not stable).
 
-For more Information on the standard AND/OR graph algorithm you can check following paper:
+# :hammer: Dependencies & build
+
+
+# :running: Using the software
+
+
+# :nerd_face: Mantainers
+
+:email: kourosh.darvish@gmail.com
+
+# :page_facing_up: References
 
 [Darvish, Kourosh; Wanderlingh, Francesco; Bruno, Barbara; Simetti, Enrico; Mastrogiovanni, Fulvio; Casalino, Giuseppe "Flexible human–robot cooperation models for assisted shop-floor tasks", Journal of Mechatronics.](https://www.sciencedirect.com/science/article/pii/S0957415818300485)
 
- 
+# :unlock: License
+
