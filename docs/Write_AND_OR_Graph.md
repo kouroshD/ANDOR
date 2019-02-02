@@ -57,7 +57,7 @@ Leg2_Plate_connected
 In this description `basic_connection` is the lower level AND/OR file name which exists in the same path (folder) of the higher level AND/OR graph.
 This AND/OR graph describes how the human or the robot can cooperatively connect a leg to a plate (tabletop) using FOL AND/OR:
 
-````
+```
 ConnectLegPlate 4 Leg_Plate_Connected
 Leg_Plate_Connected 0
 Leg_initialPose 0
