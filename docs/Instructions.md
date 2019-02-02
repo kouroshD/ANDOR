@@ -5,14 +5,14 @@ To generate the AND/OR graph, we describe it with the following structure offlin
 ```ruby
 # 1st line:
 [AND/OR graph name] [No. nodes (N)] [root node name]
-#list all the nodes in the AND/OR graph:
+# List all the nodes in the AND/OR graph:
 [node_1 name] [node_1 cost]
 [node_2 name] [node_2 cost]
 ...
 ...
 ...
 [node_N name] [node_N cost]
-#After the list of nodes, list all the hyper-arcs (H  hyper-arcs):
+# After the list of nodes, list all the hyper-arcs (H  hyper-arcs):
 [hyper-arc_1 name] [No. child nodes(NC1)] [parent node name] [hyper-arc_1 cost] [hyper-arc_1 lower level graph file name]
 [1st child node name]
 ...
