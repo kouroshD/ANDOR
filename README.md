@@ -34,6 +34,13 @@ catkin_make
 
 To write an AND/OR graph description, please follow the instructions provided [here](./docs/Instructions.md).
 
+You can generate [doxygen](http://www.doxygen.nl/) documentation using follwoing command:
+```
+cd <path to your ros workspace>/andor
+
+doxygen doxygen_config
+```
+
 # :nerd_face: Mantainers
 If you have any question regarding the implementation, you can open an issue in the repo and CC the maintainer or contact directly the maintainer.
 
