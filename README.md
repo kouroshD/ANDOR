@@ -25,7 +25,7 @@ The only dependency is [ROS](http://www.ros.org/) and you can download it from [
 After installing ros, using git, clone the repo in your `src` directory of your ros workspace, or download the repo and extract it in `src` directory of your ros workspace.
 
 ```
-cd <path to your ros workspce>
+cd <path to your ros workspace>
 catkin_make
 ```
 
@@ -34,8 +34,11 @@ catkin_make
 To write an AND/OR graph description, please follow the instructions provided [here](./docs/Instructions.md).
 
 # :nerd_face: Mantainers
-Kourosh Darvish:
-:email: kourosh.darvish@edu.unige.it, kourosh.darvish@gmail.com
+If you have any question regarding the implementation, you can open an issue in the repo and CC the maintainer or contact directly the maintainer.
+
+[Kourosh Darvish](https://github.com/kouroshD)
+:email: kourosh.darvish@gmail.com
+
 # :page_facing_up: References
 
 [K. Darvish, F. Wanderlingh, B. Bruno, E. Simetti, F. Mastrogiovanni, and G. Casalino, ''Flexible human-robot cooperation models for assisted shop-floor tasks,'' Mechatronics, vol. 51, pp. 97–114, 2018.](https://www.sciencedirect.com/science/article/pii/S0957415818300485)
@@ -52,6 +55,17 @@ url = "http://www.sciencedirect.com/science/article/pii/S0957415818300485",
 author = "Kourosh Darvish and Francesco Wanderlingh and Barbara Bruno and Enrico Simetti and Fulvio Mastrogiovanni and Giuseppe Casalino",
 }
 ```
+# Further information
+
+For more information you contact the follwoing authors:
+
+[Kourosh Darvish](https://github.com/kouroshD):
+
+:email: kourosh.darvish@edu.unige.it
+
+[Fulvio Mastrogiovanni](https://www.dibris.unige.it/mastrogiovanni-fulvio):
+
+:email: fulvio.mastrogiovanni@unige.it 
 
 
 # :unlock: License
