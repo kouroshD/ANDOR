@@ -7,10 +7,6 @@
 
 #include "andor_aonode.h"
 
-//! constructor of class HyperArc
-//! @param[in] index    index of the hyperarc
-//! @param[in] nodes    set of child nodes connected via the hyperarc
-//! @param[in] cost     generic hyperarc cost
 HyperArc::HyperArc(string name, int index, vector<AOnode*> childNodes, int cost, string fatherName)
 {
 //	cout<<"HyperArc::HyperArc()"<<endl;
@@ -27,6 +23,7 @@ HyperArc::HyperArc(string name, int index, vector<AOnode*> childNodes, int cost,
 
     //DEBUG:printArcInfo();
 }
+
 void HyperArc::SetGraphs(AOgraph* newLowerGraph, AOgraph* sameLevelGraph){
 	lowerGraph=newLowerGraph;
 	includingGraph=sameLevelGraph;
@@ -72,7 +69,6 @@ void HyperArc::SetGraphs(AOgraph* newLowerGraph, AOgraph* sameLevelGraph){
 //}
 
 
-//! display hyperarc information
 void HyperArc::printArcInfo()
 {
 	cout<<"Hyperarc name: " <<hName<<endl;
@@ -87,9 +83,6 @@ void HyperArc::printArcInfo()
     cout<<endl;
 }
 
-//! set the hyper-arc as solved
-//! @param[in] Nodes_solved_infeasible    	set of nodes that become infeasible when an hyper-arc is solved
-//! @return result of the operation (true = done, false = not done)
 bool HyperArc::setSolved(vector<string> &Nodes_solved_infeasible)
 {
     // issue a warning if the hyper-arc is already solved
@@ -117,7 +110,6 @@ bool HyperArc::setSolved(vector<string> &Nodes_solved_infeasible)
 }
 
 
-//! determine whether the hyper-arc is feasible
 void HyperArc::isFeasible()
 {
 
@@ -224,10 +216,6 @@ void AOnode::addElement(NodeElement* element)
     nElement = element;
 }
 
-//! add an hyperarc to child nodes
-//! @param[in] hyperarcIndex    hyperarc index
-//! @param[in] nodes            set of child nodes connected via the hyperarc
-//! @param[in] hyperarcCost     hyperarc cost
 HyperArc& AOnode::addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> nodes, int hyperarcCost, string hyperarcFatherName)
 {
 
@@ -246,7 +234,6 @@ HyperArc& AOnode::addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*>
     return arcs.back();
 }
 
-//! display node information
 void AOnode::printNodeInfo()
 {
     cout<<endl;
@@ -274,7 +261,6 @@ void AOnode::printNodeInfo()
     }
 }
 
-//! determine whether the node is feasible
 void AOnode::isFeasible(vector<string> &Nodes_solved_infeasible)
 {
 	/*! this variable will be true, if the node is solved previously and now is not feasible*/
@@ -312,8 +298,6 @@ void AOnode::isFeasible(vector<string> &Nodes_solved_infeasible)
 	nFeasible = temp_isFeasible;
 }
 
-//! set the node as solved
-//! @return result of the operation (true = done, false = not done)
 bool AOnode::setSolved()
 {
     // issue a warning if the node is already solved

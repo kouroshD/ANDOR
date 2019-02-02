@@ -9,9 +9,6 @@
 
 #include "andor_aograph.h"
 
-//! constructor of class Path
-//! @param[in] cost 	cost of the path
-//! @param[in] index 	unique index of the path
 Path::Path(int cost, int index)
 {
 	pIndex = index;
@@ -19,10 +16,6 @@ Path::Path(int cost, int index)
 	pComplete = false;
 }
 
-
-//! copy constructor of class Path
-//! @param[in] &toBeCopied  path to be copied
-//! @param[in] index        unique index of the path
 Path::Path(const Path &toBeCopied, int index)
 {
 	pIndex = index;
@@ -34,7 +27,6 @@ Path::Path(const Path &toBeCopied, int index)
 	checkedHyperarcs=toBeCopied.checkedHyperarcs;
 }
 
-//! display path information
 void Path::printPathInfo()
 {
 	cout<<"*************************"<<endl;
@@ -59,8 +51,6 @@ void Path::printPathInfo()
 	cout<<endl;
 }
 
-//! add a node in the path
-//! @param[in] node     node to add to the path
 void Path::addNode(AOnode* node)
 {
 	// update the nodes in the path
@@ -69,12 +59,7 @@ void Path::addNode(AOnode* node)
 
 	// N.B. the cost of the path is updated when the node is met
 }
-/*
-//DEL
-//! update the path information (when a node is met)
-//! @param[in] nameNode     name of the node
-//! @param[in] cost         cost to subtract from the path cost */
-//! not using anymore
+
 void Path::updatePath(string nameNode, int cost)
 {
 	// check whether the node is in the path
@@ -91,13 +76,6 @@ void Path::updatePath(string nameNode, int cost)
 	cout<<"Updated path cost: " <<pCost <<endl;
 }
 
-
-/*
-//! update the path information (when a node is met)
-//! @param[in] nameNode     name of the node
-//! @param[in] cost         cost to subtract from the path cost
-*/
-//! not using anymore
 void Path::updatePathNode(string nameNode, int cost)
 {
 	// check whether the node is in the path
@@ -114,12 +92,6 @@ void Path::updatePathNode(string nameNode, int cost)
 	cout<<"Updated path cost: " <<pCost <<endl;
 }
 
-/*
-//! update the path information (when a hyper-arc is solved)
-//! @param[in] nameHyperarc     name of the hyper-arc
-//! @param[in] cost         	cost to subtract from the path cost
-*/
-//* not using anymore
 void Path::updatePathHyperarc(string nameHyperarc, int cost)
 {
 	//
@@ -144,8 +116,6 @@ void Path::updatePathHyperarc(string nameHyperarc, int cost)
 	//    cout<<"Updated path cost: " <<pCost <<endl;
 }
 
-//! find the feasible node to suggest
-//! @return node to suggest
 string Path::suggestNode()
 {
 
@@ -205,9 +175,6 @@ string Path::suggestNode()
 	return selection;
 }
 
-//! add a node in the graph
-//! @param[in] nameNode    name of the node
-//! @param[in] cost        generic node cost
 void AOgraph::addNode(string nameNode, int cost)
 {
 	// create the node
@@ -217,8 +184,6 @@ void AOgraph::addNode(string nameNode, int cost)
 	graph.push_back(toAdd);
 }
 
-//! add a hyper-arc in the graph
-//! @param[in] Hyper-arc    a Hyper-arc
 void AOgraph::addHyperarc(HyperArc* hyperarc)
 {
 	// create the node
@@ -228,9 +193,6 @@ void AOgraph::addHyperarc(HyperArc* hyperarc)
 	graphHA.push_back(hyperarc);
 }
 
-//! find a node by name
-//! @param[in] nameNode    name of the node
-//! @return	               pointer to the node with given name
 AOnode* AOgraph::findByName(string nameNode)
 {
 	AOnode* temp = NULL;
@@ -251,9 +213,6 @@ AOnode* AOgraph::findByName(string nameNode)
 	return temp;
 }
 
-//! find a hyper-arc by name
-//! @param[in] nameHyperarc		name of the hyper-arc
-//! @return						pointer to the hyper-arc with given name
 HyperArc* AOgraph::findByNameHyperarc(string nameHyperarc)
 {
 	HyperArc* temp = NULL;
@@ -278,7 +237,6 @@ HyperArc* AOgraph::findByNameHyperarc(string nameHyperarc)
 }
 
 
-//! update the feasibility status of the nodes and hyper-arcs in the graph
 void AOgraph::updateFeasibility()
 {
 	for (int i=0; i< (int)graph.size(); i++)
@@ -289,18 +247,12 @@ void AOgraph::updateFeasibility()
 			graph[i].arcs[j].isFeasible();
 }
 
-//! update the feasibility status of hyper-arcs in the graph
-//! to DEL
 void AOgraph::updateHyperarcFeasibility()
 {
 	for (int i=0; i< (int)graph.size(); i++)
 		graph[i].isFeasible(Nodes_solved_infeasible);
 }
 
-//! compute the cost to add to a path: The adding cost equals to the node cost + the child hyper-arc cost with 'hIndex'
-//! @param[in] node     reference to the node to use for cost computation
-//! @param[in] hIndex   index of the node's child hyperarc to use for cost computation
-//! @return             cost to add to a path
 int AOgraph::computeAddCost(AOnode &node, int hIndex)
 {
 	// 1. the cost is to be ADDED to the cost of the path
@@ -329,7 +281,6 @@ int AOgraph::computeAddCost(AOnode &node, int hIndex)
 	return cost;
 }
 
-//! generate all possible paths navigating the graph
 void AOgraph::generatePaths()
 {
 	// if the head node is NULL, there are no paths to generate
@@ -446,7 +397,6 @@ void AOgraph::generatePaths()
 	}
 }
 
-//! set up a graph
 void AOgraph::setupGraph()
 {
 	// update the feasibility status of the nodes in the graph
@@ -465,21 +415,16 @@ void AOgraph::setupGraph()
 		for (int j=0; j < (int)paths[i].checkedHyperarcs.size(); j++)
 			paths[i].checkedHyperarcs[j] = false;
 
-//	cout<<"***************************************************************"<<endl;
-//	cout<<"************************** PATH INFO **************************"<<endl;
-//	for (int i=0; i < (int)paths.size(); i++)
-//		paths[i].printPathInfo();
+	//	cout<<"***************************************************************"<<endl;
+	//	cout<<"************************** PATH INFO **************************"<<endl;
+	//	for (int i=0; i < (int)paths.size(); i++)
+	//		paths[i].printPathInfo();
 
-//	cout<<"***************************************************************"<<endl;
+	//	cout<<"***************************************************************"<<endl;
 	// identify the first suggestion to make (long-sighted strategy chosen BY DEFAULT)
 	suggestNext(true);
 }
 
-//! find the hyperarc connecting a parent node to a child nodes
-//! @param[in] parent   	reference to the parent node
-//! @param[in] child    	reference to the child node
-//! @param[in] pathIndex	the path index value
-//! @return             	index of the hyperarc connecting the parent to the child
 HyperArc* AOgraph::findHyperarc(AOnode &parent, AOnode &child, int pathIndex)
 {
 	HyperArc* temp = NULL;
@@ -517,9 +462,6 @@ HyperArc* AOgraph::findHyperarc(AOnode &parent, AOnode &child, int pathIndex)
 	return temp;
 }
 
-//! compute the overall updating cost (intermediate step to update the path cost)
-//! @param[in] node     reference to the node to use for cost computation
-//! @return             overall update cost (to subtract from the path cost)
 int AOgraph::computeOverallUpdate(AOnode &node)
 {    
 	// 1. the cost is to be SUBTRACTED from the cost of the path
@@ -563,8 +505,6 @@ int AOgraph::computeOverallUpdate(AOnode &node)
 	return cost;
 }
 
-//! update all paths (update path costs when a node is solved)
-//! @param[in] solved       reference to the solved node (to use for paths costs update)
 void AOgraph::updatePaths(AOnode &solved)
 {
 	// update the path information (cost) of EACH path as:
@@ -654,8 +594,6 @@ void AOgraph::updatePaths(AOnode &solved)
 
 }
 
-//! update the path information (when a node is met)
-//! @param[in] solved	the reference to the node object which is met
 void AOgraph::updatePaths_NodeSolved(AOnode &solved)
 {
 	pIndices.clear();
@@ -675,8 +613,6 @@ void AOgraph::updatePaths_NodeSolved(AOnode &solved)
 
 }
 
-//! update the path information (when a hyper-arc is solved)
-//! @param[in] solved     the reference to the hyper-arc object which is solved
 void AOgraph::updatePaths_HyperarcSolved(HyperArc &solved)
 {
 	pIndices.clear();
@@ -698,8 +634,6 @@ void AOgraph::updatePaths_HyperarcSolved(HyperArc &solved)
 
 }
 
-//! find the optimal path (long-sighted strategy)
-//! @return index of the optimal path (minimum cost)
 int AOgraph::findOptimalPath()
 {
 	// raise an error if there are no paths
@@ -728,13 +662,12 @@ int AOgraph::findOptimalPath()
 			index = i;
 		}
 	}
-//	cout<<"The optimal path is: " <<index <<endl;
-//	paths[index].printPathInfo();
+	//	cout<<"The optimal path is: " <<index <<endl;
+	//	paths[index].printPathInfo();
 
 	return index;
 }
 
-//! write a brief description
 int AOgraph::findNextOptimalPath(int previousOptimalPathIndex){
 
 	// raise an error if there are no paths
@@ -772,8 +705,6 @@ int AOgraph::findNextOptimalPath(int previousOptimalPathIndex){
 	return index;
 }
 
-//! constructor of class AOgraph
-//! @param[in] name 	name of the graph
 AOgraph::AOgraph(string name)
 {
 	gName = name;
@@ -782,9 +713,6 @@ AOgraph::AOgraph(string name)
 }
 
 
-//! load the graph description from a file
-//! @param[in] fileName    name of the file with the graph description
-//! @param[in] filePath    path to the file with the graph description
 void AOgraph::loadFromFile(string filePath, string fileName)
 {
 	// raise an error if the graph is not empty
@@ -895,7 +823,6 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 	}
 }
 
-//! display the graph information
 void AOgraph::printGraphInfo()
 {
 	cout<<endl;
@@ -907,10 +834,6 @@ void AOgraph::printGraphInfo()
 	cout<<endl;
 }
 
-//! suggests the node to solve
-//! @param[in] strategy     "0" = short-sighted, "1" = long-sighted (optimal)
-//! @return                 name of the suggested node
-//! to DEL
 string AOgraph::suggestNext(bool strategy)
 {
 	// issue a warning if the graph has been solved already
@@ -953,16 +876,13 @@ string AOgraph::suggestNext(bool strategy)
 	if (suggestion =="NULL")
 		cout<<"Error: There Is Not an Active Path"<<endl;
 
-//	cout<<"ENDOR suggestion: " <<endl
-//			<<"Suggested path = " <<optimalPathIndex <<endl
-//			<<"Suggested = " <<suggestion<<endl;
+	//	cout<<"ENDOR suggestion: " <<endl
+	//			<<"Suggested path = " <<optimalPathIndex <<endl
+	//			<<"Suggested = " <<suggestion<<endl;
 
 	return suggestion;
 }
 
-//! meets a node, finding it by the node name and the graph name which contains the node
-//! @param[in] graphName   name of the graph which contains the node
-//! @param[in] nameNode    name of the node
 void AOgraph::solveByNameNode(string graphName,string nameNode)
 {
 
@@ -970,14 +890,14 @@ void AOgraph::solveByNameNode(string graphName,string nameNode)
 	AOnode* solved = newGraph->findByName(nameNode);
 	bool result = solved->setSolved();
 	newGraph->updateFeasibility();
-//	printGraphInfo();
+	//	printGraphInfo();
 
 	// report that the graph has been solved if the solved node is the head node
 	if (newGraph->head->nSolved == true)
 	{
 		if(newGraph==this)
 		{
-		cout<<"[REPORT] The graph is solved (head node solved)." <<endl;
+			cout<<"[REPORT] The graph is solved (head node solved)." <<endl;
 		}
 		else
 		{
@@ -992,9 +912,6 @@ void AOgraph::solveByNameNode(string graphName,string nameNode)
 
 }
 
-//! solves a hyper-arc, finding it by the hyper-arc name and the graph name which contains the node
-//! @param[in] graphName    	name of the graph which contains the node
-//! @param[in] nameHyperarc		name of the hyper-arc
 void AOgraph::solveByNameHyperarc(string graphName,string nameHyperarc)
 {
 	AOgraph * newGraph=findGraph(graphName);
@@ -1015,9 +932,6 @@ void AOgraph::solveByNameHyperarc(string graphName,string nameHyperarc)
 		newGraph->updatePaths_HyperarcSolved(*solved); // -----
 }
 
-//! finds all the feasible nodes and their costs
-//! @param[in] feasileNodeVector	the reference to the set of the feasible nodes, the containing graph name, and the cost in hierarchical AND/OR graph
-//! this function only returns only the feasible nodes in the current graph level, for the lower level and/or graph feasible nodes, we use getFeasibleHyperarc method.
 void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 {
 	// the node cost we return is the minimum path cost passing through the node of a path,
@@ -1052,9 +966,6 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 	}
 }
 
-//! Finds all the feasible hyper-arcs and their costs
-//! @param[in] feasileHyperarcVector   	the reference to the set of all the feasible hyper-arcs, their containing graph name, and the cost in hierarchical AND/OR graph
-//! @param[in] feasileNodeVector    	the reference to the set of all the feasible nodes (from the lower level graphs), their containing graph name, and the cost in hierarchical AND/OR graph
 void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcVector, vector<andor_msgs::Node> &feasileNodeVector)
 {
 	//! return the hyperarcs that are feasible but not solved
@@ -1122,15 +1033,11 @@ void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcV
 	}
 }
 
-//! checks if an AND/OR graph is solved
 bool AOgraph::isGraphSolved(){
 
 	return head->nSolved;
 }
 
-//! finds a graph by its name
-//! @param[in] graphName	the name of the graph
-//! @return					pointer to the graph with the given name
 AOgraph* AOgraph::findGraph(string graphName){
 	//! the complete name of a graph in a hierarchical and/or graph is like this:
 	//! graph1:hyperarcName1:graph2:hyperarcName2:graph3: ....

@@ -44,20 +44,26 @@ class HyperArc
         AOgraph* lowerGraph;		//!< the pointer to the lower level graph in the hierarchical and/or graph;
         AOgraph* includingGraph;	//!< the pointer to the graph which includes this hyper-arc
         
-        //! constructor
+        //! constructor of class HyperArc
+        //! @param[in] index    index of the hyperarc
+        //! @param[in] nodes    set of child nodes connected via the hyperarc
+        //! @param[in] cost     generic hyperarc cost
 		HyperArc(string name, int index, vector<AOnode*> childNodes, int cost, string fatherName);
-//		HyperArc(const HyperArc& new_ha);
-//		HyperArc& operator=(const HyperArc& new_ha);
-        
-        //! display hyperarc information
+
+		//! display hyperarc information
         void printArcInfo();
-        
+
+        //! set lower the pointer ro the level and the same level and/or graph to the hyper-arc
+        //! @param[in] newLowerGraph    pointer to lower level graph
+        //! @param[in] sameLevelGraph   pointer to higher level graph
         void SetGraphs(AOgraph* newLowerGraph, AOgraph* sameLevelGraph);
 
         //! determine whether the hyper-arc is feasible
         void isFeasible();
 
         //! set the hyper-arc as solved
+        //! @param[in] Nodes_solved_infeasible    	set of nodes that become infeasible when an hyper-arc is solved
+        //! @return result of the operation (true = done, false = not done)
         bool setSolved(vector<string> &Nodes_solved_infeasible);
 
         //! destructor
@@ -80,16 +86,19 @@ class AOnode
         vector<HyperArc> arcs;      //!< hyperarcs connecting the node to child nodes
         vector<AOnode*> parents;    //!< nodes having this node as a child node
 
-        //! constructor
+        //! constructor of class AOnode
+        //! @param[in] name	   name of the node
+        //! @param[in] cost    generic node cost
 		AOnode(string name, int cost);
 
-//		AOnode(const AOnode& new_node);
-//		AOnode& operator=(const AOnode& new_node);
-
-        //! associate the application-specific element with the node
+		//! associate the application-specific element with the node
+		//! @param[in] element    pointer to the element to associate
         void addElement(NodeElement* element);
         
         //! add an hyperarc to child nodes
+        //! @param[in] hyperarcIndex    hyperarc index
+        //! @param[in] nodes            set of child nodes connected via the hyperarc
+        //! @param[in] hyperarcCost     hyperarc cost
         HyperArc& addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> nodes, int hyperarcCost, string hyperarcFatherName);
         
         //! display node information
@@ -99,6 +108,7 @@ class AOnode
         void isFeasible(vector<string> &Nodes_solved_infeasible);
         
         //! set the node as solved
+        //! @return result of the operation (true = done, false = not done)
         bool setSolved();
         
         //! destructor
