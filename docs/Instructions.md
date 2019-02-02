@@ -83,15 +83,15 @@ The interpretation of nodes and hyper-arcs titles given in the provided example 
 | --- | --- |
 | `TableAssembly` | the name of the higher level AND/OR graph $G^0$ (how to assemble a table) |
 | `ConnectLegPlate` | the name of the lower level AND/OR graph $G^1$ (how to connect a leg to a plate or tabletop) | 
-| `Table$\_$FinalPose` | the root node name of $G^0$ (the table is assembled and it is in its final pose) | 
-| `Plate$\_$initialPose` | a node name (the tabletop or plate is in its initial position) | 
-| `Plate$\_$assemblyPose` | a node name (the plate is in assembly position) | 
-| `Leg$(i)\_$initialPose` | a node name (the leg $i$ is in initial position) | 
-| `Leg$(i)\_$Plate$\_$connected` | a node name (the leg $i$ is connected to the plate) | 
-| `h$i$` | a hyper-arc name (a state transition from the child nodes to the parent node) | 
-| `basic$\_$connection` | the file name of the lower level AND/OR Graph $G^1$ | 
-| `Leg$\_$middlePose` | a node name of Graph $G^1$ (a leg is placed in front of the human) | 
+| `Table_FinalPose` | the root node name of $G^0$ (the table is assembled and it is in its final pose) | 
+| `Plate_initialPose` | a node name (the tabletop or plate is in its initial position) | 
+| `Plate_assemblyPose` | a node name (the plate is in assembly position) | 
+| `Leg(i)_initialPose` | a node name (the leg $i$ is in initial position) | 
+| `Leg(i)_Plate_connected` | a node name (the leg $i$ is connected to the plate) | 
+| `h(i)` | a hyper-arc name (a state transition from the child nodes to the parent node) | 
+| `basic_connection` | the file name of the lower level AND/OR Graph $G^1$ | 
+| `Leg_middlePose` | a node name of Graph $G^1$ (a leg is placed in front of the human) | 
 | `Plate` | a node name of Graph $G^1$ (a plate or tabletop) | 
-| `Leg$\_$Plate$\_$Connected` | a root node name of Graph $G^1$ (a leg is connected to the tabletop) | 
-| `h$(i)\_$human` | a hyper-arc name of graph $G^1$ (a state transition from the child nodes to the parent node and done by human) | 
+| `Leg_Plate_Connected` | a root node name of Graph $G^1$ (a leg is connected to the tabletop) | 
+| `h(i)_human` | a hyper-arc name of graph $G^1$ (a state transition from the child nodes to the parent node and done by human) | 
 
