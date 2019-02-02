@@ -11,6 +11,7 @@ This module is developed mainly for represeting the human or robot tasks, but it
  - [:running: Using the software](#running-using-the-software)
  - [:nerd_face: Mantainers](#nerd_face-mantainers)
  - [:page_facing_up: References](#page_facing_up-references)
+ - [:information_source: Further information](information-source-further-information)
  - [:unlock: License](#unlock-license)
  
 # :orange_book: The general idea
@@ -55,17 +56,17 @@ url = "http://www.sciencedirect.com/science/article/pii/S0957415818300485",
 author = "Kourosh Darvish and Francesco Wanderlingh and Barbara Bruno and Enrico Simetti and Fulvio Mastrogiovanni and Giuseppe Casalino",
 }
 ```
-# Further information
+# :information_source: Further information
 
-For more information you contact the follwoing authors:
+For more information please contact the follwoing authors:
 
-[Kourosh Darvish](https://github.com/kouroshD):
+* [Kourosh Darvish](https://github.com/kouroshD):
 
 :email: kourosh.darvish@edu.unige.it
 
-[Fulvio Mastrogiovanni](https://www.dibris.unige.it/mastrogiovanni-fulvio):
+* [Fulvio Mastrogiovanni](https://www.dibris.unige.it/mastrogiovanni-fulvio):
 
-:email: fulvio.mastrogiovanni@unige.it 
+   :email: fulvio.mastrogiovanni@unige.it 
 
 
 # :unlock: License
