@@ -20,17 +20,25 @@ The relation between child nodes in a hyper-arc is the logic AND, while the rela
 Each hyper-arc ${h \in H}$ corresponds to a sequence of ordered actions, $A(h)$, to be executed by the human operator or the robot to reach the cooperation status described by the parent node.
 
 # :hammer: Dependencies and build
+The only dependency is [ROS](http://www.ros.org/) and you can download it from [here](http://www.ros.org/install/).
 
+After installing ros, using git, clone the repo in your `src` directory of your ros workspace, or download the repo and extract it in `src` directory of your ros workspace.
+
+```
+cd <path to your ros workspce>
+catkin_make
+```
 
 # :running: Using the software
 
+To write an AND/OR graph description, please follow the instructions provided [here](./docs/Instructions.md).
 
 # :nerd_face: Mantainers
 Kourosh Darvish:
 :email: kourosh.darvish@edu.unige.it, kourosh.darvish@gmail.com
 # :page_facing_up: References
 
-[Darvish, Kourosh; Wanderlingh, Francesco; Bruno, Barbara; Simetti, Enrico; Mastrogiovanni, Fulvio; Casalino, Giuseppe "Flexible human–robot cooperation models for assisted shop-floor tasks", Journal of Mechatronics.](https://www.sciencedirect.com/science/article/pii/S0957415818300485)
+[K. Darvish, F. Wanderlingh, B. Bruno, E. Simetti, F. Mastrogiovanni, and G. Casalino, ''Flexible human-robot cooperation models for assisted shop-floor tasks,'' Mechatronics, vol. 51, pp. 97–114, 2018.](https://www.sciencedirect.com/science/article/pii/S0957415818300485)
 ```
 @article{DARVISH201897,
 title = "Flexible human–robot cooperation models for assisted shop-floor tasks",
