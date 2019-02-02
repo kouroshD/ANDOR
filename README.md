@@ -7,9 +7,9 @@ a ros service mdoule for the Task Representation.
 # Contents
  - [:orange_book: The general idea](#orange_book-the-general-idea)
  - [:hammer: Dependencies & build](#hammer-dependencies-build)
- - [:running: Using the software](#unning-using-the-software)
+ - [:running: Using the software](#running-using-the-software)
  - [:nerd_face: Mantainers](#nerd_face-mantainers)
- - [:page_facing_up: References](#rpage_facing_up-references)
+ - [:page_facing_up: References](#page-facing-up-references)
  - [:unlock: License](#unlock-license)
  
 # :orange_book: The general idea
@@ -22,12 +22,25 @@ a ros service mdoule for the Task Representation.
 
 
 # :nerd_face: Mantainers
-
-:email: kourosh.darvish@gmail.com
-
+Kourosh Darvish:
+:email: kourosh.darvish@edu.unige.it, kourosh.darvish@gmail.com
 # :page_facing_up: References
 
 [Darvish, Kourosh; Wanderlingh, Francesco; Bruno, Barbara; Simetti, Enrico; Mastrogiovanni, Fulvio; Casalino, Giuseppe "Flexible human–robot cooperation models for assisted shop-floor tasks", Journal of Mechatronics.](https://www.sciencedirect.com/science/article/pii/S0957415818300485)
+```
+@article{DARVISH201897,
+title = "Flexible human–robot cooperation models for assisted shop-floor tasks",
+journal = "Mechatronics",
+volume = "51",
+pages = "97 - 114",
+year = "2018",
+issn = "0957-4158",
+doi = "https://doi.org/10.1016/j.mechatronics.2018.03.006",
+url = "http://www.sciencedirect.com/science/article/pii/S0957415818300485",
+author = "Kourosh Darvish and Francesco Wanderlingh and Barbara Bruno and Enrico Simetti and Fulvio Mastrogiovanni and Giuseppe Casalino",
+}
+```
+
 
 # :unlock: License
 
