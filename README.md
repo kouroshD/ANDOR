@@ -37,7 +37,8 @@ To write an AND/OR graph description, please follow the instructions provided [h
 # :nerd_face: Mantainers
 If you have any question regarding the implementation, you can open an issue in the repo and CC the maintainer or contact directly the maintainer.
 
-[Kourosh Darvish](https://github.com/kouroshD)
+* [Kourosh Darvish](https://github.com/kouroshD)
+
 :email: kourosh.darvish@gmail.com
 
 # :page_facing_up: References
@@ -66,7 +67,7 @@ For more information please contact the follwoing authors:
 
 * [Fulvio Mastrogiovanni](https://www.dibris.unige.it/mastrogiovanni-fulvio):
 
-   :email: fulvio.mastrogiovanni@unige.it 
+:email: fulvio.mastrogiovanni@unige.it 
 
 
 # :unlock: License
