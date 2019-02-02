@@ -32,7 +32,7 @@ To generate the AND/OR graph, we describe it with the following structure offlin
 
 If a hyper-arc does not hold a lower level AND/OR graph, we simply put a dash (`-`) character.
 
-The description of the hierarchical AND/OR of a table assembly scenario with two legs, presented in Figure \ref{fig:hierarchical_andOr}, is as following:
+The description of the hierarchical AND/OR of a table assembly scenario with two legs, presented in [Figure 4 of paper](), is as following:
 
 ```
 TableAssembly 7 Table_FinalPose
@@ -54,7 +54,7 @@ Leg1_Plate_connected
 h3 1 Table_FinalPose 1 -
 Leg2_Plate_connected
 ````
-In this description `basic_connection` is the lower level AND/OR file name which exists in the same path (folder) of the higher level AND/OR graph.
+In this description `basic_connection` is the lower level AND/OR file name which exists in the same path (folder) of the higher level AND/OR graph (`basic_connection.txt`).
 This AND/OR graph describes how the human or the robot can cooperatively connect a leg to a plate (tabletop) using FOL AND/OR:
 
 ```
