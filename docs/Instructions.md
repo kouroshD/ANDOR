@@ -1,4 +1,4 @@
-Starting the AND/OR graph process, it loads the AND/OR graph description from a \textit{text} file, and generates the AND/OR graph $G$.
+Starting the AND/OR graph process, it loads the AND/OR graph description from a *text* file, and generates the AND/OR graph *G*.
 
 To generate the AND/OR graph, we describe it with the following structure offline:
 
@@ -81,17 +81,17 @@ The interpretation of nodes and hyper-arcs titles given in the provided example 
 
 | Title | Interpretation | 
 | --- | --- |
-| `TableAssembly` | the name of the higher level AND/OR graph $G^0$ (how to assemble a table) |
-| `ConnectLegPlate` | the name of the lower level AND/OR graph $G^1$ (how to connect a leg to a plate or tabletop) | 
-| `Table_FinalPose` | the root node name of $G^0$ (the table is assembled and it is in its final pose) | 
+| `TableAssembly` | the name of the higher level AND/OR graph *G<sup>0</sup>* (how to assemble a table) |
+| `ConnectLegPlate` | the name of the lower level AND/OR graph *G<sup>1</sup>* (how to connect a leg to a plate or tabletop) | 
+| `Table_FinalPose` | the root node name of *G<sup>0</sup>* (the table is assembled and it is in its final pose) | 
 | `Plate_initialPose` | a node name (the tabletop or plate is in its initial position) | 
 | `Plate_assemblyPose` | a node name (the plate is in assembly position) | 
-| `Leg(i)_initialPose` | a node name (the leg $i$ is in initial position) | 
-| `Leg(i)_Plate_connected` | a node name (the leg $i$ is connected to the plate) | 
+| `Leg(i)_initialPose` | a node name (the leg *i* is in initial position) | 
+| `Leg(i)_Plate_connected` | a node name (the leg *i* is connected to the plate) | 
 | `h(i)` | a hyper-arc name (a state transition from the child nodes to the parent node) | 
-| `basic_connection` | the file name of the lower level AND/OR Graph $G^1$ | 
-| `Leg_middlePose` | a node name of Graph $G^1$ (a leg is placed in front of the human) | 
-| `Plate` | a node name of Graph $G^1$ (a plate or tabletop) | 
-| `Leg_Plate_Connected` | a root node name of Graph $G^1$ (a leg is connected to the tabletop) | 
-| `h(i)_human` | a hyper-arc name of graph $G^1$ (a state transition from the child nodes to the parent node and done by human) | 
+| `basic_connection` | the file name of the lower level AND/OR Graph *G<sup>1</sup>* | 
+| `Leg_middlePose` | a node name of Graph *G<sup>1</sup>* (a leg is placed in front of the human) | 
+| `Plate` | a node name of Graph *G<sup>1</sup>* (a plate or tabletop) | 
+| `Leg_Plate_Connected` | a root node name of Graph *G<sup>1</sup>* (a leg is connected to the tabletop) | 
+| `h(i)_human` | a hyper-arc name of graph *G<sup>1</sup>* (a state transition from the child nodes to the parent node and done by human) | 
 
