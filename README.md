@@ -1,6 +1,6 @@
 # Hierarchical AND/OR Graph
 
-This is the repository for Hierarchical AND/OR grapph, which can be employed as a \textit{Task Representation} module.
+This is the repository for Hierarchical AND/OR grapph, which can be employed as a *Task Representation* module.
 It semantically formalizes a process between operators (humans and/or robots).
 Using that, you can a easily represent a custom task to follow.
 This module is developed mainly for represeting the human or robot tasks, but it is not limited to that. The user can easily embed the AND/OR graph in any middleware; in our case we develop it as a [ROS](http://www.ros.org/) package with a service-client paradigm.
@@ -16,9 +16,10 @@ This module is developed mainly for represeting the human or robot tasks, but it
  
 # :orange_book: The general idea
 
-An AND/OR graph $G(N,H)$ consists of a set of nodes $N$ and a set of hyper-arcs $H$. A node ${n \in N}$ represents a \textit{state} of the cooperation, whereas a hyper-arc $h \in H$ represents a specific \textit{state transition} among states. In particular, a hyper-arc $h$ connects a set of \textit{child} nodes $N_C \subseteq N$ to a \textit{parent} node $n_P \in N$. 
+An AND/OR graph *G(N,H)* consists of a set of nodes *N* and a set of hyper-arcs *H*. A node *n ∈ N* represents a *state* of the cooperation, whereas a hyper-arc *h ∈ H* represents a specific *state transition* among states. In particular, a hyper-arc *h* connects a set of *child* nodes *N<sub>C</sub> ⊆ N* to a *parent* node *n<sub>P</sub> ∈ N*. 
 The relation between child nodes in a hyper-arc is the logic AND, while the relation between different hyper-arcs inducing on the same parent node is the logic OR.
-Each hyper-arc ${h \in H}$ corresponds to a sequence of ordered actions, $A(h)$, to be executed by the human operator or the robot to reach the cooperation status described by the parent node.
+Each hyper-arc *h ∈ H* corresponds to a sequence of ordered actions, *A(h)*, to be executed by the human operator or the robot to reach the cooperation status described by the parent node.
+
 
 # :hammer: Dependencies and build
 The only dependency is [ROS](http://www.ros.org/) and you can download it from [here](http://www.ros.org/install/).
