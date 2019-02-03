@@ -1,7 +1,0 @@
-In these folder there are following and/or graphs:
-TableAssemblyFull.txt ==> the asembly task of a table with all the parts with name, like propositional logic
-TableAssemblyFull2.txt ==> the asembly task of a table with all the parts as objects type, like 1st-Order Logic
-TableAssemblyFull3.txt ==> the asembly task of a table with all the parts as objects type and parallel, like 1st-Order Logic, concurrent execution and the idea of spawning a node to several ones for concurrent execution
-TableAssemblyHierarchical.txt ==> a simple assembly task of a table with one leg 
-TableAssembly_L1MiddlePoint.txt ==> a simple complex action for assembly task of a table with one leg
-TableAssembly_Hierarchical FOLDER ==> Hierarchical Assembly task

@@ -1,4 +1,0 @@
-cylinder
-plane
-screwPose
-approachScrewPose
