@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import roslaunch_api_wrapper as raw
+#import roslaunch_api_wrapper as raw
 import signal
 import sys
 import time
@@ -12,12 +12,6 @@ import rospy
 from std_msgs.msg import String
 import roslaunch
 import subprocess# as child
-
-packageName = 'pitt_object_table_segmentation'
-LauncherName = 'table_segmentation.launch'
-newCondition=False
-runnerFlag=False
-# child
 
 class bcolors:
     HEADER = '\033[95m'

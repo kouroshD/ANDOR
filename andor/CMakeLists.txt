@@ -18,7 +18,6 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   roscpp
   rospy
-  #baxter_core_msgs
   message_generation
   std_msgs
   andor_msgs
@@ -31,7 +30,7 @@ include_directories(
 
 #Is for add the .o files to devel/lib
 
-catkin_package(  CATKIN_DEPENDS message_generation roscpp rospy std_msgs geometry_msgs  andor_msgs)#baxter_core_msgs 
+catkin_package(  CATKIN_DEPENDS message_generation roscpp rospy std_msgs geometry_msgs  andor_msgs) 
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
@@ -43,6 +42,8 @@ include_directories(
 #ADD_LIBRARY(endor /home/nasa/Documents/Endor/endor-master/aograph.cpp)
 add_library(andor_aonode include/andor_aonode.cpp)
 add_library(andor_aograph include/andor_aograph.cpp)
+add_library(andor_callback include/andorCallback.cpp)
+
 #add_library(CallBackClass src/CallBackClass.cpp)
 #add_library(endorAction src/endorAction.cpp)
 
@@ -53,11 +54,13 @@ add_executable(andor src/andor_main.cpp )
 
 add_dependencies(andor_aograph andor_msgs_generate_messages_cpp)
 
-add_dependencies(andor geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp) #baxter_core_msgs_generate_messages_cpp  
+add_dependencies(andor geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(andor
    ${catkin_LIBRARIES}
 andor_aonode
 andor_aograph
+andor_callback
  )
 target_link_libraries(andor_aograph andor_aonode)
+target_link_libraries(andor_callback andor_aograph)
