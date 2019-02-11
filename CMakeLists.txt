@@ -14,28 +14,38 @@ endif()
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
+
+
+
 find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
   roscpp
   rospy
   message_generation
   std_msgs
-  andor_msgs
+#  andor_msgs
+# geometry_msgs
 )
 
+
 add_message_files(
-  DIRECTORY msg
-  FILES
+DIRECTORY
+msg
+FILES
   Node.msg
   Hyperarc.msg)
 
 add_service_files(
-  DIRECTORY srv
-  FILES
+DIRECTORY
+  srv
+FILES
   andorSRV.srv)
 
-generate_messages(DEPENDENCIES geometry_msgs std_msgs )
+generate_messages(DEPENDENCIES std_msgs ) #geometry_msgs
 
+catkin_package(
+CATKIN_DEPENDS
+message_runtime
+)
 
 include_directories(
 	INCLUDE_DIRS
@@ -43,8 +53,8 @@ include_directories(
 )
 
 #Is for add the .o files to devel/lib
-#catkin_package(CATKIN_DEPENDS geometry_msgs message_runtime std_msgs  )
-catkin_package(CATKIN_DEPENDS message_generation roscpp rospy std_msgs geometry_msgs andor_msgs message_runtime) 
+#catkin_package(CATKIN_DEPENDS  message_runtime std_msgs  ) #geometry_msgs
+catkin_package(CATKIN_DEPENDS roscpp rospy std_msgs  andor_msgs message_runtime) #message_generation geometry_msgs
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
@@ -69,8 +79,8 @@ add_executable(example src/example.cpp )
 
 add_dependencies(andor_aograph andor_msgs_generate_messages_cpp)
 
-add_dependencies(andor geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp)
-add_dependencies(example geometry_msgs_generate_messages_cpp andor_msgs_generate_messages_cpp)
+add_dependencies(andor  andor_msgs_generate_messages_cpp) #geometry_msgs_generate_messages_cpp
+add_dependencies(example  andor_msgs_generate_messages_cpp) #geometry_msgs_generate_messages_cpp
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(andor
