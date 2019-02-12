@@ -40,16 +40,17 @@ bool andorCallback::updateANDOR(andor::andorSRV::Request &req, andor::andorSRV::
 	// 1- check for the graph name
 	time1=ros::Time::now().toSec();
 	int gIndex=-1; //! requested graph index number in graphVector, initialize wit random big value
+	string GraphName=req.graphName;
 	for (int i=0;i<graphVector.size();i++)
 	{
-		string GraphName=req.graphName;
 		if(GraphName==graphVector[i]->gName)
 			gIndex=i;
 	}
 
 	// Check if the graph name which is coming from the query is correct
-	if (gIndex==-1){
-		cout<<FRED("Graph Name:'"<<req.graphName<<"' Is False, Not Found in Online or Offline Graph Vectors, Check Your Graph Name You Are Requesting")<<endl;
+	if (gIndex==-1)
+	{
+		cout<<FRED("Graph Name:'"<<req.graphName<<"' Is False, Not Found in graph vector, check the graph name you are requesting")<<endl;
 		return false;
 	}
 

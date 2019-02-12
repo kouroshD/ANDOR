@@ -45,9 +45,11 @@ class HyperArc
         AOgraph* includingGraph;	//!< the pointer to the graph which includes this hyper-arc
         
         //! constructor of class HyperArc
+        //! @param[in] name     name of the hyperarc
         //! @param[in] index    index of the hyperarc
-        //! @param[in] nodes    set of child nodes connected via the hyperarc
+        //! @param[in] childNodes    set of child nodes connected via the hyperarc
         //! @param[in] cost     generic hyperarc cost
+        //! @param[in] fatherName   the name of the father
 		HyperArc(string name, int index, vector<AOnode*> childNodes, int cost, string fatherName);
 
 		//! display hyperarc information
@@ -96,15 +98,19 @@ class AOnode
         void addElement(NodeElement* element);
         
         //! add an hyperarc to child nodes
+        //!@param[in] hyperarcName the name of the hyper-arc
         //! @param[in] hyperarcIndex    hyperarc index
         //! @param[in] nodes            set of child nodes connected via the hyperarc
         //! @param[in] hyperarcCost     hyperarc cost
+        //! @param[in] hyperarcFatherName the father of the hyper-arc
+        //! @return the reference to the added hyper-arc
         HyperArc& addArc(string hyperarcName, int hyperarcIndex, vector<AOnode*> nodes, int hyperarcCost, string hyperarcFatherName);
         
         //! display node information
         void printNodeInfo();
         
         //! determine whether the node is feasible
+        //! @param[in] Nodes_solved_infeasible the Nodes_solved_infeasible
         void isFeasible(vector<string> &Nodes_solved_infeasible);
         
         //! set the node as solved

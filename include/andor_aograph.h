@@ -52,8 +52,7 @@ public:
 
 	//! update the path information (when a node is met)
 	//! @param[in] nameNode     name of the node
-	//! @param[in] cost         cost to subtract from the path cost */
-	//! not using anymore
+	//! @param[in] cost         cost to subtract from the path cost
 	void updatePath(string nameNode, int cost);
 
 	//! update the path information (when a node is met)
@@ -62,7 +61,7 @@ public:
 	void updatePathNode(string nameNode, int cost);
 
 	//! update the path information (when a hyper-arc is solved)
-	//! @param[in] nameHyperarc     name of the hyper-arc
+	//! @param[in] namehyperarc     name of the hyper-arc
 	//! @param[in] cost         	cost to subtract from the path cost
 	void updatePathHyperarc(string namehyperarc, int cost);
 
@@ -94,7 +93,7 @@ protected:
 	void addNode(string nameNode, int cost);
 
 	//! add a hyper-arc in the graph
-	//! @param[in] Hyper-arc    a Hyper-arc
+	//! @param[in] hyperarc    a Hyper-arc
 	void addHyperarc(HyperArc* hyperarc);
 
 	//! find a node by name
@@ -162,6 +161,8 @@ protected:
 	int findOptimalPath();
 
 	//! write a brief description
+	//! @param[in] previousOptimalPathIndex 	previous optimal path index
+	//! @return		an integer index of the optimal path
 	int findNextOptimalPath(int previousOptimalPathIndex);
 
 public:
