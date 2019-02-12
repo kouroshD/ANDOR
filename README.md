@@ -35,9 +35,19 @@ catkin_make
 
 To write an AND/OR graph description, please follow the instructions provided [here](./docs/Instructions.md).
 
+To run the AND/OR graph (as a service) run the following command:
+```
+rosrun andor andor
+```
+To run the example (as a client) run the following command:
+```
+rosrun andor example
+```
+
+
 You can generate [doxygen](http://www.doxygen.nl/) documentation using follwoing command:
 ```
-cd <path to your ros workspace>/andor
+cd <path to your ros workspace>/src/andor
 
 doxygen doxygen_config
 ```
