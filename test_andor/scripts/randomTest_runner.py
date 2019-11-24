@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import roslaunch_api_wrapper as raw
+#import roslaunch_api_wrapper as raw
 import signal
 import sys
 import time
@@ -8,7 +8,6 @@ import roslib
 import rospy
 import tf
 import numpy
-import rospy
 from std_msgs.msg import String
 import roslaunch
 import subprocess# as child

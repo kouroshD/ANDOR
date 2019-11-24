@@ -152,8 +152,8 @@ int main(int argc, char **argv)
 //	andorName="TableAssembly_hierarchical";
 
 
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-TableAssembly/8Leg/";
-	andorName="TableAssembly";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-PL_FOL-TableAssembly/5Leg/";
+	andorName="TableAssemblyFOL";
 //	andorName="TableAssembly_hierarchical";
 
 
