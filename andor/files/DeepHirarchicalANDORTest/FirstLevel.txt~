@@ -1,0 +1,19 @@
+FirstLevel 6 a1a2a3
+a1 0
+a2 0
+a3 0
+a1a2 0
+a1a3 0
+a1a2a3 0
+h1 2 a1a2 1 -
+a1
+a2
+h2 2 a1a3 1 SecondLevel
+a1
+a3
+h3 2 a1a2a3 1 -
+a1a2
+a3
+h4 2 a1a2a3 1 -
+a1a3
+a2

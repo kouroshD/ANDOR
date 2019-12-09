@@ -133,7 +133,7 @@ int main(int argc, char **argv)
 
 	pub_ctrl_cmnd=nh.advertise<std_msgs::String>("andorTester",80);
 
-	string name = "TableAssembly";
+	string name = "";
 	graphVector.emplace_back(make_shared <AOgraph>(name));
 	const char* home=getenv("HOME");
 	string andor_path(home), andorName;
@@ -151,9 +151,14 @@ int main(int argc, char **argv)
 //	andorName="TableAssembly_2";
 //	andorName="TableAssembly_hierarchical";
 
+// Test for FOL and PL ANDOR
+	//andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-PL_FOL-TableAssembly/5Leg/";
+	//andorName="TableAssemblyFOL";
 
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-PL_FOL-TableAssembly/5Leg/";
-	andorName="TableAssemblyFOL";
+// Test for Deep hierarchical ANDOR graph
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/DeepHirarchicalANDORTest/";
+	andorName="FirstLevel";
+
 //	andorName="TableAssembly_hierarchical";
 
 

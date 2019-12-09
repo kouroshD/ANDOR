@@ -864,7 +864,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 		graphFile >>name >>numNodes >>headName;
 		if (!graphFile)
 			break;
-		gName = name;
+		gName += name;
 //		cout<<gName <<endl;
 		// the next N lines contain the name and cost of all the nodes in the graph
 		string nameNode;
@@ -922,8 +922,10 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 //				cout<<"ha cost: "<<newHA.hCost<<endl;
 
 				AOgraph* newGraph=new AOgraph(lowerGraphName);
+				newGraph->gName=this->gName+":"+hyperarcName+":";
+				newGraph->upperLevelHyperarc=&newHA;
+
 				newGraph->loadFromFile(filePath,lowerGraphName);
-				newGraph->gName=this->gName+":"+hyperarcName+":"+lowerGraphName;
 
 				int newHACost=9999999; //! if a hyper-arc owns a lower level graph(g), the hyper-arc cost equals to min path cost of the g.
 				for(int i=0;i<newGraph->paths.size();i++ )
@@ -931,7 +933,6 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 						newHACost=newGraph->paths[i].pCost;
 				newHA.hCost=newHACost;
 
-				newGraph->upperLevelHyperarc=&newHA;
 				newHA.SetGraphs(newGraph, this);
 
 //				cout<<"ha cost: "<<newHA.hCost<<endl;
