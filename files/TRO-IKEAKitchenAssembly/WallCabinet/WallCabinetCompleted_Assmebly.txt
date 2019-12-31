@@ -1,0 +1,23 @@
+WallCabinetCompleted_Assmebly 9 WallCabinetCompleted
+FrontDoor_HingeMountingPlateBestaDoorParts 0
+WallCabinetConnected_middleShelf 0
+Bumper1 0
+Bumper1 0
+FrontDoor_HingeMountingPlateBestaDoorPartsInPlace 0
+WallCabinet 0
+WallCabinet_Bumper1 0
+WallCabinet_Bumper12 0
+WallCabinetCompleted 0
+h1 1 FrontDoor_HingeMountingPlateBestaDoorPartsInPlace 3
+FrontDoor_HingeMountingPlateBestaDoorParts
+h2 2 WallCabinet 5 -
+FrontDoor_HingeMountingPlateBestaDoorPartsInPlace
+WallCabinetConnected_middleShelf
+h3 2 WallCabinet_Bumper1 2 -
+WallCabinet
+Bumper1
+h4 2 WallCabinet_Bumper12 2 -
+WallCabinet_Bumper2
+Bumper2
+h5 1 WallCabinetCompleted 5 -
+WallCabinet_Bumper12
