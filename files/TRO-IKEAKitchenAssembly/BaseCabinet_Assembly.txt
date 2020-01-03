@@ -1,0 +1,198 @@
+BaseCabinet_Assembly 20 BaseCabinet_Assembled
+BaseCabinetParts
+Screws214
+Screws029
+Screws510
+Screws100344
+Screws105344
+Screws365
+CamLockScrews
+CamLockNuts430
+CamLockNuts030
+PlasticDowels519
+WoodDowels350
+WoodDowels345
+ShellPins
+Bumpers
+AdjustableFeetSockets
+AdjustableFeetFoots
+HexKeyAllenWrench
+SupportBrackets
+KeyHoleBrackets
+ConnectingSupport
+Nails
+HingesTyssedalWardrobeLavaParts
+HingeMountingPlateBestaDoorParts
+DrawerRailSlides
+DrawerRollerSlides
+DrawerReinforcementBrackets
+LeftRightPlate1st
+LeftRightPlate2nd
+BottomPlate
+BackPlate
+TopPlate
+WoodenPlank1
+WoodenPlank2
+WoodenPlank3
+WoodenPlank4
+WoodenPlank5
+WoodenPlank6
+
+
+
+h1 3 LeftRightPlate1st_withAdjustables 2 BaseCabinet/AdjustablesConnections_Assembly
+LeftRightPlate1st
+AdjustableFeetSockets
+AdjustableFeetFoots
+h2 3 LeftRightPlate2st_withAdjustables 2 BaseCabinet/AdjustablesConnections_Assembly
+LeftRightPlate2st
+AdjustableFeetSockets
+AdjustableFeetFoots
+h3 3 LeftRightPlate1st_withConnections 2 BaseCabinet/LeftRightPlate_WithConnections_Assembly
+LeftRightPlate1st_withAdjustables
+CamLockScrews
+SupportBrackets
+Screws100344
+h4 3 LeftRightPlate2nd_withConnections 2 BaseCabinet/LeftRightPlate_WithConnections_Assembly
+LeftRightPlate2nd_withAdjustables
+CamLockScrews
+SupportBrackets
+Screws100344
+h5 2 BottomPlate_WithDowels 2 WallCabinet/UpDownPlate_WithDowels_Assembly
+BottomPlate
+WoodDowels350
+h6 3 BottomPlate_LeftRightPlate1st 4 BaseCabinet/BottomPlate_LeftRightPlate_Assembly
+BottomPlate_WithDowels
+LeftRightPlate1st_withConnections
+CamLockNuts
+h7 3 WoodenPlank1_withBracket 4 BaseCabinet/WoodenPlank_SupportBracket_Assembly
+WoodenPlank1
+SupportBrackets
+Screws100344
+h8 2 WoodenPlank1_withBracket_withDowels 4 BaseCabinet/WoodenPlank_Dowels_Assembly
+WoodenPlank1_withBracket
+WoodDowels350
+h9 2 WoodenPlank2_withDowels 4 BaseCabinet/WoodenPlank_Dowels_Assembly
+WoodenPlank2
+WoodDowels350
+h10 2 BottomPlate_LeftRightPlate1st_WoodenPlank2 5 -
+WoodenPlank2_withDowels
+BottomPlate_LeftRightPlate1st
+Screws214
+h11 2 WoodenPlank3_WithDowels 5 WallCabinet/UpDownPlate_WithDowels_Assembly
+WoodenPlank3
+WoodDowels350
+h12 2 BottomPlate_LeftRightPlate1st_WoodenPlank23 5 -
+WoodenPlank3_WithDowels
+BottomPlate_LeftRightPlate1st_WoodenPlank2
+h13 2 BottomPlate_LeftRightPlate1st_WoodenPlank123_InPlace 5 -
+BottomPlate_LeftRightPlate1st_WoodenPlank23
+WoodenPlank1_withBracket_withDowels
+h14 2 BottomPlate_LeftRightPlate1st_WoodenPlank123 5 -
+BottomPlate_LeftRightPlate1st_WoodenPlank123_InPlace
+Screws214
+h15 2 WoodenPlank4_withDowels 4 BaseCabinet/WoodenPlank_Dowels_Assembly
+WoodenPlank4
+WoodDowels350
+h16 2 WoodenPlank5_withDowels 4 BaseCabinet/WoodenPlank_Dowels_Assembly
+WoodenPlank5
+WoodDowels350
+h17 3 BottomPlate_LeftRightPlate1st_WoodenPlank12345_InPlace 5 -
+BottomPlate_LeftRightPlate1st_WoodenPlank123
+WoodenPlank4_withDowels
+WoodenPlank5_withDowels
+h18 2 BottomPlate_LeftRightPlate1st_WoodenPlank12345 8 -
+Screws214
+BottomPlate_LeftRightPlate1st_WoodenPlank12345_InPlace
+h19 2 WoodenPlank6_withSocket 2 -
+AdjustableFeetSockets
+WoodenPlank6
+h20 2 WoodenPlank6_withAdjustable 4 -
+WoodenPlank6_withSocket
+AdjustableFeetFoots
+h21 2 WoodenPlank6_withAdjustable_withConnectionSupport 5 -
+WoodenPlank6_withAdjustable
+ConnectingSupport
+Screws105344
+h22 2 WoodenPlank6_withAdjustable_withConnectionSupport_withDowels 5 WallCabinet/UpDownPlate_WithDowels_Assembly
+WoodenPlank6_withAdjustable_withConnectionSupport
+WoodDowels350
+h23 2 BottomPlate_LeftRightPlate1st_WoodenPlank123456_InPlace 5 -
+WoodenPlank6_withAdjustable_withConnectionSupport_withDowels
+BottomPlate_LeftRightPlate1st_WoodenPlank12345
+h24 2 BottomPlate_LeftRightPlate1st_WoodenPlank123456 4 -
+BottomPlate_LeftRightPlate1st_WoodenPlank123456_InPlace
+Screws105344
+h25 3 BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456_Tmp 10 BaseCabinet/BottomPlate_LeftRightPlate_Assembly
+BottomPlate_LeftRightPlate1st_WoodenPlank123456
+LeftRightPlate2nd_withConnections
+CamLockNuts430
+h25 2 BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456 5 -
+BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456_Tmp
+Screws214
+h26 2 BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456_BackPlateInPlace -
+BackPlate
+BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456
+h27 2 CabinetStructure 10 -
+BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456_BackPlateInPlace
+Nails
+h28 4 CabinetStructure_withRail1 10 BaseCabinet/RailAssembly
+DrawerRailSlides1
+CabinetStructure
+Screws365
+Screws510
+h29 4 CabinetStructure_withRail12 10 BaseCabinet/RailAssembly
+DrawerRailSlides2
+CabinetStructure_withRail1
+Screws365
+Screws510
+h30 4 CabinetStructure_TopPlateInPlace 5 - 
+CabinetStructure_withRail12
+TopPlate
+h31 2 CabinetStructure_TopPlate 10 BaseCabinet/TopPlateConnection
+CabinetStructure_TopPlateInPlace
+Screws029
+h32 1 CabinetStructure_TopPlate_heightAdjusted 5 -
+CabinetStructure_TopPlate
+h33 2 WallSigned 2 -
+CabinetStructure_TopPlate_heightAdjusted
+Wall
+h34 2 Wall_Screwed 2 BaseCabinet/Wall_Screws_Assembly
+WallSigned
+ScrewForWall
+h35 3 Wall_CabinetConnected 3 BaseCabinet/WallCabinetConnected_Assembly
+Wall_Screwed
+CabinetStructure_TopPlate_heightAdjusted
+KeyHoleBrackets
+h36 2 Wall_CabinetConnected_withHinges BaseCabinet/CabinetHinge_Assembly
+WallCabinetConnected
+HingesTyssedalWardrobeLavaParts
+h37 3 Wall_Cabinet_Hinges_MidShelf1 5 WallCabinet/WallCabinetConnected_middleShelf_Assembly
+MidShelfPlate1
+ShellPins
+Wall_CabinetConnected
+h38 3 Wall_Cabinet_Hinges_MidShelf12 5 WallCabinet/MiddleShlef_Assembly
+MidShelfPlate2
+ShellPins
+Wall_Cabinet_Hinges_MidShelf1
+h39 3 FrontDoor_HingeParts1 2 WallCabinet/FrontDoor_HingeMountingPlateBestaDoorParts_Assembly
+HingeMountingPlateBestaDoorParts
+FrontDoor1
+ScrewWithNecks
+h40 3 FrontDoor_HingeParts2 2 WallCabinet/FrontDoor_HingeMountingPlateBestaDoorParts_Assembly
+HingeMountingPlateBestaDoorParts
+FrontDoor2
+ScrewWithNecks
+h41 3 Cabinet_FrontDoors1_Connected 2 WallCabinet/FrontDoor_Assmebly
+FrontDoor_HingeParts1
+Wall_Cabinet_Hinges_MidShelf12
+Bumpers
+h42 3 Cabinet_withoutDrawer 2 WallCabinet/FrontDoor_Assmebly
+FrontDoor_HingeParts2
+Cabinet_FrontDoors1_Connected
+Bumpers
+h43 1 Drawer 20 BaseCabinet/DrawerAssembly
+DrawerPieces
+h44 2 BaseCabinet_Assembled 15 -
+Cabinet_withoutDrawer
+Drawer

@@ -1,0 +1,18 @@
+CabinetHinge_Assembly 6 CabinetHinge_Assembled
+CabinetStructure
+CabinetStructure_Hinge1
+CabinetStructure_Hinge12
+CabinetStructure_Hinge123
+CabinetHinge_Assembled
+h1 2 CabinetStructure_Hinge1 4 -
+CabinetStructure
+Hinge1
+h2 2 CabinetStructure_Hinge12 4 -
+Hinge2
+CabinetStructure_Hinge1
+h3 2 CabinetStructure_Hinge123 4 -
+Hinge3
+CabinetStructure_Hinge12
+h4 2 CabinetHinge_Assembled 4 -
+Hinge4
+CabinetStructure_Hinge123

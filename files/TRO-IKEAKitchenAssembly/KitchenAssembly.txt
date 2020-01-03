@@ -1,19 +1,19 @@
 KichenAssembly 8 KitchenCompleted
-LargeWallCabinetParts
-LargeWallCabinet
-SmallWallCabinetParts
-SmallWallCabinet
-WideDoubleDoorWallCabinetParts
-WideDoubleDoorWallCabinet
-BaseCabinetWithFaucetSinkParts
-BaseCabinetWithFaucetSink
+LargeWallCabinetParts 0
+LargeWallCabinet 0
+SmallWallCabinetParts 0
+SmallWallCabinet 0
+WideDoubleDoorWallCabinetParts 0
+WideDoubleDoorWallCabinet 0
+BaseCabinetWithFaucetSinkParts 0
+BaseCabinetWithFaucetSink 0
 h1 1 LargeWallCabinet 5 KNOXHULT_WallCabinetWithDoor_24x12x30
 LargeWallCabinetParts
 h2 1 SmallWallCabinet 5 SmallWallCabinet_Assembly
 SmallWallCabinetParts
 h3 1 WideDoubleDoorWallCabinet 5 WideDoubleDoorWallCabinet_Assembly
 WideDoubleDoorWallCabinetParts
-h4 1 BaseCabinetWithFaucetSink 10 LargeWallCabinet_Assembly
+h4 1 BaseCabinetWithFaucetSink 10 BaseCabinetWithFaucetSink_Assembly
 BaseCabinetWithFaucetSinkParts
 h5 4 KitchenCompleted 1 -
 LargeWallCabinet
