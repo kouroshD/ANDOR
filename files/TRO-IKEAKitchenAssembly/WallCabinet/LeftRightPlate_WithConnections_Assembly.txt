@@ -42,5 +42,5 @@ SupportBracketSteelParts2
 CountersunkScrewsWithFlatHead3
 CountersunkScrewsWithFlatHead4
 LeftRightPlate_CamLockScrews1234_SupportBracket1
-h7 1 LeftRightPlate_WithConnections 1 -
+h7 1 LeftRightPlate_WithConnections_Completed 1 -
 LeftRightPlate_CamLockScrews1234_SupportBracket12
