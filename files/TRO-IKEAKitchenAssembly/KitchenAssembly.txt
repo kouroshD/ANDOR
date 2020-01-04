@@ -7,9 +7,9 @@ WideDoubleDoorWallCabinetParts 0
 WideDoubleDoorWallCabinet 0
 BaseCabinetWithFaucetSinkParts 0
 BaseCabinetWithFaucetSink 0
-h1 1 LargeWallCabinet 5 KNOXHULT_WallCabinetWithDoor_24x12x30
+h1 1 LargeWallCabinet 5 LargeWallCabinet_Assembly
 LargeWallCabinetParts
-h2 1 SmallWallCabinet 5 SmallWallCabinet_Assembly
+h2 1 SmallWallCabinet 5 LargeWallCabinet_Assembly
 SmallWallCabinetParts
 h3 1 WideDoubleDoorWallCabinet 5 WideDoubleDoorWallCabinet_Assembly
 WideDoubleDoorWallCabinetParts
