@@ -1,45 +1,99 @@
-BaseCabinet_Assembly 20 BaseCabinet_Assembled
-BaseCabinetParts
-Screws214
-Screws029
-Screws510
-Screws100344
-Screws105344
-Screws365
-CamLockScrews
-CamLockNuts430
-CamLockNuts030
-PlasticDowels519
-WoodDowels350
-WoodDowels345
-ShellPins
-Bumpers
-AdjustableFeetSockets
-AdjustableFeetFoots
-HexKeyAllenWrench
-SupportBrackets
-KeyHoleBrackets
-ConnectingSupport
-Nails
-HingesTyssedalWardrobeLavaParts
-HingeMountingPlateBestaDoorParts
-DrawerRailSlides
-DrawerRollerSlides
-DrawerReinforcementBrackets
-LeftRightPlate1st
-LeftRightPlate2nd
-BottomPlate
-BackPlate
-TopPlate
-WoodenPlank1
-WoodenPlank2
-WoodenPlank3
-WoodenPlank4
-WoodenPlank5
-WoodenPlank6
-
-
-
+BaseCabinet_Assembly 96 BaseCabinet_Assembled
+BaseCabinetParts 0
+Screws214 0
+Screws029 0
+Screws510 0
+Screws105344 0
+Screws365 0
+CamLockScrews 0
+CamLockNuts430 0
+CamLockNuts030 0
+PlasticDowels519 0
+WoodDowels350 0
+WoodDowels345 0
+ShellPins 0
+Bumpers 0
+AdjustableFeetSockets 0
+AdjustableFeetFoots 0
+HexKeyAllenWrench 0
+SupportBrackets 0
+KeyHoleBrackets 0
+ConnectingSupport 0
+Nails 0
+HingesTyssedalWardrobeLavaParts 0
+HingeMountingPlateBestaDoorParts 0
+DrawerRailSlides 0
+DrawerRollerSlides 0
+DrawerReinforcementBrackets 0
+LeftRightPlate1st 0
+LeftRightPlate2nd 0
+BottomPlate 0
+BackPlate 0
+TopPlate 0
+WoodenPlank1 0
+WoodenPlank2 0
+WoodenPlank3 0
+WoodenPlank4 0
+WoodenPlank5 0
+WoodenPlank6 0
+LeftRightPlate2st 0
+LeftRightPlate1st_withAdjustables 0
+LeftRightPlate2nd_withAdjustables 0
+BottomPlate_WithDowels 0
+LeftRightPlate1st_withConnections 0
+CamLockNuts 0
+WoodenPlank1_withBracket 0
+WoodenPlank2_withDowels 0
+BottomPlate_LeftRightPlate1st 0
+WoodenPlank3_WithDowels 0
+BottomPlate_LeftRightPlate1st_WoodenPlank2 0
+BottomPlate_LeftRightPlate1st_WoodenPlank23 0
+WoodenPlank1_withBracket_withDowels 0
+BottomPlate_LeftRightPlate1st_WoodenPlank123_InPlace 0
+BottomPlate_LeftRightPlate1st_WoodenPlank123 0
+WoodenPlank4_withDowels 0
+WoodenPlank5_withDowels 0
+BottomPlate_LeftRightPlate1st_WoodenPlank12345_InPlace 0
+WoodenPlank6_withSocket 0
+WoodenPlank6_withAdjustable 0
+WoodenPlank6_withAdjustable_withConnectionSupport 0
+WoodenPlank6_withAdjustable_withConnectionSupport_withDowels 0
+BottomPlate_LeftRightPlate1st_WoodenPlank12345 0
+BottomPlate_LeftRightPlate1st_WoodenPlank123456_InPlace 0
+BottomPlate_LeftRightPlate1st_WoodenPlank123456 0
+LeftRightPlate2nd_withConnections 0
+BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456_Tmp 0
+BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456 0
+BottomPlate_LeftRightPlate1st2nd_WoodenPlank123456_BackPlateInPlace 0
+DrawerRailSlides1 0
+CabinetStructure 0
+DrawerRailSlides2 0
+CabinetStructure_withRail1 0
+CabinetStructure_withRail12 0
+CabinetStructure_TopPlateInPlace 0
+CabinetStructure_TopPlate 0
+CabinetStructure_TopPlate_heightAdjusted 0
+Wall 0
+WallSigned 0
+ScrewForWall 0
+Wall_Screwed 0
+WallCabinetConnected 0
+MidShelfPlate1 0
+Wall_CabinetConnected 0
+MidShelfPlate2 0
+Wall_Cabinet_Hinges_MidShelf1 0
+FrontDoor1 0
+ScrewWithNecks 0
+FrontDoor2 0
+FrontDoor_HingeParts1 0
+Wall_Cabinet_Hinges_MidShelf12 0
+Bumpers 0
+FrontDoor_HingeParts2 0
+Cabinet_FrontDoors1_Connected 0
+DrawerPieces 0
+Cabinet_withoutDrawer 0
+Drawer 0
+BaseCabinet_Assembled 0
 h1 3 LeftRightPlate1st_withAdjustables 2 BaseCabinet/AdjustablesConnections_Assembly
 LeftRightPlate1st
 AdjustableFeetSockets
