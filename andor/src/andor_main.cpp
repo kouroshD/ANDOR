@@ -156,8 +156,8 @@ int main(int argc, char **argv)
 	//andorName="TableAssemblyFOL";
 
 // Test for Deep hierarchical ANDOR graph
-	andor_path+="/catkin_ws/src/ANDOR/andor/files/DeepHirarchicalANDORTest/";
-	andorName="FirstLevel";
+	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-IKEAKitchenAssembly/";
+	andorName="LargeWallCabinet_Assembly";
 
 //	andorName="TableAssembly_hierarchical";
 
