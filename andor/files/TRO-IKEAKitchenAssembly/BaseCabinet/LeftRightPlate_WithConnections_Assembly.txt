@@ -23,5 +23,5 @@ SupportBracketSteelParts1
 Screw100344_1
 Screw100344_2
 LeftRightPlate_CamLockScrews12
-h6 1 LeftRightPlate_WithConnections_Completed 1 -
+h5 1 LeftRightPlate_WithConnections_Completed 1 -
 LeftRightPlate_CamLockScrews12_SupportBracket1

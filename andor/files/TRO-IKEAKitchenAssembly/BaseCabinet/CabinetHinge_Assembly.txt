@@ -1,18 +1,16 @@
-CabinetHinge_Assembly 6 CabinetHinge_Assembled
-CabinetStructure
-CabinetStructure_Hinge1
-CabinetStructure_Hinge12
-CabinetStructure_Hinge123
-CabinetHinge_Assembled
-h1 2 CabinetStructure_Hinge1 4 -
+CabinetHinge_Assembly 7 CabinetHinge_Assembled
+CabinetStructure 0
+CabinetStructure_Hinge1 0
+CabinetHinge_Assembled 0
+Hinge1 1
+Hinge2 0
+Screws692_1 0
+Screws692_2 0
+h1 3 CabinetStructure_Hinge1 4 -
 CabinetStructure
 Hinge1
-h2 2 CabinetStructure_Hinge12 4 -
+Screws692_1
+h2 3 CabinetHinge_Assembled 4 -
 Hinge2
 CabinetStructure_Hinge1
-h3 2 CabinetStructure_Hinge123 4 -
-Hinge3
-CabinetStructure_Hinge12
-h4 2 CabinetHinge_Assembled 4 -
-Hinge4
-CabinetStructure_Hinge123
+Screws692_2

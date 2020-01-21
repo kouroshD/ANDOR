@@ -1,9 +1,10 @@
-DrawerAssembly 24 DrawerAssembled
+DrawerAssembly 26 DrawerAssembled
 DrawerFrontPlank 0
 CamLockScrews 0
 Screws100344 0
 DrawerSidePlank1 0
-WoodDowels345 0
+WoodDowels345_1 0
+WoodDowels345_2 0
 DrawerSidePlank2 0
 DrawerSidePlank1_WithDowels 0
 DrawerSidePlank2_WithDowels 0
@@ -19,7 +20,8 @@ PlasticDowels519 0
 Screws105344 0
 DrawerRollerSlide2 0
 Drawer_withOneRollerSlide 0
-Screws365 0
+Screws365_1 0
+Screws365_2 0
 DrawerRollerSlide1 0
 Drawer_withoutRoller 0
 DrawerAssembled 0
@@ -29,10 +31,10 @@ CamLockScrews
 Screws100344
 h2 2 DrawerSidePlank1_WithDowels 4 -
 DrawerSidePlank1
-WoodDowels345
+WoodDowels345_1
 h3 2 DrawerSidePlank2_WithDowels 4 -
 DrawerSidePlank2
-WoodDowels345
+WoodDowels345_2
 h4 4 Drawer_Front_Side_Planks_Connected 10 -
 DrawerSidePlank1_WithDowels
 DrawerSidePlank2_WithDowels
@@ -44,7 +46,7 @@ DrawerReinforcementBrackets
 h6 2 Drawer_Front_Side_Planks_Bracket_BottomPlate_Connected 10 -
 Drawer_Front_Side_Planks_Bracket_Connected
 DrawerBottomPlate
-h7 3 Drawer_withoutRoller 10 -
+h7 4 Drawer_withoutRoller 10 -
 Drawer_Front_Side_Planks_Bracket_BottomPlate_Connected
 DrawerBackPlank
 PlasticDowels519
@@ -52,8 +54,8 @@ Screws105344
 h8 3 Drawer_withOneRollerSlide 10 RollerAssembly
 DrawerRollerSlide1
 Drawer_withoutRoller
-Screws365
+Screws365_1
 h9 3 DrawerAssembled 10 RollerAssembly
 DrawerRollerSlide2
 Drawer_withOneRollerSlide
-Screws365
+Screws365_2

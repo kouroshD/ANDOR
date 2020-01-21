@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 
 	cout<<"- Insert AND/OR graph name: ";
 //	cin>>andorGraphName;
-	andorGraphName="LargeWallCabinet_Assembly";
+	andorGraphName="BaseCabinet_Assembly";
 
 	andor_msgs::andorSRV andor_srv0 ;
 	andor_srv0.request.graphName=andorGraphName;

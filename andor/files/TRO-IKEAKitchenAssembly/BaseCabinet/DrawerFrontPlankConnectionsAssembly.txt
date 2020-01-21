@@ -1,4 +1,4 @@
-DrawerFrontPlankConnectionsAssembly 8 DrawerFrontPlankConnectionsDone
+DrawerFrontPlankConnectionsAssembly 7 DrawerFrontPlankConnectionsDone
 DrawerFrontPlank 0
 CamLockScrew1 0
 CamLockScrew2 0
