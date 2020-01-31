@@ -25,7 +25,7 @@ Screws365_2 0
 DrawerRollerSlide1 0
 Drawer_withoutRoller 0
 DrawerAssembled 0
-h1 3 DrawerFrontPlank_WithConnections 5 DrawerFrontPlankConnectionsAssembly
+h1 3 DrawerFrontPlank_WithConnections 5 BaseCabinet/DrawerFrontPlankConnectionsAssembly
 DrawerFrontPlank
 CamLockScrews
 Screws100344
@@ -51,11 +51,11 @@ Drawer_Front_Side_Planks_Bracket_BottomPlate_Connected
 DrawerBackPlank
 PlasticDowels519
 Screws105344
-h8 3 Drawer_withOneRollerSlide 10 RollerAssembly
+h8 3 Drawer_withOneRollerSlide 10 BaseCabinet/RollerAssembly
 DrawerRollerSlide1
 Drawer_withoutRoller
 Screws365_1
-h9 3 DrawerAssembled 10 RollerAssembly
+h9 3 DrawerAssembled 10 BaseCabinet/RollerAssembly
 DrawerRollerSlide2
 Drawer_withOneRollerSlide
 Screws365_2

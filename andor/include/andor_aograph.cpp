@@ -349,7 +349,7 @@ void AOgraph::generatePaths()
 	// if the head node is NULL, there are no paths to generate
 	if (head == NULL)
 	{
-		cout<<"[WARNING] There is no graph to navigate (head == NULL)." <<endl;
+		cout<<"[AOgraph::generatePaths] graph name: "<<gName<<" :: [WARNING] There is no graph to navigate (head == NULL)."<<endl;
 		return;
 	}
 
@@ -463,6 +463,7 @@ void AOgraph::generatePaths()
 //! set up a graph
 void AOgraph::setupGraph()
 {
+	cout<<gName<<"[AOgraph::setupGraph]"<<endl;
 //	cout<<1<<endl;
 	// update the feasibility status of the nodes in the graph
 	updateFeasibility();
@@ -839,6 +840,7 @@ AOgraph::AOgraph(string name)
 //! @param[in] fileName    name of the file with the graph description
 void AOgraph::loadFromFile(string filePath, string fileName)
 {
+	cout<<"[AOgraph::loadFromFile] "<<filePath<<" , "<<fileName<<endl;
 	// raise an error if the graph is not empty
 	if (graph.size() != 0)
 	{
@@ -849,7 +851,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 
 	fileName=filePath+fileName+".txt";
 	ifstream graphFile(fileName.c_str());
-//	cout <<"Loading graph description from file: " <<fileName <<endl;
+	cout <<"Loading graph description from file: " <<fileName <<endl;
 //	cout<<1<<endl;
 	while (!graphFile.eof())
 	{
@@ -865,6 +867,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 		if (!graphFile)
 			break;
 		gName += name;
+
 //		cout<<gName <<endl;
 		// the next N lines contain the name and cost of all the nodes in the graph
 		string nameNode;
@@ -876,6 +879,13 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 				break;
 			addNode(nameNode, cost);
 		}
+
+
+		// identify the head node in the graph
+		cout<<"head name: "<<headName<<endl;
+		head = findByName(headName);
+		cout<<"head: "<<(head==NULL) <<endl;
+
 
 		// the next ?? lines contain the descriptions of the hyperarcs in the graph
 		int hyperarcIndex = 0;
@@ -915,6 +925,8 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 //			for(int k=0;k<childNodes.size();k++)
 //				childNodes[k]->printNodeInfo();
 
+
+
 			HyperArc& newHA=father->addArc(hyperarcName, hyperarcIndex, childNodes, hyperarcCost, nameFather);
 			if(lowerGraphName!="-")
 			{
@@ -927,7 +939,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 
 				newGraph->loadFromFile(filePath,lowerGraphName);
 
-				int newHACost=9999999; //! if a hyper-arc owns a lower level graph(g), the hyper-arc cost equals to min path cost of the g.
+				int newHACost=INT_MAX; //! if a hyper-arc owns a lower level graph(g), the hyper-arc cost equals to min path cost of the g.
 				for(int i=0;i<newGraph->paths.size();i++ )
 					if(newGraph->paths[i].pCost<newHACost)
 						newHACost=newGraph->paths[i].pCost;
@@ -942,10 +954,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 
 			hyperarcIndex = hyperarcIndex+1;
 		}
-		// identify the head node in the graph
-//		cout<<"head name: "<<headName<<endl;
-		head = findByName(headName);
-//		cout<<"head: "<<(head==NULL) <<endl;
+
 
 	}
 	graphFile.close();
@@ -964,11 +973,10 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 			graphHA.push_back(tempHA);
 		}
 	}
-
-//	for(int i=0;i<graph.size();i++)
-//		graph[i].printNodeInfo();
+//	printGraphInfo();
 
 }
+
 
 //! display graph information
 void AOgraph::printGraphInfo()
@@ -980,6 +988,10 @@ void AOgraph::printGraphInfo()
 	for (int i=0; i< (int)graph.size(); i++)
 		graph[i].printNodeInfo();
 	cout<<endl;
+
+	for(int i=0;i<paths.size();i++){
+		paths[i].printPathInfo();
+	}
 }
 
 //! suggest the node to solve
@@ -1110,7 +1122,7 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 		if(graph[i].nFeasible==true && graph[i].nSolved==false)
 		{
 
-			int min_cost=10000; // a high number
+			int min_cost=INT_MAX; // a high number
 			// if the node exits in several graph paths, we find the min cost from there
 			for(int j=0; j<(int)paths.size();j++)
 			{
@@ -1127,7 +1139,6 @@ void AOgraph::getFeasibleNode(vector<andor_msgs::Node> &feasileNodeVector)
 				}
 
 			}
-
 
 
 			andor_msgs::Node temp_node_msg;
@@ -1152,7 +1163,7 @@ void AOgraph::getFeasibleHyperarc(vector<andor_msgs::Hyperarc> &feasileHyperarcV
 		{
 
 //			cout<<graphHA[i]->hName<<endl;
-			int min_cost=10000; // rnd number
+			int min_cost=INT_MAX; // rnd number
 			// if the ha exits in several graph path, we find the min cost from there
 			for(int j=0; j<(int)paths.size();j++)
 			{

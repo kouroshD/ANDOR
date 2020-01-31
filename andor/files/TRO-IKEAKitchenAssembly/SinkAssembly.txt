@@ -1,4 +1,4 @@
-SinkAssembly 9 SinkAssembled
+SinkAssembly 10 SinkAssembled
 SinkAssembled 0
 Sink 0
 SinkClips 0
@@ -7,6 +7,7 @@ Cabinet 0
 CabinetHoleFixed 0
 TopCabinetSurfaceWithSilicon 0
 SinkWithClips 0
+Silicon 0
 SinkWithClipsInPlace 0
 h1 1 CabinetHoleFixed 8 -
 Cabinet

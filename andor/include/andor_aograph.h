@@ -15,6 +15,7 @@
 #include <andor_msgs/Hyperarc.h>
 #include <andor_msgs/Node.h>
 #include <boost/algorithm/string.hpp>
+#include <bits/stdc++.h>
 
 using namespace std;
 

@@ -1,4 +1,4 @@
-BaseCabinet_Assembly 113 BaseCabinet_Assembled
+BaseCabinet_Assembly 112 BaseCabinet_Assembled
 Screws214_1 0
 Screws214_2 0
 Screws214_3 0
@@ -110,7 +110,6 @@ DrawerPieces 0
 Cabinet_withoutDrawer 0
 Drawer 0
 WallScrewed_CabinetStructure 0
-Wall_CabinetConnected_withHinges 0
 BaseCabinet_Assembled 0
 h1 3 LeftRightPlate1st_withAdjustables 2 BaseCabinet/AdjustablesConnections_Assembly
 LeftRightPlate1st
@@ -173,7 +172,7 @@ h17 3 BottomPlate_LeftRightPlate1st_WoodenPlank12345_InPlace 5 -
 BottomPlate_LeftRightPlate1st_WoodenPlank123
 WoodenPlank4_withDowels
 WoodenPlank5_withDowels
-h18 2 BottomPlate_LeftRightPlate1st_WoodenPlank12345 6 -
+h18 2 BottomPlate_LeftRightPlate1st_WoodenPlank12345 8 -
 Screws214_3
 BottomPlate_LeftRightPlate1st_WoodenPlank12345_InPlace
 h19 2 WoodenPlank6_withSocket 2 -
@@ -218,7 +217,7 @@ DrawerRailSlides2
 CabinetStructure_withRail1
 Screws365_2
 Screws510_2
-h31 2 CabinetStructure_TopPlateInPlace 5 -
+h31 2 CabinetStructure_TopPlateInPlace 5 - 
 CabinetStructure_withRail12
 TopPlate
 h32 2 CabinetStructure_TopPlate 10 BaseCabinet/TopPlateConnection
@@ -235,7 +234,7 @@ ScrewForWall
 h36 2 Wall_CabinetConnected 3 BaseCabinet/WallCabinetConnected_Assembly
 WallScrewed_CabinetStructure
 KeyHoleBrackets
-h37 3 Wall_CabinetConnected_withHinges 5 BaseCabinet/CabinetHinge_Assembly
+h37 3 Wall_CabinetConnected_withHinges BaseCabinet/CabinetHinge_Assembly
 Wall_CabinetConnected
 HingesTyssedalWardrobeLavaParts
 Screws692

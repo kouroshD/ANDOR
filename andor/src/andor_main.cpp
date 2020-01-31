@@ -157,7 +157,7 @@ int main(int argc, char **argv)
 
 // Test for Deep hierarchical ANDOR graph
 	andor_path+="/catkin_ws/src/ANDOR/andor/files/TRO-IKEAKitchenAssembly/";
-	andorName="BaseCabinet_Assembly";
+	andorName="KitchenAssembly";
 
 //	andorName="TableAssembly_hierarchical";
 
