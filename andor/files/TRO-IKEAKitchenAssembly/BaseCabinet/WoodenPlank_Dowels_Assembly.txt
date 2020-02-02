@@ -14,5 +14,5 @@ WoodDowel1
 h3 2 WoodenPlank_WoodDowel12 1 -
 WoodenPlank_WoodDowel1
 WoodDowel2
-h6 1 WoodenPlank_WithDowels_Completed 1 -
+h4 1 WoodenPlank_WithDowels_Completed 1 -
 WoodenPlank_WoodDowel12
