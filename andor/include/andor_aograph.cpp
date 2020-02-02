@@ -463,7 +463,7 @@ void AOgraph::generatePaths()
 //! set up a graph
 void AOgraph::setupGraph()
 {
-	cout<<gName<<"[AOgraph::setupGraph]"<<endl;
+//	cout<<gName<<"[AOgraph::setupGraph]"<<endl;
 //	cout<<1<<endl;
 	// update the feasibility status of the nodes in the graph
 	updateFeasibility();
@@ -840,7 +840,7 @@ AOgraph::AOgraph(string name)
 //! @param[in] fileName    name of the file with the graph description
 void AOgraph::loadFromFile(string filePath, string fileName)
 {
-	cout<<"[AOgraph::loadFromFile] "<<filePath<<" , "<<fileName<<endl;
+//	cout<<"[AOgraph::loadFromFile] "<<filePath<<" , "<<fileName<<endl;
 	// raise an error if the graph is not empty
 	if (graph.size() != 0)
 	{
@@ -851,7 +851,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 
 	fileName=filePath+fileName+".txt";
 	ifstream graphFile(fileName.c_str());
-	cout <<"Loading graph description from file: " <<fileName <<endl;
+//	cout <<"Loading graph description from file: " <<fileName <<endl;
 //	cout<<1<<endl;
 	while (!graphFile.eof())
 	{
@@ -882,9 +882,9 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 
 
 		// identify the head node in the graph
-		cout<<"head name: "<<headName<<endl;
+//		cout<<"head name: "<<headName<<endl;
 		head = findByName(headName);
-		cout<<"head: "<<(head==NULL) <<endl;
+//		cout<<"head: "<<(head==NULL) <<endl;
 
 
 		// the next ?? lines contain the descriptions of the hyperarcs in the graph
@@ -973,7 +973,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 			graphHA.push_back(tempHA);
 		}
 	}
-//	printGraphInfo();
+	printGraphInfo();
 
 }
 
@@ -981,17 +981,21 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 //! display graph information
 void AOgraph::printGraphInfo()
 {
+	cout<<"*****"<<endl;
 	cout<<endl;
 	cout<<"Info of graph: " <<gName <<endl;
 	cout<<"Number of nodes: " <<graph.size() <<endl;
-	cout<<"Head node: " <<head->nName <<endl <<endl;
-	for (int i=0; i< (int)graph.size(); i++)
-		graph[i].printNodeInfo();
-	cout<<endl;
-
-	for(int i=0;i<paths.size();i++){
-		paths[i].printPathInfo();
-	}
+	cout<<"Number of hyper-arcs: " <<graphHA.size() <<endl;
+	cout<<"Number of paths: " <<paths.size() <<endl;
+	cout<<"*****"<<endl;
+//	cout<<"Head node: " <<head->nName <<endl <<endl;
+//	for (int i=0; i< (int)graph.size(); i++)
+//		graph[i].printNodeInfo();
+//	cout<<endl;
+//
+//	for(int i=0;i<paths.size();i++){
+//		paths[i].printPathInfo();
+//	}
 }
 
 //! suggest the node to solve
