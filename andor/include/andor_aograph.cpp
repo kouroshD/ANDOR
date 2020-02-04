@@ -973,7 +973,7 @@ void AOgraph::loadFromFile(string filePath, string fileName)
 			graphHA.push_back(tempHA);
 		}
 	}
-	printGraphInfo();
+//	printGraphInfo();
 
 }
 
